@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- 
+	<bean id="batchRunCommand" class="com.renren.mobile.mcp.api.command.batch.BatchRunCommand">
+		<property name="mobileClientAppService" ref="mobileClientAppService" />
+		<property name="commandLookupService" ref="commandLookupService" />
+	</bean>
+	-->
+
+	<!-- command map -->
+	<util:map id="apiCommandMap" key-type="java.lang.String"
+		value-type="com.renren.mobile.mcp.api.command.ApiCommand">
+
+	     <entry key="user.getVerifyCode" value-ref="userGetVerifyCodeCommand" />
+	     <entry key="user.register" value-ref="userRegisterCommand" />
+	     <entry key="user.login" value-ref="userLoginCommand" />
+	     <entry key="user.getUserInfo" value-ref="userGetUserInfoCommand" />
+	     <entry key="user.applyForGuide" value-ref="userApplyForGuideCommand" />
+	     <entry key="user.getNearByGuide" value-ref="userGetNearByGuideCommand" />
+	     <entry key="user.searchGuide" value-ref="userSearchGuideCommand" />
+	     
+	     <entry key="inviteEvent.invite" value-ref="inviteEventInviteCommand" />
+	     <entry key="inviteEvent.inviteAll" value-ref="inviteEventInviteAllCommand" />
+	     <entry key="inviteEvent.cancle" value-ref="inviteEventCancleCommand" />
+	     <entry key="inviteEvent.getHistoricalInviteEvents" value-ref="inviteEventGetHistoricalInviteEventsCommand" />
+	     <entry key="inviteEvent.getOneInviteEvent" value-ref="inviteEventGetOneInviteEventCommand" />
+	     <entry key="inviteEvent.setSatisfaction" value-ref="inviteEventSetSatisfactionCommand" />
+	     
+	     <entry key="guideEvent.accept" value-ref="guideEventAcceptCommand" />
+	     <entry key="guideEvent.refuse" value-ref="guideEventRefuseCommand" />
+	     <entry key="guideEvent.getHistoricalGuideEvents" value-ref="guideEventGetHistoricalGuideEventsCommand" />
+	     <entry key="guideEvent.getOneGuideEvent" value-ref="guideEventGetOneGuideEventCommand" />
+	     
+	     <entry key="resource.uploadResource" value-ref="resourceUploadResourceCommand" />
+	     
+
+	</util:map>
+
+	<!-- ticket is un necessary -->
+	<util:set id="ticketUnnecessaryApiSet" value-type="java.lang.String">
+		<value>test.cmd</value>
+		
+		<!-- biz apis -->
+		<value>user.getVerifyCode</value>
+		<value>user.register</value>
+		<value>user.login</value>
+		<!-- batch apis -->
+		<value>batch.batchRun</value>
+
+	</util:set>
+
+</beans>

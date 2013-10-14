@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+<!-- 	<bean id="redisClientForSigCache" -->
+<!-- 		class="com.renren.cluster.client.redis.RedisClusterPoolClient"> -->
+<!-- 		<constructor-arg value="store_cluster"/> -->
+<!-- 		<constructor-arg value="10.9.18.14:2181"/> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean id="sigCache" -->
+<!-- 		class="com.renren.mobile.mcp.api.service.impl.SigCacheImpl"> -->
+<!-- 		<constructor-arg ref="redisClientForSigCache"/> -->
+<!-- 	</bean> -->
+	
+	<bean id="sigCache"
+		class="com.renren.mobile.mcp.api.service.impl.SigCacheImpl">
+	</bean>
+	
+</beans>

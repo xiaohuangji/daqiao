@@ -1,0 +1,125 @@
+package com.renren.intl.soundsns.rmi.test;
+
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import com.renren.intl.soundsns.extern.model.MCPFollowing;
+import com.renren.intl.soundsns.extern.model.MCPUser;
+import com.renren.intl.soundsns.extern.model.MCPUserList;
+import com.renren.intl.soundsns.rmi.client.UserRealationServiceDelegate;
+
+/**
+ * @author dandan.zhang@renren-inc.com
+ * 
+ */
+public class UseRealationTestCase {
+
+	final UserRealationServiceDelegate userDelegate = new UserRealationServiceDelegate();
+
+	int pageNo;
+	int pageSize;
+
+	@Before
+	public void setUp() throws Exception {
+
+		pageNo = 1;
+		pageSize = 10;
+	}
+
+	public void tearDown() throws Exception {
+
+	}
+
+	@Ignore
+	@Test
+	public void testFollow() {
+		int follow = userDelegate.follow(GlobalValue.userId1,
+				GlobalValue.userId2);
+		System.out.println("add follow:" + follow);
+	}
+
+	@Ignore
+	@Test
+	public void testgetFollowers() {
+		MCPUserList followerslist = userDelegate.getFollowers(
+				GlobalValue.userId1, GlobalValue.userId2, pageSize, pageNo);
+		System.out.println("is more followers:" + followerslist.isHasMore());
+		if (followerslist.getMcpUserList() != null) {
+			for (int i = 0; i < followerslist.getMcpUserList().size(); i++) {
+				System.out.println("第" + (i + 1) + "个粉丝的信息如下:");
+				MCPUser user = followerslist.getMcpUserList().get(i);
+				System.out.println("userid：" + user.getUserId());
+				System.out.println("nickname：" + user.getNickname());
+				System.out.println("gender：" + user.getGender());
+				System.out.println("photoUrl：" + user.getPhotoUrl());
+				System.out.println("isFollowing：" + user.isFollowing());
+			}
+		} else {
+			System.out.println("无粉丝列表");
+		}
+	}
+
+	@Ignore
+	@Test
+	public void testGetFollowingsByMD5() {
+
+		// 关注列表，通过md5
+		System.out.println("测试getFollowingsByMD5接口：");
+		MCPFollowing mcpfollow = userDelegate.getFollowingsByMD5(
+				GlobalValue.userId1, "");
+		System.out.println("查询粉丝列表返回值：" + mcpfollow.getResult());
+		System.out.println("得到的MD5：" + mcpfollow.getCheck());
+		if (mcpfollow.getMcpFollowings() != null) {
+			System.out.println("大小：" + mcpfollow.getMcpFollowings().size());
+			for (int i = 0; i < mcpfollow.getMcpFollowings().size(); i++) {
+
+				System.out.println("关注的第" + (i + 1) + "个人的信息如下:");
+				MCPUser user = mcpfollow.getMcpFollowings().get(i);
+				System.out.println("userid：" + user.getUserId());
+				System.out.println("nickname：" + user.getNickname());
+				System.out.println("photoUrl：" + user.getPhotoUrl());
+				System.out.println("gender：" + user.getGender());
+				System.out.println("isFollowing：" + user.isFollowing());
+
+			}
+		} else {
+			System.out.println("无粉丝列表");
+		}
+	}
+
+	@Ignore
+	@Test
+	public void testGetFollowings() {
+		// 关注列表,分页获取
+		System.out.println("测试getFollowings接口：");
+		MCPUserList followinglist = userDelegate.getFollowings(
+				GlobalValue.userId1, GlobalValue.userId1, pageSize, pageNo);
+		System.out.println("粉丝列表大小：" + followinglist.getMcpUserList().size());
+		System.out.println("有更多粉丝" + followinglist.isHasMore());
+		if (followinglist.getMcpUserList() != null) {
+			for (int i = 0; i < followinglist.getMcpUserList().size(); i++) {
+				System.out.println("关注的第" + (i + 1) + "个人的信息如下:");
+				MCPUser user = followinglist.getMcpUserList().get(i);
+				System.out.println("userid：" + user.getUserId());
+				System.out.println("nickname：" + user.getNickname());
+				System.out.println("gender：" + user.getGender());
+				System.out.println("photoUrl：" + user.getPhotoUrl());
+				System.out.println("isFollowing：" + user.isFollowing());
+			}
+		} else {
+			System.out.print("没有相应的关注列表");
+		}
+
+		System.out.println("-------------------------");
+	}
+
+	@Ignore
+	@Test
+	public void testUnfollow() {
+		int unfollow = userDelegate.unfollow(GlobalValue.userId1,
+				GlobalValue.userId2);
+		System.out.println("delete follow:" + unfollow);
+	}
+
+}

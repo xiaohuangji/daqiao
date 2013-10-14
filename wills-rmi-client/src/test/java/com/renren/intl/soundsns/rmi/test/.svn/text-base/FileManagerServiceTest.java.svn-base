@@ -1,0 +1,80 @@
+package com.renren.intl.soundsns.rmi.test;
+
+
+import org.junit.Ignore;
+import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import com.renren.intl.soundsns.constant.PhotoStyle;
+import com.renren.intl.soundsns.constant.ResourceConstant;
+import com.renren.intl.soundsns.rmi.client.FileManagerServiceDelegate;
+import com.renren.intl.soundsns.rmi.client.ResourceServiceDelegate;
+
+public class FileManagerServiceTest {
+/*	private static FileManagerServiceDelegate manager = new FileManagerServiceDelegate();
+	private static ResourceServiceDelegate resource = new ResourceServiceDelegate();
+
+	@Ignore @Test
+	public void addDefaultHeadPhotoTest(){
+		System.out.println("add default head photo begin");
+		
+		long photoId = manager.uploadDefaultPhoto("default_head_photo.jpg", ResourceConstant.DEFAULT_PHOTO_MALE, FileManagerServiceTest.class.getResourceAsStream("/default_head_photo.jpg"));
+		assertFalse("upload default user photo error ,upload file to file store error", photoId < 0);
+		System.out.println("the default head photo Id is : " + photoId);	
+		
+		String photoUrl = resource.getPhotoURL(photoId, PhotoStyle.LARGE);
+		assertFalse("default head photo upload success but get from photo url failed ,maybe photo compress error,please check photo compress service is runing correct!",photoUrl == null);
+		System.out.println("the default head photo url is : "+ photoUrl);
+		
+		photoUrl = resource.getDefaultPhotoURL(ResourceConstant.DEFAULT_PHOTO_MALE, PhotoStyle.LARGE);
+		assertFalse("default photo upload success but get failed! maybe photo save to default_photo_table or reduis error,please check database or logic of getDefaultPhoto!",photoUrl == null);
+		System.out.println("the default head url is : " + photoUrl);
+		
+		manager.deleteDefaultPhoto(photoId, ResourceConstant.DEFAULT_PHOTO_MALE);
+		System.out.println("delete default photo success!");		
+		System.out.println("add default head photo end");
+	}
+	
+	
+	@Ignore @Test
+	public void addDefaultFeedForFacebookPhotoTest(){
+		System.out.println("default facebook photo add begin");
+		
+		long photoId = manager.uploadDefaultPhoto("default_facebook.jpg", ResourceConstant.DEFAULT_PHOTO_FEED_FACEBOOK, FileManagerServiceTest.class.getResourceAsStream("/default_facebook.jpg"));
+		assertFalse("upload default feed photo for facebook error ,upload file to file store error",photoId < 0);
+		System.out.println("the default feed photo Id is : " + photoId);	
+		
+		String photoUrl = resource.getPhotoURL(photoId, PhotoStyle.LARGE);
+		assertFalse("default facebook photo upload success but get from photo url failed ,maybe photo compress error,please check photo compress service is runing correct!",photoUrl == null);
+		
+		photoUrl = resource.getDefaultPhotoURL(ResourceConstant.DEFAULT_PHOTO_FEED_FACEBOOK, PhotoStyle.LARGE);
+		assertFalse("default facebook photo upload success but get failed! maybe photo save to default_photo_table or reduis error,please check database or logic of getDefaultPhoto!",photoUrl == null);
+		System.out.println("the default facebook photo url is : " + photoUrl);
+		
+		manager.deleteDefaultPhoto(photoId, ResourceConstant.DEFAULT_PHOTO_FEED_FACEBOOK);
+		System.out.println("delete default facebook photo success!");
+		
+		System.out.println("default facebook photo add end");
+	}
+	
+	@Ignore @Test
+	public void addDefaultFeedPhotoTest(){
+		System.out.println("default feed photo add begin");
+		
+		long photoId = manager.uploadDefaultPhoto("default_feed_photo.jpg", ResourceConstant.DEFAULT_PHOTO_FEED, FileManagerServiceTest.class.getResourceAsStream("/default_feed_photo.jpg"));
+		assertFalse("upload default feed photo error ,upload file to file store error",photoId < 0);
+		System.out.println("the default feed photo Id is : " + photoId);	
+		
+		String photoUrl = resource.getPhotoURL(photoId, PhotoStyle.LARGE);
+		assertFalse("default feed photo upload success but get from photo url failed ,maybe photo compress error,please check photo compress service is runing correct!",photoUrl == null);
+		
+		photoUrl = resource.getDefaultPhotoURL(ResourceConstant.DEFAULT_PHOTO_FEED, PhotoStyle.LARGE);
+		assertFalse("default feed photo upload success but get failed! maybe photo save to default_photo_table or reduis error,please check database or logic of getDefaultPhoto!",photoUrl == null);
+		System.out.println("the default feed photo url is : " + photoUrl);
+		
+		manager.deleteDefaultPhoto(photoId, ResourceConstant.DEFAULT_PHOTO_FEED);
+		System.out.println("delete default feed photo success!");
+		
+		System.out.println("default feed photo add end");
+	}*/
+	
+}

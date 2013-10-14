@@ -1,0 +1,114 @@
+package com.renren.intl.soundsns.rmi.test;
+
+import java.util.List;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.renren.intl.soundsns.model.User;
+import com.renren.intl.soundsns.rmi.client.RecommendServiceDelegate;
+import com.renren.intl.soundsns.service.IRecommendService;
+
+public class RecommendServiceTestCase {
+	private IRecommendService recommendServiceDele;
+	
+	private int userId ;
+	
+	private int pageSize;
+	
+	private int pageNo;
+	
+	@Before
+	public void setUp() throws Exception {
+		recommendServiceDele = new RecommendServiceDelegate();
+		userId = 10000214;
+		pageSize = 20;
+		pageNo = 1;
+	}
+	@After
+    public void tearDown() throws Exception {
+	}
+	
+	@Test
+	public void testGetDefaultRecommendFriends(){
+		
+		System.out.println("----test--------  : ");
+		
+		System.out.println("getDefaultRecommendFriends");
+		
+		List<User> recommendList = this.recommendServiceDele.getDefaultRecommendFriends(userId, pageSize,this.pageNo);
+		
+		if(recommendList != null && !recommendList.isEmpty()){
+			int size = recommendList.size();
+			
+			for(int i = 0 ; i < size; i++){
+				System.out.println(recommendList.get(i).getUserId()+"---------"+recommendList.get(i).getNickname());
+			}
+		}else{
+			System.out.println("recommendList is null : getDefaultRecommendFriends");
+		}
+		
+		System.out.println("----end-----");
+		
+	}
+	
+	@Test 
+	public void testGetRecommendFriends(){
+		
+		System.out.println("----test------- : ");
+		
+		System.out.println("getRecommendedFriends");
+		
+		List<User> recommendList = this.recommendServiceDele.getRecommendedFriends(userId, pageSize, pageNo);
+		
+		if(null != recommendList&& !recommendList.isEmpty()){
+			
+			int size = recommendList.size();
+			 
+			for(int i = 0; i < size; i++){
+				System.out.println(recommendList.get(i).getUserId()+"-----------"+recommendList.get(i).getNickname());
+			}
+			
+		}else{
+			System.out.println("recommendList is null : getRecommendedFriends" );
+		}
+	
+		System.out.println("-----end----");
+	}
+	
+	
+	@Test
+	public void testcalculateRecommendList(){
+		
+		System.out.println("----test-------  :");
+		
+		System.out.println("calculateRecommendList");
+		
+		System.out.println(this.recommendServiceDele.calculateRecommendList(userId));
+		
+		System.out.println("----end----");
+	}
+	
+	
+	@Test
+	public void testGetRecommendListOnline(){
+	System.out.println("----test-------  :");
+		
+		System.out.println("getRecommendedFriends");
+		
+		List<Integer> list = this.recommendServiceDele.getRecommendListOnline(10000214);
+		
+		if(null != list && !list.isEmpty()){
+			int size = list.size();
+			
+			for(int i = 0; i < size; i ++){
+				System.out.println(list.get(i));
+			}
+		}else{
+			System.out.println("recommendList is null : getRecommendListOnline");
+		}
+		
+		System.out.println("----end----");
+	}
+}

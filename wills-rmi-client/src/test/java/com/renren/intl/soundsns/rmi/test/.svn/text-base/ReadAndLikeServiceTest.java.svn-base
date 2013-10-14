@@ -1,0 +1,46 @@
+package com.renren.intl.soundsns.rmi.test;
+
+import static org.junit.Assert.assertFalse;
+import java.util.List;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+import com.renren.intl.soundsns.model.Liker;
+import com.renren.intl.soundsns.model.Reader;
+import com.renren.intl.soundsns.rmi.client.ReadAndLikeServiceDelegate;
+
+public class ReadAndLikeServiceTest {
+	private static ReadAndLikeServiceDelegate service = new ReadAndLikeServiceDelegate();
+	@Ignore @Test
+	public void addLikerTest(){
+		System.out.println("add liker feed id is : 1, readerId is : 10, feedOwner : 10, snsType 1");
+		service.addLiker(1, 10, 10, 1);
+		System.out.println("get liker , feed id is : 1 ");
+		List<Liker> likers = service.getLikers(1, 20, 0);
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertFalse("add liker error", likers.size() < 1 );
+		for(Liker liker : likers){
+			System.out.println("liker id is : "+liker.getLikerId() + " liker timestamp is : " + liker.getLikerId());
+		}
+		System.out.println("add liker end");
+	}
+	@Ignore @Test
+	public void addListenerTest(){
+		System.out.println("add reader feed id is : 1, readerId is 10");
+		service.addListener(1, 10);
+		System.out.println("get reader, feed id is : 1");
+		List<Reader> readers = service.getListeners(1, 10, 0);
+		assertFalse("add reader error",readers.size() < 1 );
+		for(Reader reader : readers){
+			System.out.println("reader id is : "+ reader.getReaderId()+" reader timestamp is : " + reader.getReaderId());
+		}
+		System.out.println("add reader end");
+	}
+	
+}

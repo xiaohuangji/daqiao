@@ -1,0 +1,42 @@
+10
+
+dir
+0
+http://svn.d.xiaonei.com/wap/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-clientproxy/src/main/java/com/wills
+http://svn.d.xiaonei.com/wap
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+a2c5b95e-2b32-48dd-8ad9-e7368d44711b
+
+clientproxy
+dir
+
+
+
+add
+
+proxy
+dir
+
+
+
+add
+

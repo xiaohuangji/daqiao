@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+           http://www.springframework.org/schema/task
+		   http://www.springframework.org/schema/task/spring-task.xsd">
+	<bean id="fsMultiThreads"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="32" />
+		<property name="maxPoolSize" value="32" />
+		<property name="queueCapacity" value="25" />
+		<property name="threadNamePrefix" value="fsMultiThreads" />
+	</bean>
+
+
+	<bean id="userMultiThreads"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="32" />
+		<property name="maxPoolSize" value="32" />
+		<property name="queueCapacity" value="25" />
+		<property name="threadNamePrefix" value="fsMultiThreads" />
+	</bean>
+
+	<bean id="schedularMultiThreads"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+		<property name="poolSize" value="32" />
+		<property name="threadNamePrefix" value="schedularMultiThreads" />
+	</bean>
+
+
+	<bean id="multiThreads" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<ref bean="fsMultiThreads" />
+				<ref bean="userMultiThreads" />
+				<ref bean="schedularMultiThreads" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+
+
+
+	<bean id="restClient" class="com.renren.intl.soundsns.utils.restcient.RestClient" />
+	<bean id="httpRestTemplate" class="com.renren.intl.soundsns.utils.restcient.HttpRestTemplate" />
+
+</beans>

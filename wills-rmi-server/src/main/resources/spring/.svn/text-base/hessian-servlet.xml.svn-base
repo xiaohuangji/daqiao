@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+           http://www.springframework.org/schema/task
+		   http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<!-- store -->
+	<bean name="/IFileService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="fileService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IFileService" />
+	</bean>
+
+	<bean name="/IFileDataService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="fileService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IFileDataService" />
+	</bean>
+
+	<bean name="/IFileManagerService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="fileService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IFileManagerService" />
+	</bean>
+
+	<bean name="/IResourceService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="resourceService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IResourceService" />
+	</bean>
+
+	<bean name="/IResourceDataService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="resourceService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IResourceDataService" />
+	</bean>
+
+	<!-- feed -->
+	<bean name="/IReadAndLikeService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="readAndLikeService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IReadAndLikeService" />
+	</bean>
+
+	<bean name="/IActivemqService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="activemqService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IActivemqService" />
+	</bean>
+	<bean name="/IFeedService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="feedService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IFeedService" />
+	</bean>
+	<bean name="/IUGCService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="ugcServiceImpl" />
+		<property name="serviceInterface" value="com.renren.intl.soundsns.service.IUGCService" />
+	</bean>
+
+	<bean name="/IUgcCommentTextService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="ugcCommentTextService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IUgcCommentTextService" />
+	</bean>
+
+	<bean name="/IFeedCommentService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="feedCommentService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IFeedCommentService" />
+	</bean>
+	<bean name="/IUgcCommentService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="ugcCommentService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IUgcCommentService" />
+	</bean>
+	<bean name="/IFeedInboxService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="feedInboxServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IFeedInboxService" />
+	</bean>
+
+	<bean name="/IFeedSearchService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="feedSearchServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IFeedSearchService" />
+	</bean>
+
+	<bean name="/ILikeFeedInboxService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="likeFeedInboxServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.ILikeFeedInboxService" />
+	</bean>
+
+	<bean name="/ILikeUGCService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="likeUGCServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.ILikeUGCService" />
+	</bean>
+	<!-- mcp -->
+	<bean name="/IUserMCPService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="userMCPService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.extern.service.IUserMCPService" />
+	</bean>
+ 	<bean name="/ISnsMCPService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="snsMCPService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.extern.service.ISnsMCPService" />
+	</bean>
+	<bean name="/ISysMCPService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="sysMCPService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.extern.service.ISysMCPService" />
+	</bean>
+		
+	<bean name="/IPassportMCPService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="passportMCPService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.extern.service.IPassportMCPService" />
+	</bean>
+
+	<bean name="/ITagMCPService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="tagMCPServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.extern.service.ITagMCPService" />
+	</bean>
+	<bean name="/IFeedMCPService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="feedMCPService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.extern.service.IFeedMCPService" />
+	</bean>
+	<bean name="/IMessageMCPService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="messageMCPService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.extern.service.IMessageMCPService" />
+	</bean>
+
+	<!-- message -->
+	<bean name="/IMqttAuthCheker"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="mqttAuthCheker" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IMqttAuthCheker" />
+	</bean>
+	<bean name="/INewsService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="newsService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.INewsService" />
+	</bean>
+	<bean name="/IAtMessageService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="atMessageService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IAtMessageService" />
+	</bean>
+	<!-- sns -->
+	<bean name="/ISNSToolService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="snsToolService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.ISNSToolService" />
+	</bean>
+	<bean name="/ISnsContextService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="snsContextService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.ISnsContextService" />
+	</bean>
+ 	<bean name="/ISNSService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="snsApiCallServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.ISNSService" />
+	</bean>
+ 
+	<!-- sys -->
+	<bean name="/IFeedbackService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="feedbackServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IFeedbackService" />
+	</bean>
+	<bean name="/IVersionAdminService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="versionAdminServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IVersionAdminService" />
+	</bean>
+
+	<bean name="/IDubblerAdminService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="dubblerServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IDubblerAdminService" />
+	</bean>
+
+	<bean name="/IAbuseReportService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<!-- service引用具体的实现实体Bean -->
+		<property name="service" ref="abuseReportServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IAbuseReportService" />
+	</bean>
+	
+	<bean name="/IFilterService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<!-- service引用具体的实现实体Bean -->
+		<property name="service" ref="filterServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IFilterService" />
+	</bean>
+	
+	<bean name="/IAppleStoreService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<!-- service引用具体的实现实体Bean -->
+		<property name="service" ref="appleStoreServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IAppleStoreService" />
+	</bean>
+	
+	
+	<!-- tag -->
+	<bean name="/IMTFeedService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="mtFeedServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IMTFeedService" />
+	</bean>
+	<bean name="/ITagService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="tagService" />
+		<property name="serviceInterface" value="com.renren.intl.soundsns.service.ITagService" />
+	</bean>
+
+	<bean name="/IPopupWindowService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="popupWindowServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IPopupWindowService" />
+	</bean>
+	<bean name="/IActivityTagService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="activityTagServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IActivityTagService" />
+	</bean>
+	<bean name="/ITagSearchService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<!-- service引用具体的实现实体Bean -->
+		<property name="service" ref="tagSearchServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.ITagSearchService" />
+	</bean>
+	<!-- user -->
+	<bean name="/IUserBlackListService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="userBlackListService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IUserBlackListService" />
+	</bean>
+	<bean name="/IUserRecommendService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="userRecommendService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IUserRecommendService" />
+	</bean>
+	<bean name="/IRecommendService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="recommendService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IRecommendService" />
+	</bean>
+	<bean name="/ISearchService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="searchService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.ISearchService" />
+	</bean>
+
+	<bean name="/IFriendRelationService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="friendRelationService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IFriendRelationService" />
+	</bean>
+	<bean name="/IUserService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="userService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IUserService" />
+	</bean>
+	<bean name="/IUserCountService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="userCountServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IUserCountService" />
+	</bean>
+
+	<bean name="/IUserSearchService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="userSearchServiceImpl" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IUserSearchService" />
+	</bean>
+	<!-- utils -->
+
+	<bean name="/IShortLinkService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="shortLinkService" />
+		<property name="serviceInterface"
+			value="com.renren.intl.soundsns.service.IShortLinkService" />
+	</bean>
+
+</beans>

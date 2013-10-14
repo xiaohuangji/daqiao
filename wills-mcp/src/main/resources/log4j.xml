@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="mcp_stdout" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/data/tg_logs/tg_mcp_log/mcp_mid_t2_stdout.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd-HH:mm:ss,SSS} %5p   - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="mcp_stat" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/data/tg_logs/tg_mcp_log/stat/mcp_mid_t2_stat.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd-HH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+
+	<appender name="mcp_stat_interface" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/data/tg_logs/tg_mcp_log/stat/mcp_mid_t2_stat_interface.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd-HH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+
+	<appender name="mcp_stat_access" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/data/tg_logs/tg_mcp_log/stat/mcp_mid_t2_stat_access.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd-HH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+
+	<appender name="mcp_user_access" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/data/tg_logs/tg_mcp_log/mcp_mid_t2_user_access.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+
+	<appender name="mcp_http_access" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/data/tg_logs/tg_mcp_log/mcp_mid_t2_http_access.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+
+	<logger name="com.renren.mobile" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="mcp_stdout" />
+	</logger>
+
+	<logger name="com.renren.soundsns" additivity="false">
+		<level value="info" />
+		<appender-ref ref="mcp_clientproxy" />
+	</logger>
+
+	<logger name="mcp_stat_log" additivity="false">
+		<level value="info" />
+		<appender-ref ref="mcp_stat" />
+	</logger>
+
+	<logger name="mcp_stat_interface_log" additivity="false">
+		<level value="info" />
+		<appender-ref ref="mcp_stat_interface" />
+	</logger>
+
+	<logger name="mcp_stat_access_log" additivity="false">
+		<level value="info" />
+		<appender-ref ref="mcp_stat_access" />
+	</logger>
+
+	<logger name="mcp_user_access_log" additivity="false">
+		<level value="info" />
+		<appender-ref ref="mcp_user_access" />
+	</logger>
+
+	<logger name="mcp_http_access_log" additivity="false">
+		<level value="info" />
+		<appender-ref ref="mcp_http_access" />
+	</logger>
+
+
+	<root>
+		<level value="error" />
+		<appender-ref ref="mcp_stdout" />
+	</root>
+
+</log4j:configuration>

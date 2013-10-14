@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/wap/!svn/ver/141802/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test
+END
+FeedInboxTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/FeedInboxTestCase.java
+END
+FeedTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/FeedTestCase.java
+END
+FileServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/FileServiceTest.java
+END
+MessageTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/MessageTestCase.java
+END
+SystemTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/SystemTestCase.java
+END
+FeedCommentTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 185
+/wap/!svn/ver/141802/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/FeedCommentTestCase.java
+END
+SearchServiceTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 187
+/wap/!svn/ver/141337/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/SearchServiceTestCase.java
+END
+ReadAndLikeServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/ReadAndLikeServiceTest.java
+END
+RecommendServiceTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/RecommendServiceTestCase.java
+END
+UseRealationTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/UseRealationTestCase.java
+END
+UGCTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/UGCTestCase.java
+END
+UserTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/UserTestCase.java
+END
+FileManagerServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/FileManagerServiceTest.java
+END
+GlobalValue.java
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/wap/!svn/ver/140748/renren/renren-intl-soundsns-serverside/branches/dbBranchFBT/renren-intl-soundsns-rmi-client/src/test/java/com/renren/intl/soundsns/rmi/test/GlobalValue.java
+END

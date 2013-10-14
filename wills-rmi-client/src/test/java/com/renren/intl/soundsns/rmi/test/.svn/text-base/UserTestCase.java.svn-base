@@ -1,0 +1,65 @@
+package com.renren.intl.soundsns.rmi.test;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.renren.intl.soundsns.model.UserStatus;
+import com.renren.intl.soundsns.rmi.client.UserServiceDelegate;
+
+/**
+ * @author yongjun.li 专门负责ugc的test
+ * 
+ */
+public class UserTestCase {
+
+    private UserServiceDelegate userServiceDelegate;
+    //user1
+    private String extToken1;
+    private int extUserType1;
+    //user2
+    private String extToken2;
+    private int extUserType2;
+    //user3
+    private String extToken3;
+    private int extUserType3;
+    @Before
+    public void setUp() {
+        userServiceDelegate = new UserServiceDelegate();
+        extToken1 = "AAAFkbl4SZBw0BAGq8FwhusI7vcWF3egZATEanSvoVI1Kg216bc471AgO7TuYirhZBzfvPzzaZC6TZBONgraQBwptahZBIK6PD9sJcToA6YVgZDZD";
+        extUserType1= 1;
+        
+        extToken2="AAAFkbl4SZBw0BAMH3Ql35TvuVfAGBgS1YeZAdNdbFC9TgZBwuhQqJpDHZAvI1jBtxlZBVoNCSnJ4KBZC9CpFXSiOYFiJhNrIXIPXK3rFZChZAwZDZD";
+        extUserType2=1;
+        
+        extToken3="AAAFkbl4SZBw0BANMvQqkTHM9suXlxDLLVdQDRWeJ6SS2SDIxeJ1UBVtlkT7CYIr7Ip6egIoRutRgrtWrWNMLP9A5HDIZB3aZBS2jNaAeJhCDRVWAbOd";
+        extUserType3=1;
+    }
+
+    @Test
+    public void testLogin() {
+        //user1
+        UserStatus status1 = userServiceDelegate.login(extToken1, extUserType1);
+        GlobalValue.userId1=status1.getUserId();
+        if (!status1.isNameDup()) {
+            userServiceDelegate.completeUserInfo(status1.getUserId(), status1.getUserName(),
+                   extUserType1);
+        }
+        System.out.println("user1 has logined in");
+        //user2
+        UserStatus status2 = userServiceDelegate.login(extToken2, extUserType2);
+        GlobalValue.userId2=status2.getUserId();
+        if (!status2.isNameDup()) {
+            userServiceDelegate.completeUserInfo(status2.getUserId(), status2.getUserName(),
+                   extUserType1);
+        }
+        System.out.println("user2 has logined in");    
+        //user3
+        UserStatus status3 = userServiceDelegate.login(extToken3, extUserType3);
+        GlobalValue.userId3=status3.getUserId();
+        if (!status3.isNameDup()) {
+            userServiceDelegate.completeUserInfo(status3.getUserId(), status3.getUserName(),
+                   extUserType1);
+        }
+        System.out.println("user3 has logined in");   
+    }
+}

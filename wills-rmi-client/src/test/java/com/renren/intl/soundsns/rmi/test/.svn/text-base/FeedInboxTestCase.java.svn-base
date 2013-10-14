@@ -1,0 +1,212 @@
+package com.renren.intl.soundsns.rmi.test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import com.renren.intl.soundsns.constant.SoundUGCConstant;
+import com.renren.intl.soundsns.model.Feed;
+import com.renren.intl.soundsns.model.UGC;
+import com.renren.intl.soundsns.rmi.client.FeedInboxServiceDelegate;
+import com.renren.intl.soundsns.rmi.client.FeedServiceDelegate;
+import com.renren.intl.soundsns.rmi.client.UgcServiceDelegate;
+import static org.junit.Assert.*;
+
+
+/**--------------------- Change Logs----------------------
+ *<p>@author yongjun.li@renren.inc.com Initial Created at 2012-10-12<p>
+ *-------------------------------------------------------
+ *成功测试依赖于一个已有的用户和一条已发的ugc
+*/
+public class FeedInboxTestCase {
+    
+    private List<UGC> ugcs=new ArrayList<UGC>();
+    private List<Long> ugcIds=new ArrayList<Long>();
+    private FeedInboxServiceDelegate feedInboxServiceDelegate;
+    private UgcServiceDelegate ugcDelegate;
+    private FeedServiceDelegate feedServiceDelegate;
+ 
+    private int fromUserId=0;
+    private int toUserId=0;
+    private int num=0;
+    long ugcId=0;
+    private List<Integer> userIds=new ArrayList<Integer>();
+    
+    private Map<String, Integer> withFriends=new HashMap<String,Integer>();
+    @Before
+    public void setUp(){
+        fromUserId=GlobalValue.userId3;
+        toUserId=GlobalValue.userId1;
+        num=1;
+        userIds.add(GlobalValue.userId1);
+        userIds.add(GlobalValue.userId2);
+        
+        feedInboxServiceDelegate = new FeedInboxServiceDelegate();
+        ugcDelegate=new UgcServiceDelegate();
+        feedServiceDelegate=new FeedServiceDelegate();
+       
+        ugcId=GlobalValue.feedId;
+        UGC ugc=ugcDelegate.getById(ugcId, fromUserId);
+        ugcs.add(ugc);
+        ugcIds.add(ugcId); 
+    }
+    
+
+    
+    private void printSplitLine(String start){
+        System.out.println();
+        System.out.println("---------------"+start+"---------------");
+        System.out.println();
+    }
+    
+    @Ignore @Test
+    public void testPutIntoGlobalInbox(){
+        printSplitLine("testPutIntoGlobalInbox");
+        feedInboxServiceDelegate.putIntoGlobalInbox(ugcs);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        List<Feed> feedList=feedServiceDelegate.getLatestFeeds(1000, 0);
+        Set<Long> feedIdSet=new HashSet<Long>();
+        for(Feed feed:feedList){
+            feedIdSet.add(feed.getId());
+        }
+        int count=0;
+        for(UGC ugc:ugcs){
+            if(feedIdSet.contains(ugc.getId())){
+                count=count+1;
+                System.out.println(ugc.getId()+" has been put into globalInbox");
+            }
+        }
+        assertEquals(count,ugcs.size());
+        System.out.println("all ugc has been put into globalInbox");
+        printSplitLine("testPutIntoGlobalInbox");
+        
+    }
+    
+    @Ignore @Test
+    public void testPutOutOfGlobalInbox(){
+        printSplitLine("testPutOutOfGlobalInbox");
+        feedInboxServiceDelegate.putOutOfGlobalInbox(ugcIds);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        List<Feed> feedList=feedServiceDelegate.getLatestFeeds(1000, 0);
+        Set<Long> feedIdSet=new HashSet<Long>();
+        for(Feed feed:feedList){
+            feedIdSet.add(feed.getId());
+        }
+        int count=ugcIds.size();
+        for(Long ugcId :ugcIds){
+            if(!feedIdSet.contains(ugcId)){
+                count=count-1;
+                System.out.println(ugcId+" has been removed from globalInbox");
+            }
+        }
+        
+        assertEquals(0,count);
+        System.out.println("all ugc has been removed from globalInbox");
+        printSplitLine("testPutOutOfGlobalInbox");
+    }
+    
+    
+    @Ignore @Test
+    public void testSendForNewsFeed(){
+        printSplitLine("testSendForNewsFeed");
+        feedInboxServiceDelegate.sendForNewsFeed(fromUserId, toUserId, num);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        List<Feed> toUserFeeds=feedServiceDelegate.getFeeds(toUserId,200,0); 
+        List<Feed> FromUserFeeds=feedServiceDelegate.getFeeds(fromUserId,1,0);
+        
+        for(Feed feed:toUserFeeds){
+            if(FromUserFeeds.size()>0){
+                if(feed.getUserId()==fromUserId){
+                    System.out.println("ugc:"+feed.getId()+" of "+fromUserId+" has been put into inbox of user:"+toUserId);
+                }
+            }
+            else {
+                System.out.println("there is no feed in inbox of user:"+fromUserId);
+            }
+        }
+        printSplitLine("testSendForNewsFeed");
+    }
+    
+    @Ignore @Test
+    public void testSendNewsFeedForMultiUser(){
+        printSplitLine("testSendNewsFeedForMultiUser");
+        feedInboxServiceDelegate.sendNewsFeedForMultiUser(userIds, toUserId, num);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        List<Feed> toUserFeeds=feedServiceDelegate.getFeeds(toUserId,200,0);  
+        Set<Integer> toUser=new HashSet<Integer>();
+        for(Feed feed:toUserFeeds){
+            toUser.add(feed.getUserId());
+        }
+        for(Integer userId:userIds){
+                List<Feed> FromUserFeeds=feedServiceDelegate.getFeeds(userId,1,0);
+                if(FromUserFeeds.size()>0){
+                    if(toUser.contains(userId)){
+                        System.out.println("one ugc of "+userId+" has been put into inbox of user:"+toUserId);
+                    }
+                }
+                else {
+                    System.out.println("there is no feed in inbox of user:"+userId);
+                }
+            
+        }
+        printSplitLine("testSendNewsFeedForMultiUser");
+    }
+    
+    @Ignore @Test
+    public void testPutOutOfNewsFeedInboxByUser(){
+        printSplitLine("testPutOutOfNewsFeedInboxByUser");
+        feedInboxServiceDelegate.putOutOfNewsFeedInboxByUser(toUserId, userIds);
+        
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        List<Feed> FromUserFeeds=feedServiceDelegate.getFeeds(toUserId,SoundUGCConstant.UGC_INBOX_LENGTH,0); 
+        Set<Integer> userIdSet=new HashSet<Integer>(userIds);
+        Set<Integer> fromUserIdSet=new HashSet<Integer>();
+        for(Feed feed:FromUserFeeds){
+            fromUserIdSet.add(feed.getUserId());
+        }
+        fromUserIdSet.retainAll(userIdSet);
+        if(fromUserIdSet.size()==0){
+            System.out.print("all ugcs in users ");
+            System.out.print("{ ");
+            for(int i=0 ;i<userIds.size();i++){           
+                System.out.print(userIds.get(i)+" ");      
+            }
+            System.out.print(" }");
+            System.out.println(" has been removed from inbox of user:"+toUserId);
+        }
+        
+        ugcDelegate.delete(fromUserId, ugcId);
+        printSplitLine("testPutOutOfNewsFeedInboxByUser");
+    }
+    
+}

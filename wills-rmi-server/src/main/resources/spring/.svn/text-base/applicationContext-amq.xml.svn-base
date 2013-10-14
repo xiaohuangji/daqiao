@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://activemq.apache.org/schema/core
+        http://activemq.apache.org/schema/core/activemq-core-5.5.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+ 
+
+	 	<amq:broker useJmx="true" persistent="true">
+		<amq:persistenceAdapter>
+			<amq:amqPersistenceAdapter directory="/data/amqPersistantData" syncOnWrite="false"  maxFileLength="128m"/>
+		</amq:persistenceAdapter>
+		<amq:transportConnectors>
+			<amq:transportConnector uri="tcp://localhost:0" />
+		</amq:transportConnectors>
+	</amq:broker>
+	<amq:connectionFactory id="jmsConnectionFactory" brokerURL="vm://localhost" />	
+
+	<!-- 使用Queue方式 -->
+	<amq:queue name="SOUND-SNS-UGC-QUEUE1" physicalName="PHYSICAL-SOUND-SNS-QUEUE1" />
+	<amq:queue name="SOUND-SNS-UGC-QUEUE2" physicalName="PHYSICAL-SOUND-SNS-QUEUE2" />
+	<amq:queue name="SOUND-SNS-UGC-QUEUE3" physicalName="PHYSICAL-SOUND-SNS-QUEUE3" />
+	
+<!-- 	<amq:queue name="SOUND-SNS-UGC-COMMENT-QUEUE" physicalName="PHYSICAL-SOUND-SNS-COMMENT-QUEUE" ></amq:queue> -->
+	<!-- Spring JmsTemplate config -->
+	<beans:bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<beans:property name="connectionFactory">
+			<!-- lets wrap in a pool to avoid creating a connection per send -->
+			<beans:bean class="org.springframework.jms.connection.SingleConnectionFactory">
+				<beans:property name="targetConnectionFactory" ref="jmsConnectionFactory" />
+			</beans:bean>
+		</beans:property>
+		<!-- custom MessageConverter -->
+		<beans:property name="messageConverter" ref="defaultMessageConverter" />
+	</beans:bean>
+	<!-- converter -->
+	<beans:bean id="defaultMessageConverter"
+		class="com.renren.intl.soundsns.activemq.DefaultMessageConverter" />
+	<!-- POJO which send Message uses Spring JmsTemplate -->
+	<beans:bean id="queueMessageProducer" class="com.renren.intl.soundsns.activemq.QueueMessageProducer">
+		<beans:property name="template" ref="jmsTemplate" />
+		<beans:property name="destinations">
+			<beans:list>
+				<beans:ref bean="SOUND-SNS-UGC-QUEUE1" />
+				<beans:ref bean="SOUND-SNS-UGC-QUEUE2" />
+				<beans:ref bean="SOUND-SNS-UGC-QUEUE3" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- <ns:bean id="queueCommentMessageProducer" class="com.renren.intl.soundsns.activemq.QueueCommentMessageProducer" autowire="byType">
+	<beans:property name="template" ref="jmsTemplate" />
+		<beans:property name="destination">
+				<beans:ref bean="SOUND-SNS-UGC-COMMENT-QUEUE" />
+		</beans:property>
+	</beans:bean> -->
+	
+	
+	 <beans:bean id="destination1"   
+           class="org.apache.activemq.command.ActiveMQQueue">  
+            <beans:constructor-arg index="0" value="PHYSICAL-SOUND-SNS-QUEUE1"></beans:constructor-arg>  
+   </beans:bean>  
+     <beans:bean id="destination2"   
+           class="org.apache.activemq.command.ActiveMQQueue">  
+           <beans:constructor-arg index="0" value="PHYSICAL-SOUND-SNS-QUEUE2"></beans:constructor-arg>  
+   </beans:bean> 
+       <beans:bean id="destination3"   
+           class="org.apache.activemq.command.ActiveMQQueue">  
+           <beans:constructor-arg index="0" value="PHYSICAL-SOUND-SNS-QUEUE3"></beans:constructor-arg>  
+   </beans:bean>
+   <beans:bean id="destinationComment" class="org.apache.activemq.command.ActiveMQQueue" >
+   		<beans:constructor-arg index="0" value="PHYSICAL-SOUND-SNS-COMMENT-QUEUE"></beans:constructor-arg>  
+   </beans:bean>
+    
+   <beans:bean id="consumer1" class="com.renren.intl.soundsns.activemq.QueueConsumer">
+   		<beans:property name="activemqService" ref="activemqService"></beans:property> 
+   </beans:bean> 
+   <beans:bean id="consumer2" class="com.renren.intl.soundsns.activemq.QueueConsumer">
+   		<beans:property name="activemqService" ref="activemqService"></beans:property> 
+   </beans:bean> 
+   <beans:bean id="consumer3" class="com.renren.intl.soundsns.activemq.QueueConsumer">
+   		<beans:property name="activemqService" ref="activemqService"></beans:property> 
+   </beans:bean>
+<!--    <beans:bean  id="consumerComment" class="com.renren.intl.soundsns.activemq.QueueConsumerForComment">
+  		 <beans:property name="activemqService" ref="activemqService"></beans:property> 
+  		 <beans:property name="newsServiceImpl" ref="newsService"></beans:property>
+   </beans:bean> -->
+   
+      
+   <beans:bean id="jmsContainer1" class="org.springframework.jms.listener.DefaultMessageListenerContainer" lazy-init="false">  
+       <beans:property name="connectionFactory" ref="jmsConnectionFactory"></beans:property>  
+       <beans:property name="destination" ref="destination1"></beans:property>  
+       <beans:property name="messageListener" ref="consumer1"></beans:property>  
+       <beans:property name="concurrentConsumers" value="5"></beans:property>  
+       <!--0:CACHE_NONE,1:CACHE_CONNECTION,2:CACHE_SESSION,3:CACHE_CONSUMER,4:CACHE_AUTO-->  
+       <beans:property name="cacheLevel" value="0"/>  
+   </beans:bean>
+   
+      <beans:bean id="jmsContainer2" class="org.springframework.jms.listener.DefaultMessageListenerContainer" lazy-init="false">  
+       <beans:property name="connectionFactory" ref="jmsConnectionFactory"></beans:property>  
+       <beans:property name="destination" ref="destination2"></beans:property>  
+       <beans:property name="messageListener" ref="consumer2"></beans:property>  
+       <beans:property name="concurrentConsumers" value="5"></beans:property>  
+       <!--0:CACHE_NONE,1:CACHE_CONNECTION,2:CACHE_SESSION,3:CACHE_CONSUMER,4:CACHE_AUTO-->  
+       <beans:property name="cacheLevel" value="0"/>  
+   </beans:bean> 
+   
+      <beans:bean id="jmsContainer3" class="org.springframework.jms.listener.DefaultMessageListenerContainer" lazy-init="false">  
+       <beans:property name="connectionFactory" ref="jmsConnectionFactory"></beans:property>  
+       <beans:property name="destination" ref="destination3"></beans:property>  
+       <beans:property name="messageListener" ref="consumer3"></beans:property>  
+       <beans:property name="concurrentConsumers" value="5"></beans:property>  
+       <!--0:CACHE_NONE,1:CACHE_CONNECTION,2:CACHE_SESSION,3:CACHE_CONSUMER,4:CACHE_AUTO-->  
+       <beans:property name="cacheLevel" value="0"/>  
+   </beans:bean> 
+   
+<!--    <beans:bean id="jmsContainerComment" class="org.springframework.jms.listener.DefaultMessageListenerContainer" lazy-init="false">
+  	<beans:property name="connectionFactory" ref="jmsConnectionFactory"></beans:property>  
+       <beans:property name="destination" ref="destinationComment"></beans:property>  
+       <beans:property name="messageListener" ref="consumerComment"></beans:property>  
+       <beans:property name="concurrentConsumers" value="3"></beans:property>  
+       0:CACHE_NONE,1:CACHE_CONNECTION,2:CACHE_SESSION,3:CACHE_CONSUMER,4:CACHE_AUTO  
+       <beans:property name="cacheLevel" value="0"/>  
+   </beans:bean> -->
+	 
+	
+	<!-- 增加like新鲜事相关的amq配置，三个队列 -->
+	
+	<amq:queue name="SOUND-SNS-LIKEUGC-QUEUE1" physicalName="PHYSICAL-SOUND-SNS-LIKEUGC-QUEUE1" />
+	<amq:queue name="SOUND-SNS-LIKEUGC-QUEUE2" physicalName="PHYSICAL-SOUND-SNS-LIKEUGC-QUEUE2" />
+	<amq:queue name="SOUND-SNS-LIKEUGC-QUEUE3" physicalName="PHYSICAL-SOUND-SNS-LIKEUGC-QUEUE3" />
+	
+
+	<!-- POJO which send Message uses Spring JmsTemplate -->
+	<beans:bean id="likeUGCMQProducer" class="com.renren.intl.soundsns.activemq.LikeUGCMQProducer">
+		<beans:property name="template" ref="jmsTemplate" />
+		<beans:property name="destinations">
+			<beans:list>
+				<beans:ref bean="SOUND-SNS-LIKEUGC-QUEUE1" />
+				<beans:ref bean="SOUND-SNS-LIKEUGC-QUEUE2" />
+				<beans:ref bean="SOUND-SNS-LIKEUGC-QUEUE3" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	 <beans:bean id="likeugcdestination1"   
+           class="org.apache.activemq.command.ActiveMQQueue">  
+            <beans:constructor-arg index="0" value="PHYSICAL-SOUND-SNS-LIKEUGC-QUEUE1"></beans:constructor-arg>  
+   </beans:bean>  
+     <beans:bean id="likeugcdestination2"   
+           class="org.apache.activemq.command.ActiveMQQueue">  
+           <beans:constructor-arg index="0" value="PHYSICAL-SOUND-SNS-LIKEUGC-QUEUE2"></beans:constructor-arg>  
+   </beans:bean> 
+       <beans:bean id="likeugcdestination3"   
+           class="org.apache.activemq.command.ActiveMQQueue">  
+           <beans:constructor-arg index="0" value="PHYSICAL-SOUND-SNS-LIKEUGC-QUEUE3"></beans:constructor-arg>  
+   </beans:bean>
+
+    
+   <beans:bean id="likeugcconsumer1" class="com.renren.intl.soundsns.activemq.LikeUGCMQConsumer">
+   		<beans:property name="activemqService" ref="activemqService"></beans:property> 
+   </beans:bean> 
+   <beans:bean id="likeugcconsumer2" class="com.renren.intl.soundsns.activemq.LikeUGCMQConsumer">
+   		<beans:property name="activemqService" ref="activemqService"></beans:property> 
+   </beans:bean> 
+   <beans:bean id="likeugcconsumer3" class="com.renren.intl.soundsns.activemq.LikeUGCMQConsumer">
+   		<beans:property name="activemqService" ref="activemqService"></beans:property> 
+   </beans:bean>
+
+   
+      
+   <beans:bean id="likeugcjmsContainer1" class="org.springframework.jms.listener.DefaultMessageListenerContainer" lazy-init="false">  
+       <beans:property name="connectionFactory" ref="jmsConnectionFactory"></beans:property>  
+       <beans:property name="destination" ref="likeugcdestination1"></beans:property>  
+       <beans:property name="messageListener" ref="likeugcconsumer1"></beans:property>  
+       <beans:property name="concurrentConsumers" value="5"></beans:property>  
+       <!--0:CACHE_NONE,1:CACHE_CONNECTION,2:CACHE_SESSION,3:CACHE_CONSUMER,4:CACHE_AUTO-->  
+       <beans:property name="cacheLevel" value="0"/>  
+   </beans:bean>
+   
+      <beans:bean id="likeugcjmsContainer2" class="org.springframework.jms.listener.DefaultMessageListenerContainer" lazy-init="false">  
+       <beans:property name="connectionFactory" ref="jmsConnectionFactory"></beans:property>  
+       <beans:property name="destination" ref="likeugcdestination2"></beans:property>  
+       <beans:property name="messageListener" ref="likeugcconsumer2"></beans:property>  
+       <beans:property name="concurrentConsumers" value="5"></beans:property>  
+       <!--0:CACHE_NONE,1:CACHE_CONNECTION,2:CACHE_SESSION,3:CACHE_CONSUMER,4:CACHE_AUTO-->  
+       <beans:property name="cacheLevel" value="0"/>  
+   </beans:bean> 
+   
+      <beans:bean id="likeugcjmsContainer3" class="org.springframework.jms.listener.DefaultMessageListenerContainer" lazy-init="false">  
+       <beans:property name="connectionFactory" ref="jmsConnectionFactory"></beans:property>  
+       <beans:property name="destination" ref="likeugcdestination3"></beans:property>  
+       <beans:property name="messageListener" ref="likeugcconsumer3"></beans:property>  
+       <beans:property name="concurrentConsumers" value="5"></beans:property>  
+       <!--0:CACHE_NONE,1:CACHE_CONNECTION,2:CACHE_SESSION,3:CACHE_CONSUMER,4:CACHE_AUTO-->  
+       <beans:property name="cacheLevel" value="0"/>  
+   </beans:bean> 
+	
+</beans:beans>
+ 

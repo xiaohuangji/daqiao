@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+	
+	<bean id="userGetVerifyCodeCommand" class="com.renren.mobile.mcp.api.command.user.UserGetVerifyCodeCommand">
+		<property name="userService" ref="userService" />	
+	</bean>
+	<bean id="userRegisterCommand" class="com.renren.mobile.mcp.api.command.user.UserRegisterCommand">
+		<property name="userService" ref="userService" />
+		<property name="passportService" ref="passportService" />	
+	</bean>
+	<bean id="userLoginCommand" class="com.renren.mobile.mcp.api.command.user.UserLoginCommand">
+		<property name="userService" ref="userService" />
+		<property name="passportService" ref="passportService" />	
+	</bean>
+	<bean id="userGetUserInfoCommand" class="com.renren.mobile.mcp.api.command.user.UserGetUserInfoCommand">
+		<property name="userService" ref="userService" />	
+	</bean>
+	<bean id="userApplyForGuideCommand" class="com.renren.mobile.mcp.api.command.user.UserApplyForGuideCommand">
+		<property name="userService" ref="userService" />	
+	</bean>
+	<bean id="userGetNearByGuideCommand" class="com.renren.mobile.mcp.api.command.user.UserGetNearByGuideCommand">
+		<property name="userService" ref="userService" />	
+	</bean>
+	<bean id="userSearchGuideCommand" class="com.renren.mobile.mcp.api.command.user.UserSearchGuideCommand">
+		<property name="userService" ref="userService" />	
+	</bean>
+
+    <bean id="inviteEventInviteCommand" class="com.renren.mobile.mcp.api.command.inviteEvent.InviteEventInviteCommand">
+		<property name="inviteEventService" ref="inviteEventService" />	
+	</bean>
+	<bean id="inviteEventInviteAllCommand" class="com.renren.mobile.mcp.api.command.inviteEvent.InviteEventInviteAllCommand">
+		<property name="inviteEventService" ref="inviteEventService" />	
+	</bean>
+	<bean id="inviteEventCancleCommand" class="com.renren.mobile.mcp.api.command.inviteEvent.InviteEventCancleCommand">
+		<property name="inviteEventService" ref="inviteEventService" />	
+	</bean>
+	<bean id="inviteEventGetHistoricalInviteEventsCommand" class="com.renren.mobile.mcp.api.command.inviteEvent.InviteEventGetHistoricalInviteEventsCommand">
+		<property name="inviteEventService" ref="inviteEventService" />	
+	</bean>
+	<bean id="inviteEventGetOneInviteEventCommand" class="com.renren.mobile.mcp.api.command.inviteEvent.InviteEventGetOneInviteEventCommand">
+		<property name="inviteEventService" ref="inviteEventService" />	
+	</bean>
+	<bean id="inviteEventSetSatisfactionCommand" class="com.renren.mobile.mcp.api.command.inviteEvent.InviteEventSetSatisfactionCommand">
+		<property name="inviteEventService" ref="inviteEventService" />	
+	</bean>
+
+    <bean id="guideEventAcceptCommand" class="com.renren.mobile.mcp.api.command.guideEvent.GuideEventAcceptCommand">
+		<property name="guideEventService" ref="guideEventService" />	
+	</bean>
+	<bean id="guideEventRefuseCommand" class="com.renren.mobile.mcp.api.command.guideEvent.GuideEventRefuseCommand">
+		<property name="guideEventService" ref="guideEventService" />	
+	</bean>
+	<bean id="guideEventGetHistoricalGuideEventsCommand" class="com.renren.mobile.mcp.api.command.guideEvent.GuideEventGetHistoricalGuideEventsCommand">
+		<property name="guideEventService" ref="guideEventService" />	
+	</bean>
+	<bean id="guideEventGetOneGuideEventCommand" class="com.renren.mobile.mcp.api.command.guideEvent.GuideEventGetOneGuideEventCommand">
+		<property name="guideEventService" ref="guideEventService" />	
+	</bean>
+
+	<bean id="resourceUploadResourceCommand" class="com.renren.mobile.mcp.api.command.resource.ResourceUploadResourceCommand">
+		<property name="resourceService" ref="resourceService" />	
+	</bean>
+</beans>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"  
+       xmlns:mvc="http://www.springframework.org/schema/mvc"  
+       xmlns:task="http://www.springframework.org/schema/task"
+        
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+           http://www.springframework.org/schema/task
+		   http://www.springframework.org/schema/task/spring-task.xsd">
+			
+		<!-- store -->
+		<bean id="googlePlushService" class="com.renren.intl.soundsns.service.impl.GooglePlushService"/>
+		<bean id="fileService" class="com.renren.intl.soundsns.store.impl.FileServiceImpl"/>
+		<bean id="resourceService" class="com.renren.intl.soundsns.store.impl.ResourceServiceImpl"/>
+			
+		<!-- feed -->
+		<bean id="readAndLikeService" class="com.renren.intl.soundsns.service.impl.ReadAndLikeServiceImpl"/>
+		<bean id="feedService" class="com.renren.intl.soundsns.service.impl.FeedServiceImpl"/>
+		<bean id="feedInboxServiceImpl" class="com.renren.intl.soundsns.service.impl.FeedInboxServiceImpl"/>
+	    <bean id="feedSearchServiceImpl" class="com.renren.intl.soundsns.solr.search.FeedSearchServiceImpl"/>
+		<bean id="ugcCommentTextService" class="com.renren.intl.soundsns.service.impl.UgcCommentTextServiceImpl"/>
+
+		<bean id="feedCommentService" class="com.renren.intl.soundsns.service.impl.FeedCommentServiceImpl"/>
+		<bean id="ugcCommentService" class="com.renren.intl.soundsns.service.impl.UgcCommentServiceImpl"/>
+		<bean id="ugcServiceImpl" class="com.renren.intl.soundsns.service.impl.UGCServiceImpl"/>
+		<bean id="mtFeedServiceImpl" class="com.renren.intl.soundsns.service.impl.MTFeedServiceImpl"/>
+		<bean id="activemqService" class="com.renren.intl.soundsns.service.impl.ActivemqServiceImpl" />
+		<bean id="atMessageService" class="com.renren.intl.soundsns.service.impl.AtMessageServiceImpl"/>
+		<bean id="likeFeedInboxServiceImpl" class="com.renren.intl.soundsns.service.impl.LikeFeedInboxServiceImpl" />
+		<bean id="likeUGCServiceImpl" class="com.renren.intl.soundsns.service.impl.LikeUGCServiceImpl"/>
+		
+		<!-- mcp -->
+		<bean id="feedMCPService" class="com.renren.intl.soundsns.mcp.impl.FeedMCPServiceImpl"/>
+		<bean id="userMCPService" class="com.renren.intl.soundsns.mcp.impl.UserMCPServiceImpl"/>
+		 <bean id="snsMCPService" class="com.renren.intl.soundsns.mcp.impl.SnsMCPServiceImpl"/>
+		<bean id="sysMCPService" class="com.renren.intl.soundsns.mcp.impl.SysMCPServiceImpl"/>
+		<bean id="messageMCPService" class="com.renren.intl.soundsns.mcp.impl.MessageMCPServiceImpl"/>
+		<bean id="passportMCPService" class="com.renren.intl.soundsns.mcp.impl.PassportMCPServiceImpl"/>
+		<bean id="tagMCPServiceImpl" class="com.renren.intl.soundsns.mcp.impl.TagMCPServiceImpl"/>	
+		<bean id="modelConvertUtil" class="com.renren.intl.soundsns.mcp.impl.ModelConvertUtil"/>
+		<bean id="passportService" class="com.renren.mcp.soundsns.passport.service.impl.PassportServiceImpl" />
+		<!-- message -->
+		<bean id="applePushServiceImpl" class="com.renren.intl.soundsns.message.service.impl.ApplePushServiceImpl"/>
+		<bean id="newsService" class="com.renren.intl.soundsns.message.service.impl.NewsServiceImpl"/>
+		<bean id="renderingService" class="com.renren.intl.soundsns.rendering.service.RenderingServiceImpl">
+			<property name="configuration">
+				<bean
+					class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+					<property name="freemarkerSettings">
+						<props>
+							<prop key="number_format">0</prop>
+							<prop key="default_encoding">UTF-8</prop>
+							<prop key="url_escaping_charset">UTF-8</prop>
+							<prop key="template_update_delay">1</prop>
+						</props>
+					</property>
+				</bean>
+			</property>
+		</bean>
+		<!-- sns -->
+		<bean id="snsToolService" class="com.renren.intl.soundsns.service.impl.SNSToolServiceImpl"/>
+		<bean id="snsContextService" class="com.renren.intl.soundsns.service.impl.SnsContextServiceImpl"/>
+		<bean id="shortLinkService" class="com.renren.intl.soundsns.service.impl.ShortLinkServiceImpl"/>
+		<!-- sys -->
+		<bean id="versionAdminServiceImpl" class="com.renren.intl.soundsns.sys.impl.VersionAdminServiceImpl"/>
+		<bean id="abuseReportServiceImpl" class="com.renren.intl.soundsns.sys.impl.AbuseReportServiceImpl"/>
+		<bean id="feedbackServiceImpl" class="com.renren.intl.soundsns.sys.impl.FeedbackServiceImpl"/>
+		<bean id="dubblerServiceImpl" class="com.renren.intl.soundsns.sys.impl.DubblerAdminServiceImpl"/>
+		<bean id="popupWindowServiceImpl" class="com.renren.intl.soundsns.sys.impl.PopupWindowServiceImpl"/>
+		<bean id="mqttBrokerSeverSelectorService" class="com.renren.intl.soundsns.sys.impl.MqttBrokerServerSelectorImpl"/>
+		<bean id="mqttAuthCheker" class="com.renren.intl.soundsns.sys.impl.MqttAuthChekerImpl"/>
+		<bean id="filterServiceImpl" class="com.renren.intl.soundsns.sys.impl.FilterServiceImpl"/>
+		<bean id="appleStoreServiceImpl" class="com.renren.intl.soundsns.sys.impl.AppleStoreServiceImpl"/>
+		<!-- sns -->
+		<bean id="dbSNSGetService" class="com.renren.intl.soundsns.service.impl.DBSNSGetServiceImpl"/>
+		<bean id="dbSNSSetService" class="com.renren.intl.soundsns.service.impl.DBSNSSetServiceImpl"/>
+		<bean id="dbSnsTableService" class="com.renren.intl.soundsns.service.impl.SNSTableService"/>
+		<bean id="snsApiCallServiceImpl" class="com.renren.intl.soundsns.service.impl.SNSServiceImpl"/>
+		 <bean id = "dcService" class="com.renren.intl.soundsns.service.impl.DcSNSServiceImpl"></bean>
+		 <bean id = "renrenService" class ="com.renren.intl.soundsns.service.impl.DBCSNSAPICallServiceImpl"></bean>
+		 <bean id = "weiboService" class ="com.renren.intl.soundsns.service.impl.WeiboService"></bean>
+				 <bean id = "weiboExtFriendsService" class ="com.renren.intl.soundsns.service.impl.WeiboExtFriendsService"></bean>
+		 <bean id = "renrenExtFriendsService" class ="com.renren.intl.soundsns.service.impl.RenrenExtFriendsService"></bean>
+		 <bean id = "tumblrService" class = "com.renren.intl.soundsns.service.impl.TumblrServiceImpl"></bean>
+		
+		<!-- tag -->
+		<bean id="tagService" class="com.renren.intl.soundsns.tag.impl.TagServiceImpl"/>
+		<bean id="activityTagServiceImpl" class="com.renren.intl.soundsns.tag.impl.ActivityTagServiceImpl"/>
+		<bean id="tagSearchServiceImpl" class="com.renren.intl.soundsns.solr.search.TagSearchServiceImpl"/>
+		<!-- user -->
+
+		<bean id="calculateService" class="com.renren.intl.soundsns.service.impl.CalculateService"/>
+		<bean id="userBlackListService" class="com.renren.intl.soundsns.service.impl.UserBlackListServiceImpl"/>
+		<bean id="userRecommendService" class="com.renren.intl.soundsns.service.impl.UserRecommendServiceImpl"/>
+		<bean id="searchService" class="com.renren.intl.soundsns.service.impl.SearchServiceImpl"/>
+		<bean id="extUserInfoService" class="com.renren.intl.soundsns.service.impl.ExtUserInfoServiceImpl"/>
+		<bean id="recommendRelationService" class="com.renren.intl.soundsns.service.impl.RecommendRelationService"/>
+		<bean id="profileFeedService" class="com.renren.intl.soundsns.service.impl.ProfileFeedServiceImpl"/>
+		<bean id="userCountServiceImpl" class="com.renren.intl.soundsns.service.impl.UserCountServiceImpl"/>
+		<bean id="userSearchServiceImpl" class="com.renren.intl.soundsns.solr.search.UserSearchServiceImpl"/>
+
+		<!-- utils -->	  
+		
+		
+		
+</beans>

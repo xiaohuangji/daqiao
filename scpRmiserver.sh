@@ -1,0 +1,3 @@
+#!/bin/sh
+
+scp -r /Users/renren/svn/dbBranchFBT/wills-rmi-server/target/ROOT/*  root@10.4.21.52:/data/wills/tg_project/server_source/ROOT

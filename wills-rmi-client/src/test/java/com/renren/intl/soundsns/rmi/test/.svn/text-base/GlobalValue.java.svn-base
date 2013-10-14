@@ -1,0 +1,21 @@
+package com.renren.intl.soundsns.rmi.test;
+
+
+public class GlobalValue {
+    /*userId2 follow userId3*/
+    public static int userId1=10000264;//svenzeng
+    public static int userId2=10000291;//danzang
+    public static int userId3=10000238;//yufeizeng
+    
+    public static String nickName1="SvenZeng";
+    public static String nickName2="danzhang";
+    public static String nickName3="yufeizeng";
+    
+      
+    public static long feedId=45512;//owned by userId3
+    
+    public static long soundId=12189;//owned by userId3
+    
+    public static long pictureId=1669;//owned by userId3
+    
+}

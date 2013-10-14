@@ -1,0 +1,5 @@
+package com.renren.soundsns.proxy.exceptions;
+
+public class ClientProxyException {
+
+}
