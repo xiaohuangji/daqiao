@@ -1,6 +1,0 @@
-package com.renren.soundsns.clientproxy;
-
-public enum IterationStrategy {
-	Random,RoundRobin
-
-}
