@@ -37,9 +37,9 @@ kill -9 $pid
 
 
 echo ============remove old root========
-rm -rf /Users/renren/svn/dbBranchFBT/wills-rmi-server/target/ROOT
+rm -rf /Users/renren/svn/wills-mobileapp-java/wills-rmi-server/target/ROOT
 
 echo =========rename new root=================
-mv /Users/renren/svn/dbBranchFBT/wills-rmi-server/target/wills-rmi-server-1.0.0-SNAPSHOT  /Users/renren/svn/dbBranchFBT/wills-rmi-server/target/ROOT
+mv /Users/renren/svn/wills-mobileapp-java/wills-rmi-server/target/wills-rmi-server-1.0.0-SNAPSHOT  /Users/renren/svn/wills-mobileapp-java/wills-rmi-server/target/ROOT
 
 /Users/renren/svn/tg_tomcat/bin/startup.sh

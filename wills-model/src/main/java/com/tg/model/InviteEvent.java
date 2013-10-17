@@ -59,6 +59,11 @@ public class InviteEvent implements Serializable{
 	 */
 	private int satisfaction;
 
+	/**
+	 * guide名字。只在下发时填充此字段
+	 */
+	private String guideName;
+
 	public long getEventId() {
 		return eventId;
 	}
@@ -139,6 +144,13 @@ public class InviteEvent implements Serializable{
 	public void setSatisfaction(int satisfaction) {
 		this.satisfaction = satisfaction;
 	}
-	
+
+	public String getGuideName() {
+		return guideName;
+	}
+
+	public void setGuideName(String guideName) {
+		this.guideName = guideName;
+	}
 	
 }

@@ -22,6 +22,7 @@ public interface UserService {
 	 */
 	public int register(String mobile,String password,String verifyCode,String name,int gender);
 	
+	public UserInfo registerExt(String mobile,String password,String verifyCode,String name,int gender);
 	/**
 	 * 登陆
 	 * @param mobile
@@ -30,6 +31,7 @@ public interface UserService {
 	 */
 	public int login(String mobile,String password);
 	
+	public UserInfo loginExt(String mobile,String password);
 	/**
 	 * 获取用户信息
 	 * @param userId

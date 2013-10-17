@@ -43,6 +43,11 @@ public class GuideEvent implements Serializable{
 	 * 同inviteEvent中的eventType，标识是广播还是单点
 	 */
 	private int eventType;
+	
+	/**
+	 * 游客名字，只在下发客户端时填充
+	 */
+	private String userName;
 
 	public int getGuideId() {
 		return guideId;
@@ -99,5 +104,14 @@ public class GuideEvent implements Serializable{
 	public void setEventType(int eventType) {
 		this.eventType = eventType;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 	
 }

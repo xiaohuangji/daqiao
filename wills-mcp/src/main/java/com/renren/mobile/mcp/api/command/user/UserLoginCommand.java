@@ -11,6 +11,7 @@ import com.renren.mobile.mcp.api.entity.ApiCommandContext;
 import com.renren.mobile.mcp.api.entity.ApiResult;
 import com.renren.mobile.mcp.api.entity.ApiResultCode;
 import com.renren.mobile.mcp.utils.McpUtils;
+import com.tg.model.UserInfo;
 import com.tg.model.UserPassport;
 import com.tg.service.PassportService;
 import com.tg.service.UserService;
@@ -39,15 +40,15 @@ public class UserLoginCommand extends AbstractApiCommand {
         // 执行RPC调用       
         try {
             long t = System.currentTimeMillis();
-            int result = userService.login(mobile, password);
+            UserInfo result = userService.loginExt(mobile, password);
             McpUtils.rpcTimeCost(t, "user.login");
-            if (result!=0) {
+            if (result!=null) {
                     // 登陆成功返回userId
                    // UserView userView = loginStatusView.getUserInfo();
-                    context.setUserId(result);
+                    context.setUserId(result.getUserId());
 
                     UserPassport userPassport = new UserPassport();
-                    userPassport.setUserId(result);
+                    userPassport.setUserId(result.getUserId());
                     userPassport.setAppId(appId);
                     userPassport.setCreateTime(System.currentTimeMillis());
                     String userSecretKey = McpUtils.generateSecretKey();
@@ -58,7 +59,8 @@ public class UserLoginCommand extends AbstractApiCommand {
                             return new ApiResult(ApiResultCode.E_BIZ_LOGIN_FAILED);
                     }   
                     userPassport.setTicket(ticket);
-                    return new ApiResult(ApiResultCode.SUCCESS, userPassport);
+                    result.setUserPassport(userPassport);
+                    return new ApiResult(ApiResultCode.SUCCESS, result);
                 }else {
                     return new ApiResult(ApiResultCode.E_BIZ_LOGIN_FAILED);
                 }  

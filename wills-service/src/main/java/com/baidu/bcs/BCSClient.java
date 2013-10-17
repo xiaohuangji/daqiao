@@ -53,13 +53,13 @@ public class BCSClient {
 	}
 	
 	public static String fileUrl(String fileName){
-		return host+"/"+bucket+"/"+fileName;
+		return "http://"+host+"/"+bucket+"/"+fileName;
 	}
 	
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		File file=new File("/Users/renren/Downloads/20130909142945.jpg");
-		BCSClient.putObject(new FileInputStream(file),file.length(), "jpg");
+		System.out.println(BCSClient.putObject(new FileInputStream(file),file.length(), "jpg"));
 	}
 }
 

@@ -336,5 +336,29 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return getUserInfos(getNearByGuideWithFilter(gender, scenic, location, dist, start, row));
 	}
+
+	@Override
+	public UserInfo registerExt(String mobile, String password, String verifyCode,
+			String name, int gender) {
+		// TODO Auto-generated method stub
+		int result=register(mobile, password, verifyCode, name, gender);
+		if(result!=ResultConstant.OP_FAIL){
+			return getUserInfo(result);
+		}
+		else {
+			return null;
+		}
+	}
+
+	@Override
+	public UserInfo loginExt(String mobile, String password) {
+		// TODO Auto-generated method stub
+		int result=login(mobile, password);
+		if(result!=ResultConstant.OP_FAIL){
+			return getUserInfo(result);
+		}else{
+			return null;
+		}
+	}
 	
 }

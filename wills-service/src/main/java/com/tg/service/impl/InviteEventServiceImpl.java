@@ -133,6 +133,7 @@ public class InviteEventServiceImpl implements InviteEventService{
 	public List<InviteEvent> getHistoricalInviteEvents(int userId,int start,int count) {
 		// TODO Auto-generated method stub
 		List<InviteEvent> inviteEvents=inviteEventDAO.getHistoricalInviteEvents(userId, start, count);
+		renderGuideNames(inviteEvents);
 		return inviteEvents;
 	}
 
@@ -141,6 +142,7 @@ public class InviteEventServiceImpl implements InviteEventService{
 	public InviteEvent getOneInviteEvent(int userId, long eventId) {
 		// TODO Auto-generated method stub
 		InviteEvent inviteEvent=inviteEventDAO.getOneInviteEvent(userId, eventId);
+		renderGuideName(inviteEvent);
 		return inviteEvent;
 	}
 	
@@ -173,5 +175,19 @@ public class InviteEventServiceImpl implements InviteEventService{
 		this.broadcastEventDAO = broadcastEventDAO;
 	}
 
+	private void renderGuideName(InviteEvent inviteEvent){
+		if(inviteEvent==null){
+			return ;
+		}
+		inviteEvent.setGuideName(userService.getUserInfo(inviteEvent.getGuideId()).getUserName());
+	}
+	
+	private void renderGuideNames(List<InviteEvent> inviteEvents){
+		if(inviteEvents==null||inviteEvents.size()==0)
+			return ;
+		for(InviteEvent inviteEvent:inviteEvents){
+			renderGuideName(inviteEvent);
+		}
+	}
 	
 }

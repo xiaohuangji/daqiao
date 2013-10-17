@@ -38,6 +38,11 @@ public class UserInfo implements Serializable{
 	 * 头像URL
 	 */
 	protected String headUrl;
+	
+	/**
+	 * 登陆用户的passport，只在登陆注册成功时下发
+	 */
+	protected UserPassport userPassport;
 
 	public int getUserId() {
 		return userId;
@@ -85,6 +90,14 @@ public class UserInfo implements Serializable{
 
 	public void setHeadUrl(String headUrl) {
 		this.headUrl = headUrl;
+	}
+
+	public UserPassport getUserPassport() {
+		return userPassport;
+	}
+
+	public void setUserPassport(UserPassport userPassport) {
+		this.userPassport = userPassport;
 	}
 	
 }

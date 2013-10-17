@@ -116,6 +116,18 @@ public class UserServiceDelegate implements UserService {
 		return userServiceDelegate.getNearByGuideWithFilterExt(gender, scenic, location, dist, start, row);
 	}
 
+	@Override
+	public UserInfo registerExt(String mobile, String password,
+			String verifyCode, String name, int gender) {
+		// TODO Auto-generated method stub
+		return userServiceDelegate.registerExt(mobile, password, verifyCode, name, gender);
+	}
+
+	@Override
+	public UserInfo loginExt(String mobile, String password) {
+		// TODO Auto-generated method stub
+		return userServiceDelegate.loginExt(mobile, password);
+	}
 	
 	public static void main(String[] args) {
 		UserServiceDelegate userServiceDelegate=new UserServiceDelegate();
@@ -129,10 +141,10 @@ public class UserServiceDelegate implements UserService {
 		//userServiceDelegate.applyForGuite(10000007 , "晋祠 太原", System.currentTimeMillis(), 19980, "http://bcs.duapp.com/tgimage/138089992694012.jpg", "guideId999999", "38.6518141832995,104.07643139362494", 88);
 		
 		//System.out.println(userServiceDelegate.toBeGuide(10000005));
-		//System.out.println(userServiceDelegate.toBeGuide(10000007));
+		//System.out.println(userServiceDelegate.toBeGuide(10000009));
 		
-		//System.out.println(userServiceDelegate.getNearByGuide("38.65,104.07643139362494", 2000, 0, 100));
-		System.out.println(userServiceDelegate.searchGuideExt(99, 0, "宫", 0, 100));
+		System.out.println(userServiceDelegate.getNearByGuideExt("38.65,104.07643139362494", 2000, 0, 100));
+		//System.out.println(userServiceDelegate.searchGuideExt(99, 0, "宫", 0, 100));
 		//List<Integer> ids=userServiceDelegate.getAllApplyForGuideUsers();
 	}
 

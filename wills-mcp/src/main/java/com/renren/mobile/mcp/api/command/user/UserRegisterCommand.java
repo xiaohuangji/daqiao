@@ -12,6 +12,7 @@ import com.renren.mobile.mcp.api.entity.ApiCommandContext;
 import com.renren.mobile.mcp.api.entity.ApiResult;
 import com.renren.mobile.mcp.api.entity.ApiResultCode;
 import com.renren.mobile.mcp.utils.McpUtils;
+import com.tg.model.UserInfo;
 import com.tg.model.UserPassport;
 import com.tg.service.PassportService;
 import com.tg.service.UserService;
@@ -38,21 +39,20 @@ public class UserRegisterCommand extends AbstractApiCommand {
         String verifyCode=stringParams.get("verifyCode");
         String gender=stringParams.get("gender");
         int appId = context.getMcpAppInfo().getAppId();
-        int result ;
+        UserInfo result ;
         ApiResult apiResult = null;
 
         // 执行RPC调用       
         try {
             long t = System.currentTimeMillis();
-            result = userService.register(mobile, password, verifyCode, name, NumberUtils.toInt(gender));
+            result = userService.registerExt(mobile, password, verifyCode, name, NumberUtils.toInt(gender));
             McpUtils.rpcTimeCost(t, "user.register");
-            if (result!=0) {
+            if (result!=null) {
                 // 登陆成功返回userId
                // UserView userView = loginStatusView.getUserInfo();
-                context.setUserId(result);
-
+                context.setUserId(result.getUserId());
                 UserPassport userPassport = new UserPassport();
-                userPassport.setUserId(result);
+                userPassport.setUserId(result.getUserId());
                 userPassport.setAppId(appId);
                 userPassport.setCreateTime(System.currentTimeMillis());
                 String userSecretKey = McpUtils.generateSecretKey();
@@ -63,7 +63,9 @@ public class UserRegisterCommand extends AbstractApiCommand {
                         return new ApiResult(ApiResultCode.E_BIZ_LOGIN_FAILED);
                 }   
                 userPassport.setTicket(ticket);
-                return new ApiResult(ApiResultCode.SUCCESS, userPassport);
+                //将userPassport包装在userinfo里面下带出去
+                result.setUserPassport(userPassport);
+                return new ApiResult(ApiResultCode.SUCCESS, result);
             }else {
                 return new ApiResult(ApiResultCode.E_BIZ_LOGIN_FAILED);
             }  
