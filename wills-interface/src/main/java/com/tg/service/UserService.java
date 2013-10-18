@@ -113,4 +113,11 @@ public interface UserService {
 
 	public List<UserInfo> getNearByGuideWithFilterExt(int gender,String scenic,String location,double dist,int start,int row);
 
+	/**
+	 * 修改头像
+	 * @param userId
+	 * @param headUrl
+	 * @return
+	 */
+	public int changeHeadUrl(int userId,String headUrl);
 }

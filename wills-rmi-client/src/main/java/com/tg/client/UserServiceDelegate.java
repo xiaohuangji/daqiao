@@ -2,6 +2,7 @@ package com.tg.client;
 
 import java.util.List;
 
+import com.tg.model.GuideInfo;
 import com.tg.model.UserInfo;
 import com.tg.service.UserService;
 import com.wills.clientproxy.ClusterServiceRegistry;
@@ -129,24 +130,28 @@ public class UserServiceDelegate implements UserService {
 		return userServiceDelegate.loginExt(mobile, password);
 	}
 	
+	@Override
+	public int changeHeadUrl(int userId, String headUrl) {
+		// TODO Auto-generated method stub
+		return userServiceDelegate.changeHeadUrl(userId, headUrl);
+	}
+	
 	public static void main(String[] args) {
 		UserServiceDelegate userServiceDelegate=new UserServiceDelegate();
 		//userServiceDelegate.getVerifyCode("18510408654");
 		
 		//userServiceDelegate.register("18510408654", "123456", "7204", "judy", 2);
 		//GuideInfo guideInfo=(GuideInfo)(userServiceDelegate.getUserInfo(10000005));
-		//System.out.println(guideInfo.getCity());
+		//System.out.println(guideInfo.toString());
 		
 		//userServiceDelegate.applyForGuite(10000005, "故宫 天坛", System.currentTimeMillis(), 2000, "http://bcs.duapp.com/tgimage/138089992694012.jpg", "guideId123456", "38.6518141832995,104.07643139362494", 99);
 		//userServiceDelegate.applyForGuite(10000007 , "晋祠 太原", System.currentTimeMillis(), 19980, "http://bcs.duapp.com/tgimage/138089992694012.jpg", "guideId999999", "38.6518141832995,104.07643139362494", 88);
 		
-		//System.out.println(userServiceDelegate.toBeGuide(10000005));
+		System.out.println(userServiceDelegate.toBeGuide(10000010));
 		//System.out.println(userServiceDelegate.toBeGuide(10000009));
 		
-		System.out.println(userServiceDelegate.getNearByGuideExt("38.65,104.07643139362494", 2000, 0, 100));
+		//System.out.println(userServiceDelegate.getNearByGuideExt("38.65,104.07643139362494", 2000, 0, 100));
 		//System.out.println(userServiceDelegate.searchGuideExt(99, 0, "宫", 0, 100));
 		//List<Integer> ids=userServiceDelegate.getAllApplyForGuideUsers();
 	}
-
-
 }

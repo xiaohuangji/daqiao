@@ -19,7 +19,7 @@ public interface InviteEventDAO {
 	@SQL("update invite_event set event_status=2 , guide_id=:3 where event_id=:2")
 	public int accepted(int userId,long eventId,int guideId);
 	
-	@SQL("update invite_event set satisfaction=:2 where event_id=:1 and status=2")
+	@SQL("update invite_event set satisfaction=:3 , event_status=4 where event_id=:2 and event_status=2")
 	public int setSatisfaction(int userId,long eventId,int satisfaction);
 	
 	@SQL("select * from invite_event where user_id=:1 order by create_time limit :2,:3")

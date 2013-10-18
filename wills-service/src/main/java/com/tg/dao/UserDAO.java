@@ -23,7 +23,7 @@ public interface UserDAO {
 	@SQL("select user_id from user_info where mobile=:1 ")
 	public int getUserIdByMobile(String mobile);
 	
-	@SQL("insert into user_info (user_id,user_name,mobile,gender,user_type) values (:1.userId,:1.userName,:1.mobile,:1.gender,:1.userType)")
+	@SQL("replace into user_info (user_id,user_name,mobile,gender,user_type) values (:1.userId,:1.userName,:1.mobile,:1.gender,:1.userType)")
 	public int insertUserInfo(UserInfo userInfo);
 	
 	@SQL("select user_id,user_name,mobile,gender,user_type,head_url from user_info where user_id=:1")
@@ -44,4 +44,7 @@ public interface UserDAO {
 	
 	@SQL("select user_id from guide_info where status=0")
 	public List<Integer> getAllApplyForGuideUsers();
+	
+	@SQL("update user_info set head_url=:2 where user_id=:1")
+	public int changeHeadUrl(int userId,String headUrl);
 }

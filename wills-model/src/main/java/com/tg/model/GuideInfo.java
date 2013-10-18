@@ -139,6 +139,16 @@ public class GuideInfo  extends UserInfo implements Serializable{
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "GuideInfo [evaluateScore=" + evaluateScore + ", evaluateCount="
+				+ evaluateCount + ", goodAtScenic=" + goodAtScenic
+				+ ", birthday=" + birthday + ", beGuideYear=" + beGuideYear
+				+ ", guideCardUrl=" + guideCardUrl + ", guideCardId="
+				+ guideCardId + ", location=" + location + ", city=" + city
+				+ ", status=" + status + "]";
+	}
 	
 	
 }

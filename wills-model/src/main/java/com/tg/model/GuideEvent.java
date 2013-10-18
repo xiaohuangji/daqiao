@@ -44,10 +44,18 @@ public class GuideEvent implements Serializable{
 	 */
 	private int eventType;
 	
+	private long startTime;
+	
+	private long endTime;
+	
+	private String scenic;
+	
 	/**
 	 * 游客名字，只在下发客户端时填充
 	 */
 	private String userName;
+	
+	private String userHeadUrl;
 
 	public int getGuideId() {
 		return guideId;
@@ -111,6 +119,38 @@ public class GuideEvent implements Serializable{
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getUserHeadUrl() {
+		return userHeadUrl;
+	}
+
+	public void setUserHeadUrl(String userHeadUrl) {
+		this.userHeadUrl = userHeadUrl;
+	}
+
+	public long getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
+	}
+
+	public long getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(long endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getScenic() {
+		return scenic;
+	}
+
+	public void setScenic(String scenic) {
+		this.scenic = scenic;
 	}
 	
 	

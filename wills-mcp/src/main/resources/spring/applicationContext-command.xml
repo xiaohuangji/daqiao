@@ -24,10 +24,11 @@
 	     <entry key="user.applyForGuide" value-ref="userApplyForGuideCommand" />
 	     <entry key="user.getNearByGuide" value-ref="userGetNearByGuideCommand" />
 	     <entry key="user.searchGuide" value-ref="userSearchGuideCommand" />
+	     <entry key="user.changeHeadUrl" value-ref="userChangeHeadUrlCommand" />
 	     
 	     <entry key="inviteEvent.invite" value-ref="inviteEventInviteCommand" />
 	     <entry key="inviteEvent.inviteAll" value-ref="inviteEventInviteAllCommand" />
-	     <entry key="inviteEvent.cancle" value-ref="inviteEventCancleCommand" />
+	     <entry key="inviteEvent.cancel" value-ref="inviteEventCancleCommand" />
 	     <entry key="inviteEvent.getHistoricalInviteEvents" value-ref="inviteEventGetHistoricalInviteEventsCommand" />
 	     <entry key="inviteEvent.getOneInviteEvent" value-ref="inviteEventGetOneInviteEventCommand" />
 	     <entry key="inviteEvent.setSatisfaction" value-ref="inviteEventSetSatisfactionCommand" />
@@ -50,6 +51,7 @@
 		<value>user.getVerifyCode</value>
 		<value>user.register</value>
 		<value>user.login</value>
+		<value>user.getNearByGuide</value>
 		<!-- batch apis -->
 		<value>batch.batchRun</value>
 

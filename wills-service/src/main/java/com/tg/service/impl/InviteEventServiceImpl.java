@@ -12,6 +12,7 @@ import com.tg.dao.IdSequenceDAO;
 import com.tg.dao.InviteEventDAO;
 import com.tg.model.GuideEvent;
 import com.tg.model.InviteEvent;
+import com.tg.model.UserInfo;
 import com.tg.service.InviteEventService;
 import com.tg.service.UserService;
 import com.tg.util.ListStrUtil;
@@ -57,6 +58,9 @@ public class InviteEventServiceImpl implements InviteEventService{
 		guideEvent.setUserId(userId);
 		guideEvent.setCreateTime(System.currentTimeMillis());
 		guideEvent.setEventType(EventConstant.EVENT_SINGLE);
+		guideEvent.setStartTime(startTime);
+		guideEvent.setEndTime(endTime);
+		guideEvent.setScenic(scenic);	
 		result=guideEventDAO.insertGuideEvent(guideEvent);
 		if(result!=1)
 			return ResultConstant.OP_FAIL;
@@ -100,6 +104,9 @@ public class InviteEventServiceImpl implements InviteEventService{
 				guideEvent.setUserId(userId);
 				guideEvent.setCreateTime(System.currentTimeMillis());
 				guideEvent.setEventType(EventConstant.EVENT_BROADCAST);
+				guideEvent.setStartTime(startTime);
+				guideEvent.setEndTime(endTime);
+				guideEvent.setScenic(scenic);	
 				guideEventDAO.insertGuideEvent(guideEvent);
 			}
 		}
@@ -133,7 +140,7 @@ public class InviteEventServiceImpl implements InviteEventService{
 	public List<InviteEvent> getHistoricalInviteEvents(int userId,int start,int count) {
 		// TODO Auto-generated method stub
 		List<InviteEvent> inviteEvents=inviteEventDAO.getHistoricalInviteEvents(userId, start, count);
-		renderGuideNames(inviteEvents);
+		renderGuideInfos(inviteEvents);
 		return inviteEvents;
 	}
 
@@ -142,16 +149,19 @@ public class InviteEventServiceImpl implements InviteEventService{
 	public InviteEvent getOneInviteEvent(int userId, long eventId) {
 		// TODO Auto-generated method stub
 		InviteEvent inviteEvent=inviteEventDAO.getOneInviteEvent(userId, eventId);
-		renderGuideName(inviteEvent);
+		renderGuideInfo(inviteEvent);
 		return inviteEvent;
 	}
 	
 	@Override
 	public int setSatisfaction(long eventId, int satisfaction,int userId,int guideId) {
 		// TODO Auto-generated method stub
-		inviteEventDAO.setSatisfaction(userId, eventId, satisfaction);
-		guideEventDAO.setSatisfaction(eventId, satisfaction, guideId);
-		return ResultConstant.OP_OK;
+		int result1=inviteEventDAO.setSatisfaction(userId, eventId, satisfaction);
+		int result2=guideEventDAO.setSatisfaction(eventId, satisfaction, guideId);
+		if(result1==1 && result2==1){
+			return ResultConstant.OP_OK;
+		}
+		return ResultConstant.OP_FAIL;
 	}
 
 	@Autowired
@@ -175,18 +185,22 @@ public class InviteEventServiceImpl implements InviteEventService{
 		this.broadcastEventDAO = broadcastEventDAO;
 	}
 
-	private void renderGuideName(InviteEvent inviteEvent){
-		if(inviteEvent==null){
+	private void renderGuideInfo(InviteEvent inviteEvent){
+		if(inviteEvent==null||inviteEvent.getGuideId()==0){
 			return ;
 		}
-		inviteEvent.setGuideName(userService.getUserInfo(inviteEvent.getGuideId()).getUserName());
+		UserInfo userInfo=userService.getUserInfo(inviteEvent.getGuideId());
+		if(userInfo==null)
+			return ;
+		inviteEvent.setGuideName(userInfo.getUserName());
+		inviteEvent.setGuideHeadUrl(userInfo.getHeadUrl());
 	}
 	
-	private void renderGuideNames(List<InviteEvent> inviteEvents){
+	private void renderGuideInfos(List<InviteEvent> inviteEvents){
 		if(inviteEvents==null||inviteEvents.size()==0)
 			return ;
 		for(InviteEvent inviteEvent:inviteEvents){
-			renderGuideName(inviteEvent);
+			renderGuideInfo(inviteEvent);
 		}
 	}
 	

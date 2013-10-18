@@ -5,6 +5,7 @@
 package com.renren.mobile.mcp.api.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @author sunji
@@ -21,7 +22,10 @@ public class ApiResult implements Serializable {
     public ApiResult(int resultCode, Object data) {
         super();
         this.code = resultCode;
-        this.data = data;
+        if(data==null)
+        	this.data=new ArrayList();
+        else
+        	this.data = data;
     }
 
     public ApiResult(int resultCode) {
@@ -50,4 +54,9 @@ public class ApiResult implements Serializable {
     public String toString() {
         return "ApiResult [code=" + code + ", data=" + data + "]";
     }
+    
+    public static void main(String[] args) {
+		ApiResult apiResult=new ApiResult(0, null);
+		System.out.println(apiResult.toString());
+	}
 }

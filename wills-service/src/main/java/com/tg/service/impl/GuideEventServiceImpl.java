@@ -11,6 +11,7 @@ import com.tg.dao.GuideEventDAO;
 import com.tg.dao.InviteEventDAO;
 import com.tg.model.GuideEvent;
 import com.tg.model.InviteEvent;
+import com.tg.model.UserInfo;
 import com.tg.service.GuideEventService;
 import com.tg.service.UserService;
 import com.tg.util.ListStrUtil;
@@ -68,7 +69,7 @@ public class GuideEventServiceImpl implements GuideEventService {
 			int count) {
 		// TODO Auto-generated method stub
 		List<GuideEvent> guideEvents=guideEventDAO.getHistoricalGuideEvents(guideId, start, count);
-		renderUserNames(guideEvents);
+		renderUserInfos(guideEvents);
 		return guideEvents;
 	}
 
@@ -76,7 +77,7 @@ public class GuideEventServiceImpl implements GuideEventService {
 	public GuideEvent getOneGuideEvent(int guideId, long eventId) {
 		// TODO Auto-generated method stub
 		GuideEvent guideEvent=guideEventDAO.getOneHistoricalGuideEvent(guideId, eventId);
-		renderUserName(guideEvent);
+		renderUserInfo(guideEvent);
 		return guideEvent;
 	}
 
@@ -100,18 +101,23 @@ public class GuideEventServiceImpl implements GuideEventService {
 		this.userService = userService;
 	}
 
-	private void renderUserName(GuideEvent guideEvent){
+	private void renderUserInfo(GuideEvent guideEvent){
 		if(guideEvent==null){
 			return ;
 		}
-		guideEvent.setUserName(userService.getUserInfo(guideEvent.getUserId()).getUserName());
+		UserInfo userInfo=userService.getUserInfo(guideEvent.getUserId());
+		if(userInfo==null){
+			return;
+		}
+		guideEvent.setUserName(userInfo.getUserName());
+		guideEvent.setUserHeadUrl(userInfo.getHeadUrl());
 	}
 	
-	private void renderUserNames(List<GuideEvent> guideEvents){
+	private void renderUserInfos(List<GuideEvent> guideEvents){
 		if(guideEvents==null||guideEvents.size()==0)
 			return ;
 		for(GuideEvent guideEvent:guideEvents){
-			renderUserName(guideEvent);
+			renderUserInfo(guideEvent);
 		}
 	}
 	

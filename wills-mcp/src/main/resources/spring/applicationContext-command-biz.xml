@@ -31,6 +31,10 @@
 	<bean id="userSearchGuideCommand" class="com.renren.mobile.mcp.api.command.user.UserSearchGuideCommand">
 		<property name="userService" ref="userService" />	
 	</bean>
+	<bean id="userChangeHeadUrlCommand" class="com.renren.mobile.mcp.api.command.user.UserChangeHeadUrlCommand">
+		<property name="userService" ref="userService" />	
+	</bean>
+
 
     <bean id="inviteEventInviteCommand" class="com.renren.mobile.mcp.api.command.inviteEvent.InviteEventInviteCommand">
 		<property name="inviteEventService" ref="inviteEventService" />	

@@ -360,5 +360,14 @@ public class UserServiceImpl implements UserService{
 			return null;
 		}
 	}
+
+	@Override
+	public int changeHeadUrl(int userId, String headUrl) {
+		// TODO Auto-generated method stub
+		int result= userDAO.changeHeadUrl(userId, headUrl);
+		redisUserInfo.del(String.valueOf(userId));
+		redisGuideInfo.del(String.valueOf(userId));
+		return result;
+	}
 	
 }

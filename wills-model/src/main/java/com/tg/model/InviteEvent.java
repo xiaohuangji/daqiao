@@ -64,6 +64,8 @@ public class InviteEvent implements Serializable{
 	 */
 	private String guideName;
 
+	private String guideHeadUrl;
+	
 	public long getEventId() {
 		return eventId;
 	}
@@ -152,5 +154,12 @@ public class InviteEvent implements Serializable{
 	public void setGuideName(String guideName) {
 		this.guideName = guideName;
 	}
-	
+
+	public String getGuideHeadUrl() {
+		return guideHeadUrl;
+	}
+
+	public void setGuideHeadUrl(String guideHeadUrl) {
+		this.guideHeadUrl = guideHeadUrl;
+	}
 }
