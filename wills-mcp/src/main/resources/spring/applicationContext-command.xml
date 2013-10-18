@@ -52,6 +52,7 @@
 		<value>user.register</value>
 		<value>user.login</value>
 		<value>user.getNearByGuide</value>
+		<value>user.searchGuide</value>
 		<!-- batch apis -->
 		<value>batch.batchRun</value>
 

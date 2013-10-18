@@ -367,7 +367,9 @@ public class UserServiceImpl implements UserService{
 		int result= userDAO.changeHeadUrl(userId, headUrl);
 		redisUserInfo.del(String.valueOf(userId));
 		redisGuideInfo.del(String.valueOf(userId));
-		return result;
+		if(result==1)
+			return ResultConstant.OP_OK;
+		return ResultConstant.OP_FAIL;
 	}
 	
 }
