@@ -34,6 +34,9 @@
 	<bean id="userChangeHeadUrlCommand" class="com.renren.mobile.mcp.api.command.user.UserChangeHeadUrlCommand">
 		<property name="userService" ref="userService" />	
 	</bean>
+	<bean id="userChangeLocationCommand" class="com.renren.mobile.mcp.api.command.user.UserChangeLocationCommand">
+		<property name="userService" ref="userService" />	
+	</bean>
 
 
     <bean id="inviteEventInviteCommand" class="com.renren.mobile.mcp.api.command.inviteEvent.InviteEventInviteCommand">

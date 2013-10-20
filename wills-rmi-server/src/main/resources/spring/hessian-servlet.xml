@@ -47,6 +47,12 @@
 		<property name="service" ref="passportService" />
 		<property name="serviceInterface" value="com.tg.service.PassportService" />
 	</bean>
+	
+	<bean name="/AdminService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="adminService" />
+		<property name="serviceInterface" value="com.tg.service.AdminService" />
+	</bean>
 
 
 </beans>

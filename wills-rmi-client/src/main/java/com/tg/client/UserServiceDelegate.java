@@ -2,7 +2,6 @@ package com.tg.client;
 
 import java.util.List;
 
-import com.tg.model.GuideInfo;
 import com.tg.model.UserInfo;
 import com.tg.service.UserService;
 import com.wills.clientproxy.ClusterServiceRegistry;
@@ -43,17 +42,11 @@ public class UserServiceDelegate implements UserService {
 	}
 
 	@Override
-	public int applyForGuite(int userId, String goodAtScenic, long birthday,
+	public int applyForGuide(int userId, String goodAtScenic, long birthday,
 			int beGuideYear, String guideCardUrl, String guideCardId,
 			String location, int city) {
 		// TODO Auto-generated method stub
-		return userServiceDelegate.applyForGuite(userId, goodAtScenic, birthday, beGuideYear, guideCardUrl, guideCardId, location, city);
-	}
-
-	@Override
-	public int toBeGuide(int userId) {
-		// TODO Auto-generated method stub
-		return userServiceDelegate.toBeGuide(userId);
+		return userServiceDelegate.applyForGuide(userId, goodAtScenic, birthday, beGuideYear, guideCardUrl, guideCardId, location, city);
 	}
 
 
@@ -77,11 +70,6 @@ public class UserServiceDelegate implements UserService {
 		return userServiceDelegate.getUserInfos(ids);
 	}
 
-	@Override
-	public List<Integer> getAllApplyForGuideUsers() {
-		// TODO Auto-generated method stub
-		return userServiceDelegate.getAllApplyForGuideUsers();
-	}
 	
 	@Override
 	public List<Integer> getNearByGuideWithFilter(int gender, String scenic,
@@ -102,12 +90,6 @@ public class UserServiceDelegate implements UserService {
 			int start, int row) {
 		// TODO Auto-generated method stub
 		return userServiceDelegate.searchGuideExt(city, gender, scenic, start, row);
-	}
-
-	@Override
-	public List<UserInfo> getAllApplyForGuideUsersExt() {
-		// TODO Auto-generated method stub
-		return userServiceDelegate.getAllApplyForGuideUsersExt();
 	}
 
 	@Override
@@ -136,6 +118,12 @@ public class UserServiceDelegate implements UserService {
 		return userServiceDelegate.changeHeadUrl(userId, headUrl);
 	}
 	
+
+	@Override
+	public int changeLocation(int userId, String location) {
+		// TODO Auto-generated method stub
+		return userServiceDelegate.changeLocation(userId, location);
+	}
 	public static void main(String[] args) {
 		UserServiceDelegate userServiceDelegate=new UserServiceDelegate();
 		//userServiceDelegate.getVerifyCode("18510408654");
@@ -147,11 +135,12 @@ public class UserServiceDelegate implements UserService {
 		//userServiceDelegate.applyForGuite(10000005, "故宫 天坛", System.currentTimeMillis(), 2000, "http://bcs.duapp.com/tgimage/138089992694012.jpg", "guideId123456", "38.6518141832995,104.07643139362494", 99);
 		//userServiceDelegate.applyForGuite(10000007 , "晋祠 太原", System.currentTimeMillis(), 19980, "http://bcs.duapp.com/tgimage/138089992694012.jpg", "guideId999999", "38.6518141832995,104.07643139362494", 88);
 		
-		System.out.println(userServiceDelegate.toBeGuide(10000010));
+		//System.out.println(userServiceDelegate.toBeGuide(10000010));
 		//System.out.println(userServiceDelegate.toBeGuide(10000009));
 		
 		//System.out.println(userServiceDelegate.getNearByGuideExt("38.65,104.07643139362494", 2000, 0, 100));
 		//System.out.println(userServiceDelegate.searchGuideExt(99, 0, "宫", 0, 100));
 		//List<Integer> ids=userServiceDelegate.getAllApplyForGuideUsers();
 	}
+
 }

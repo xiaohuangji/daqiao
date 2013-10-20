@@ -19,6 +19,8 @@ import com.tg.dao.IdSequenceDAO;
 import com.tg.dao.UserDAO;
 import com.tg.model.GuideInfo;
 import com.tg.model.UserInfo;
+import com.tg.passport.utils.GuideForSolrUtil;
+import com.tg.service.AdminService;
 import com.tg.service.UserService;
 import com.tg.solr.SolrClient;
 import com.tg.solr.User4Solr;
@@ -32,13 +34,13 @@ public class UserServiceImpl implements UserService{
 	
 	private IdSequenceDAO idSequenceDAO;
 	
+	private AdminService adminService;
+	
 	private static  RedisClient redisVerify=new RedisClient(RedisKeyConstant.USER_VERIFYCODE);
 	
 	private static  RedisClient redisGuideInfo=new RedisClient(RedisKeyConstant.USER_GUIDE_INFO);
 	
 	private static  RedisClient redisUserInfo=new RedisClient(RedisKeyConstant.USER_INFO);
-
-	private static String adminMobile=CONFIGUtil.getInstance().getConfig("admin_mobile");
 	
 	private static String verifyCodeStr="TG注册验证码：";
 	
@@ -145,7 +147,7 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public int applyForGuite(int userId, String goodAtScenic, long birthday,
+	public int applyForGuide(int userId, String goodAtScenic, long birthday,
 			int beGuideYear, String guideCardUrl, String guideCardId,String location,int city) {
 		// TODO Auto-generated method stub
 		GuideInfo guideInfo=new GuideInfo();
@@ -160,50 +162,18 @@ public class UserServiceImpl implements UserService{
 		guideInfo.setStatus(UserConstant.GSTATUS_PENDING);
 		if(userDAO.insertGuideInfo(guideInfo)==1){
 			//发送提醒给管理员进行审核
-			SMSUtil.sendSM(adminMobile,adminCheckStr);
+			SMSUtil.sendSM(adminService.getAdminMobile(),adminCheckStr);
 			return ResultConstant.OP_OK;
 		}else{
 			return ResultConstant.OP_FAIL;
 		}
 	}
-
-	@Override
-	public int toBeGuide(int userId) {
-		// TODO Auto-generated method stub
-		//更改userInfo中的usertype
-		int result=userDAO.changeUserInfoType(userId, UserConstant.TYPE_GUIDE);
-		redisUserInfo.del(String.valueOf(userId));
-		if(result!=1)
-			return ResultConstant.OP_FAIL;
-		//更改guideInfo中状态
-		result=userDAO.changeGuideInfoStatus(userId, UserConstant.GSTAUS_NORMAL);
-		if(result!=1)
-			return ResultConstant.OP_FAIL;
-		//将数据更新入solr
-		if(addGuideToSolr((GuideInfo)getUserInfo(userId)))
-			return ResultConstant.OP_OK;
-		else
-			return ResultConstant.OP_FAIL;
-			
-	}
-
-	private boolean addGuideToSolr(GuideInfo guideInfo){
-		User4Solr user4Solr=new User4Solr();
-		user4Solr.setCity(guideInfo.getCity());
-		user4Solr.setGender(guideInfo.getGender());
-		user4Solr.setId(guideInfo.getUserId());
-		user4Solr.setMobile(guideInfo.getMobile());
-		user4Solr.setPosition(guideInfo.getLocation());
-		user4Solr.setUserName(guideInfo.getUserName());
-		user4Solr.setUserType(guideInfo.getUserType());
-		user4Solr.setBeGuideYear(guideInfo.getBeGuideYear());
-		user4Solr.setBirthday(guideInfo.getBirthday());
-		user4Solr.setGoodAtScenic(guideInfo.getGoodAtScenic());
-		SolrClient.getInstance().addUser(user4Solr);
-		return SolrClient.getInstance().addUserCommit();
-	}
-
 	
+	@Autowired
+	public void setAdminService(AdminService adminService) {
+		this.adminService = adminService;
+	}
+
 	@Autowired
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
@@ -264,11 +234,6 @@ public class UserServiceImpl implements UserService{
 		return ids;
 	}
 
-	@Override
-	public List<Integer> getAllApplyForGuideUsers() {
-		// TODO Auto-generated method stub
-		return userDAO.getAllApplyForGuideUsers();
-	}
 
 	@Override
 	public List<UserInfo> getUserInfos(List<Integer> ids) {
@@ -325,12 +290,6 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<UserInfo> getAllApplyForGuideUsersExt() {
-		// TODO Auto-generated method stub
-		return getUserInfos(getAllApplyForGuideUsers());
-	}
-
-	@Override
 	public List<UserInfo> getNearByGuideWithFilterExt(int gender,
 			String scenic, String location, double dist, int start, int row) {
 		// TODO Auto-generated method stub
@@ -370,6 +329,24 @@ public class UserServiceImpl implements UserService{
 		if(result==1)
 			return ResultConstant.OP_OK;
 		return ResultConstant.OP_FAIL;
+	}
+
+	@Override
+	public int changeLocation(int userId, String location) {
+		// TODO Auto-generated method stub
+		//更新数据库
+		int daoResult=userDAO.changeLocation(userId, location);
+		//更新缓存
+		redisGuideInfo.del(String.valueOf(userId));
+		//更新solr
+		GuideInfo g=(GuideInfo)getUserInfo(userId);
+		boolean solrResult=GuideForSolrUtil.addGuideToSolr(g);
+		if(daoResult==1 && solrResult==true){
+			return ResultConstant.OP_OK;
+		}
+		else {
+			return ResultConstant.OP_FAIL;
+		}
 	}
 	
 }

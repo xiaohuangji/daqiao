@@ -71,6 +71,9 @@ public class SMSUtil {
 	}
     
     public static boolean sendSM(String mobileNO, String sendStr) {
+    	
+    	if(mobileNO==null||mobileNO=="")
+    		return false;
         
 		String retStr = SMSUtil.sendMessage(mobileNO, sendStr);
 

@@ -26,5 +26,6 @@
 		<bean id="guideEventService" class="com.tg.service.impl.GuideEventServiceImpl"/>
 		<bean id="resourceService" class="com.tg.service.impl.ResourceServiceImpl"/>
 		<bean id="passportService" class="com.tg.service.impl.PassportServiceImpl"/>
+		<bean id="adminService" class="com.tg.service.impl.AdminServiceImpl"/>
 
 </beans>

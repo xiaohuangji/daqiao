@@ -47,4 +47,10 @@ public interface UserDAO {
 	
 	@SQL("update user_info set head_url=:2 where user_id=:1")
 	public int changeHeadUrl(int userId,String headUrl);
+	
+	@SQL("update guide_info set location=:2 where user_id=:1")
+	public int changeLocation(int userId,String location);
+	
+	@SQL("select user_id from guide_info where status=1 order by user_id limit :1,:2 ")
+	public List<Integer> getAllGuides(int start,int rows);
 }

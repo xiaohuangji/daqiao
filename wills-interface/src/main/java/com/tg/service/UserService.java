@@ -56,15 +56,9 @@ public interface UserService {
 	 * @param location
 	 * @return
 	 */
-	public int applyForGuite(int userId,String goodAtScenic,long birthday,int beGuideYear,
+	public int applyForGuide(int userId,String goodAtScenic,long birthday,int beGuideYear,
 			String guideCardUrl,String guideCardId,String location,int city);
 	
-	/**
-	 * 审核通过，将userId升级为guide
-	 * @param userId
-	 * @return
-	 */
-	public int toBeGuide(int userId);
 
 	/**
 	 * 获取附近的导游
@@ -96,14 +90,6 @@ public interface UserService {
 	public List<UserInfo> searchGuideExt(int city,int gender,String scenic,int start,int row);
 	
 	/**
-	 * 获取所有申请导游的人，为管理员提供接口
-	 * @return
-	 */
-	public List<Integer> getAllApplyForGuideUsers();
-	
-	public List<UserInfo> getAllApplyForGuideUsersExt();
-	
-	/**
 	 * 获取附近的导游,并根据性别和景点过滤
 	 * @param location 经纬度
 	 * @param dist 距离范围
@@ -120,4 +106,13 @@ public interface UserService {
 	 * @return
 	 */
 	public int changeHeadUrl(int userId,String headUrl);
+	
+	/**
+	 * 更改地理位置信息
+	 * @param userId
+	 * @param location
+	 * @return
+	 */
+	public int changeLocation(int userId,String location);
+
 }
