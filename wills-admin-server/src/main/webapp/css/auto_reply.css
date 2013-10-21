@@ -1,0 +1,31 @@
+.check_box_on .back {
+	background-color: #C579C5;
+	width: 50px;
+	height: 20px;
+	border-radius: 50em;
+}
+
+.check_box_on .switch_on {
+	position: relative;
+	right: 53px;
+	background: #FFFFFF;
+	width: 20px;
+	height: 20px;
+	border-radius: 50em;
+}
+
+.check_box_off .back {
+	background-color: #CCCCCC;
+	width: 50px;
+	height: 20px;
+	border-radius: 50em;
+}
+
+.check_box_off .switch_on {
+	position: relative;
+	right: 23px;
+	background: #FFFFFF;
+	width: 20px;
+	height: 20px;
+	border-radius: 50em;
+}

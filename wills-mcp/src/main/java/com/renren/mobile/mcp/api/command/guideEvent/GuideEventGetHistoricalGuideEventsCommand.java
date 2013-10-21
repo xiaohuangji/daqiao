@@ -28,6 +28,7 @@ public class GuideEventGetHistoricalGuideEventsCommand extends AbstractApiComman
 
         String start=stringParams.get("start");
         String rows=stringParams.get("rows");
+        String userId=stringParams.get("userId");
         
         Object result = null;
         ApiResult apiResult = null;
@@ -35,7 +36,12 @@ public class GuideEventGetHistoricalGuideEventsCommand extends AbstractApiComman
         // 执行RPC调用       
         try {
             long t = System.currentTimeMillis();
-            result = guideEventService.getHistoricalGuideEvents(guideId, NumberUtils.toInt(start), NumberUtils.toInt(rows));
+            boolean filter=false;
+            if(userId!=""&&!userId.equals("0")){//传USERID,表示获取其他导游的历史记录，需要过滤
+            	guideId=Integer.valueOf(userId);
+            	filter=true;
+            }
+            result = guideEventService.getHistoricalGuideEvents(guideId, NumberUtils.toInt(start), NumberUtils.toInt(rows),filter);
             McpUtils.rpcTimeCost(t, "guideEvent.getHistorical");
         } catch (Exception e) {
             // 异常记录日志， 返回错误信息

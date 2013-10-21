@@ -29,9 +29,9 @@ public class GuideEventServiceDelegate implements GuideEventService{
 
 	@Override
 	public List<GuideEvent> getHistoricalGuideEvents(int guideId, int start,
-			int count) {
+			int count,boolean filter) {
 		// TODO Auto-generated method stub
-		return guideEventServiceDelegate.getHistoricalGuideEvents(guideId, start, count);
+		return guideEventServiceDelegate.getHistoricalGuideEvents(guideId, start, count,filter);
 	}
 
 	@Override

@@ -26,6 +26,8 @@
 	     <entry key="user.searchGuide" value-ref="userSearchGuideCommand" />
 	     <entry key="user.changeHeadUrl" value-ref="userChangeHeadUrlCommand" />
 	     <entry key="user.changeLocation" value-ref="userChangeLocationCommand" />
+	     <entry key="user.changeUserInfo" value-ref="userChangeUserInfoCommand" />
+	     <entry key="user.changePassword" value-ref="userChangePasswordCommand" />
 	     
 	     <entry key="inviteEvent.invite" value-ref="inviteEventInviteCommand" />
 	     <entry key="inviteEvent.inviteAll" value-ref="inviteEventInviteAllCommand" />

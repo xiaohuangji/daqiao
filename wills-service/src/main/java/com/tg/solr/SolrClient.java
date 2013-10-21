@@ -99,6 +99,17 @@ public class SolrClient {
          return false;
     }
     
+    public boolean deleteUser(int userId){
+    	UpdateResponse result=null;
+    	try {
+             result=cloudSolrServerUser.deleteById(String.valueOf(userId));
+             return (result.getStatus()==RESPONSE_STATUS_OK) ;
+         } catch (Exception e) {
+             logger.error("solr add feed ERROR :",e);
+         }
+         return false;
+    }
+    
     public static void main(String[] args) {
         SolrQuery queryArgs=new SolrQuery();
         queryArgs.setQuery("*:*");

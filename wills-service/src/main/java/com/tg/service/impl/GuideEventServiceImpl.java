@@ -66,9 +66,14 @@ public class GuideEventServiceImpl implements GuideEventService {
 
 	@Override
 	public List<GuideEvent> getHistoricalGuideEvents(int guideId, int start,
-			int count) {
+			int count,boolean filter) {
 		// TODO Auto-generated method stub
-		List<GuideEvent> guideEvents=guideEventDAO.getHistoricalGuideEvents(guideId, start, count);
+		List<GuideEvent> guideEvents=null;
+		if(filter){
+			guideEvents=guideEventDAO.getFinishedGuideEvents(guideId, start, count);
+		}else{
+			guideEvents=guideEventDAO.getHistoricalGuideEvents(guideId, start, count);
+		}
 		renderUserInfos(guideEvents);
 		return guideEvents;
 	}

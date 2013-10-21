@@ -23,10 +23,11 @@ public interface GuideEventService {
 	
 	/**
 	 * 获取导游历史记录
+	 * @filter 过滤标记。true表示只获取预约成功的记录，供其他人看。false表示获取全部，供自已查看。
 	 * @param guideId
 	 * @return
 	 */
-	public List<GuideEvent> getHistoricalGuideEvents(int guideId,int start,int count);
+	public List<GuideEvent> getHistoricalGuideEvents(int guideId,int start,int count,boolean filter);
 	
 	/**
 	 * 获取单条导游记录

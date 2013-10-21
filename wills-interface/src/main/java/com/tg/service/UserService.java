@@ -2,6 +2,7 @@ package com.tg.service;
 
 import java.util.List;
 
+import com.tg.model.GuideInfo;
 import com.tg.model.UserInfo;
 
 public interface UserService {
@@ -32,6 +33,15 @@ public interface UserService {
 	public int login(String mobile,String password);
 	
 	public UserInfo loginExt(String mobile,String password);
+	
+	/**
+	 * 修改密码
+	 * @param userId
+	 * @param oldPassword
+	 * @param newPassword
+	 * @return
+	 */
+	public int changePassword(int userId,String oldPassword,String newPassword);
 	/**
 	 * 获取用户信息
 	 * @param userId
@@ -45,6 +55,13 @@ public interface UserService {
 	 * @return
 	 */
 	public List<UserInfo> getUserInfos(List<Integer> ids);
+	
+	/**
+	 * 指获取导游数据。
+	 * @param ids
+	 * @return
+	 */
+	public List<GuideInfo> getGuideInfos(List<Integer> ids);
 	
 	/**
 	 * 申请成为导游
@@ -105,7 +122,18 @@ public interface UserService {
 	 * @param headUrl
 	 * @return
 	 */
+	@Deprecated
 	public int changeHeadUrl(int userId,String headUrl);
+	
+	/**
+	 * 更改用户信息接口
+	 * @param userId
+	 * @param userName
+	 * @param gender
+	 * @param headUrl
+	 * @return
+	 */
+	public int changeUserInfo(int userId, String userName,int gender,String headUrl);
 	
 	/**
 	 * 更改地理位置信息
@@ -114,5 +142,13 @@ public interface UserService {
 	 * @return
 	 */
 	public int changeLocation(int userId,String location);
+	
+	/**
+	 * 评价引起的对导游评分
+	 * @param userId
+	 * @param satisfaction
+	 * @return
+	 */
+	public int updateEvaluate(int userId,int satisfaction);
 
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <!-- 自动扫描的包名 -->
+    <context:component-scan base-package="com.tg.admin.server.controller" >
+    </context:component-scan>
+       
+    <!-- 默认的注解映射的支持 -->
+    <annotation-driven />
+    
+    <!-- 视图解释类 -->
+    <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<beans:property name="prefix" value="/WEB-INF/views/"/>
+    	<beans:property name="suffix" value=".jsp"/><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  -->
+    	<beans:property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+    </beans:bean>
+    
+    <!-- 文件上传 -->
+     <beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="104857600" />
+		<beans:property name="maxInMemorySize" value="4096" />
+    </beans:bean>
+    
+    <!-- 异常解释类 -->
+    <beans:bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="java.lang.Exception">errors/500</beans:prop>
+				<beans:prop key="java.lang.Throwable">errors/404</beans:prop>
+				<beans:prop key="java.lang.RuntimeException">errors/500</beans:prop>
+				<beans:prop key="java.sql.SQLException">errors/500</beans:prop>
+			</beans:props>
+		</beans:property>
+		<beans:property name="statusCodes">
+			<beans:props>
+				<beans:prop key="errors/500">500</beans:prop>
+				<beans:prop key="errors/404">404</beans:prop>
+			</beans:props>
+		</beans:property>
+		<!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 -->
+		<beans:property name="warnLogCategory" value="DEBUG" />
+		<!-- 默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置 -->
+		<beans:property name="defaultErrorView" value="index" />
+		<!-- 默认HTTP状态码 -->
+		<beans:property name="defaultStatusCode" value="500" />
+	</beans:bean>
+   
+<!--      <beans:bean name="/index"  class="com.tg.admin.server.controller.HelloController"/>  
+      -->
+    <!-- 对静态资源文件的访问 -->
+	<resources mapping="/img/**" location="/img/" />
+	<resources mapping="/js/**" location="/js/" />
+	<resources mapping="/css/**" location="/css/" />
+	<resources mapping="/*.ico" location="/images/" />
+	<resources mapping="/images/**" location="/images/" />
+	
+	<!-- 拦截器 -->
+	<!-- <beans:import resource="intercepter-context.xml"/>  -->
+	
+	<!-- 数据库管理 -->
+ 	<!-- <beans:import resource="applicationContext-dao.xml" /> -->
+ 	
+	<!-- spring bean管理 -->
+ 	<beans:import resource="applicationContext-service.xml" />
+ 	
+ 	<!-- rabbit mq管理 -->
+ 	<!-- <beans:import resource="applicationContext-admin-message-rabbitmq.xml"/>
+ 	<beans:import resource="applicationContext-rabbitmq.xml" /> -->
+ 	
+</beans:beans> 

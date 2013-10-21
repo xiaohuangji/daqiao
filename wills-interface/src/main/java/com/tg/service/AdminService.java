@@ -2,6 +2,7 @@ package com.tg.service;
 
 import java.util.List;
 
+import com.tg.model.GuideInfo;
 import com.tg.model.UserInfo;
 
 public interface AdminService {
@@ -28,7 +29,7 @@ public interface AdminService {
 	 */
 	public List<Integer> getAllApplyForGuideUsers();
 	
-	public List<UserInfo> getAllApplyForGuideUsersExt();
+	public List<GuideInfo> getAllApplyForGuideUsersExt();
 	
 	/**
 	 * 审核通过，将userId升级为guide

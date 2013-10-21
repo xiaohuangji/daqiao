@@ -11,7 +11,7 @@ import org.apache.solr.client.solrj.SolrQuery.ORDER;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wills.redis.client.RedisClient;
+import com.tg.constant.EventConstant;
 import com.tg.constant.RedisKeyConstant;
 import com.tg.constant.ResultConstant;
 import com.tg.constant.UserConstant;
@@ -24,9 +24,9 @@ import com.tg.service.AdminService;
 import com.tg.service.UserService;
 import com.tg.solr.SolrClient;
 import com.tg.solr.User4Solr;
-import com.tg.util.CONFIGUtil;
 import com.tg.util.MD5Util;
 import com.tg.util.SMSUtil;
+import com.wills.redis.client.RedisClient;
 
 public class UserServiceImpl implements UserService{
 
@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService{
 	private static String verifyCodeStr="TG注册验证码：";
 	
 	private static String adminCheckStr="有新的导游申请";
+	
+	//评价打分时对应的打分值，满意对应5分，不满意对应2分
+	private static int EVALUATE_SCORE_YES=5;
+	
+	private static int EVALUATE_SCORE_NO=2;
 	
 	@Override
 	public int getVerifyCode(String mobile) {
@@ -102,6 +107,17 @@ public class UserServiceImpl implements UserService{
 		}
 		return ResultConstant.OP_FAIL;
 	}
+	
+	@Override
+	public int changePassword(int userId,String oldPassword,String newPassword){
+		String oldPwd=userDAO.getPwd(userId);
+		if(oldPwd.equals(MD5Util.md5(oldPwd+userId))){//旧密码验证通过
+			int result=userDAO.insertPwd(userId, MD5Util.md5(newPassword+userId));
+			return (result==1?ResultConstant.OP_OK:ResultConstant.OP_FAIL);
+		}else{
+			return ResultConstant.OP_FAIL;
+		}
+	}
 
 	@Override
 	public UserInfo getUserInfo(int userId) {
@@ -115,6 +131,19 @@ public class UserServiceImpl implements UserService{
 			}
 		}
 		return null;
+	}
+	
+
+	@Override
+	public List<GuideInfo> getGuideInfos(List<Integer> ids) {
+		// TODO Auto-generated method stub
+		if(ids==null || ids.size()==0)
+			return null;
+		List<GuideInfo> users=new ArrayList<GuideInfo>();
+		for(Integer id:ids){
+			users.add(getGuideInfoById(id));
+		}
+		return users;
 	}
 
 	private UserInfo getUserInfoById(int userId){
@@ -160,6 +189,11 @@ public class UserServiceImpl implements UserService{
 		guideInfo.setLocation(location);
 		guideInfo.setCity(city);
 		guideInfo.setStatus(UserConstant.GSTATUS_PENDING);
+		//清除缓存
+		redisGuideInfo.del(String.valueOf(userId));
+		//清除solr。只要是重新申请，之前的状态废除
+		SolrClient.getInstance().deleteUser(userId);
+		
 		if(userDAO.insertGuideInfo(guideInfo)==1){
 			//发送提醒给管理员进行审核
 			SMSUtil.sendSM(adminService.getAdminMobile(),adminCheckStr);
@@ -324,12 +358,23 @@ public class UserServiceImpl implements UserService{
 	public int changeHeadUrl(int userId, String headUrl) {
 		// TODO Auto-generated method stub
 		int result= userDAO.changeHeadUrl(userId, headUrl);
+		
 		redisUserInfo.del(String.valueOf(userId));
 		redisGuideInfo.del(String.valueOf(userId));
 		if(result==1)
 			return ResultConstant.OP_OK;
 		return ResultConstant.OP_FAIL;
 	}
+	
+	@Override
+	public int changeUserInfo(int userId, String userName,int gender,String headUrl) {
+		// TODO Auto-generated method stub
+		int result= userDAO.changeUserInfo(userId, userName, gender, headUrl);
+		redisUserInfo.del(String.valueOf(userId));
+		redisGuideInfo.del(String.valueOf(userId));
+		return (result==1?ResultConstant.OP_OK:ResultConstant.OP_FAIL);
+	}
+	
 
 	@Override
 	public int changeLocation(int userId, String location) {
@@ -347,6 +392,14 @@ public class UserServiceImpl implements UserService{
 		else {
 			return ResultConstant.OP_FAIL;
 		}
+	}
+	
+	@Override
+	public int updateEvaluate(int userId, int satisfaction) {
+		// TODO Auto-generated method stub
+		int result=userDAO.updateEvaluate(userId, satisfaction==EventConstant.SATIS_YES ? EVALUATE_SCORE_YES : EVALUATE_SCORE_NO);
+		redisGuideInfo.del(String.valueOf(userId));
+		return (result==1?ResultConstant.OP_OK:ResultConstant.OP_FAIL);
 	}
 	
 }

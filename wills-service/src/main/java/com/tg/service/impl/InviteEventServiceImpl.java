@@ -90,7 +90,7 @@ public class InviteEventServiceImpl implements InviteEventService{
 			return ResultConstant.OP_FAIL;
 		//广播给多人
 		double dist=100;
-		int count=1000;
+		int count=100;
 		List<Integer> ids=userService.getNearByGuideWithFilter(gender, scenic, location, dist, 0, count);
 		broadcastEventDAO.insertBroadCastEvent(eventId, ListStrUtil.listToStr(ids));
 		//入库
@@ -156,9 +156,13 @@ public class InviteEventServiceImpl implements InviteEventService{
 	@Override
 	public int setSatisfaction(long eventId, int satisfaction,int userId,int guideId) {
 		// TODO Auto-generated method stub
+		//更新事件满意程度
 		int result1=inviteEventDAO.setSatisfaction(userId, eventId, satisfaction);
 		int result2=guideEventDAO.setSatisfaction(eventId, satisfaction, guideId);
-		if(result1==1 && result2==1){
+		//更新导游评分信息;
+		int result3=userService.updateEvaluate(userId, satisfaction);
+		
+		if(result1==1 && result2==1 && result3==ResultConstant.OP_OK){
 			return ResultConstant.OP_OK;
 		}
 		return ResultConstant.OP_FAIL;

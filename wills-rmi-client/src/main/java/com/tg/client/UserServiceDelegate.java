@@ -2,6 +2,7 @@ package com.tg.client;
 
 import java.util.List;
 
+import com.tg.model.GuideInfo;
 import com.tg.model.UserInfo;
 import com.tg.service.UserService;
 import com.wills.clientproxy.ClusterServiceRegistry;
@@ -118,11 +119,36 @@ public class UserServiceDelegate implements UserService {
 		return userServiceDelegate.changeHeadUrl(userId, headUrl);
 	}
 	
+	@Override
+	public List<GuideInfo> getGuideInfos(List<Integer> ids) {
+		// TODO Auto-generated method stub
+		return userServiceDelegate.getGuideInfos(ids);
+	}
 
+	
 	@Override
 	public int changeLocation(int userId, String location) {
 		// TODO Auto-generated method stub
 		return userServiceDelegate.changeLocation(userId, location);
+	}
+	
+
+	@Override
+	public int updateEvaluate(int userId, int satisfaction) {
+		// TODO Auto-generated method stub
+		return userServiceDelegate.updateEvaluate(userId, satisfaction);
+	}
+	
+	@Override
+	public int changeUserInfo(int userId, String userName, int gender,
+			String headUrl) {
+		// TODO Auto-generated method stub
+		return userServiceDelegate.changeUserInfo(userId, userName, gender, headUrl);
+	}
+	@Override
+	public int changePassword(int userId, String oldPassword, String newPassword) {
+		// TODO Auto-generated method stub
+		return userServiceDelegate.changePassword(userId, oldPassword, newPassword);
 	}
 	public static void main(String[] args) {
 		UserServiceDelegate userServiceDelegate=new UserServiceDelegate();

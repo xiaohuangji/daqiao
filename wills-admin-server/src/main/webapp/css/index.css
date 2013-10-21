@@ -1,0 +1,141 @@
+@charset "utf-8";
+
+body {
+	background: #EFFFFF;
+	font-family: Tahoma;
+}
+
+.topbar {
+	background: #FFFFFF;
+	height: 68px;
+	line-height: 68px;
+	color: #FFFFFF;
+	font-size: 18px;
+	overflow: hidden
+}
+
+.userName {
+	float: right;
+}
+
+.logout {
+	float: right;
+	color: #fff;
+	margin: 0 40px
+}
+
+.l_nav {
+	width: 160px;
+	float: left
+}
+
+.l_nav li a {
+	height: 49px;
+	line-height: 49px;
+	text-decoration: none;
+	font-size: 14px;
+	border-bottom: 1px solid #e2e2e2;
+	display: block;
+	color: #5e5e5e
+}
+
+.l_nav li a:hover {
+	color: #CC80CC;
+	opacity: 1
+}
+
+.l_nav li .on {
+	color: #CC80CC;
+}
+
+.r_ifra {
+	border-left: 2px solid #990099;
+	position: absolute;
+	top: 88px;
+	right: 35px;
+	bottom: 0;
+	left: 200px;
+	padding: 20px 0 20px 25px
+}
+
+.r_ifra iframe {
+	position: absolute;
+	top: 20
+}
+
+.login {
+	width: 320px;
+	height: 250px;
+	background: #F5E6FF;
+	position: absolute;
+	top: 200px;
+	right: 45%;
+	bottom: 0;
+	border-radius: 1em;
+}
+
+.login img {
+	vertical-align: middle;
+	text-align: center;
+	height: 100px;
+	width: 100px;
+	margin: 5px 35%;
+}
+
+.login input {
+	width: 200px;
+	margin: 5px 50px;
+}
+
+.login button {
+	background: #C773CC;
+	padding-top: 3px;
+	border: 1px solid #7F9DB9;
+	border-radius: 0.5em;
+	width: 200px;
+	height: 25px;
+	margin: 10px 50px;
+	font-size: 10pt;
+}
+
+.background_account {
+	background: #F2F2F2;
+	height: 450px;
+	margin: 15px 10%;
+	border: 1px;
+	border-style: solid;
+	border-color: #990099;
+	border-radius: 1em;
+}
+
+.background_title {
+	margin: 20px 15px;
+	border-style: solid;
+	border-width: 0px 0px 2px 0px;
+	border-color: #8621AB;
+	color: #8621AB;
+	font-weight: 700;
+	text-indent: 50px;
+}
+
+.background_account button {
+	background: #C579C5;
+	color: #FFFFFF;
+	height: 27px;
+	border-radius: 0.5em;
+	padding: 3px;
+}
+
+.modify_pwd {
+	background: #F2F2F2;
+	display: none;
+	position: absolute;
+	top: 15%;
+	left: 30%;
+	width: 30%;
+	border: 1px;
+	border-style: solid;
+	border-color: #990099;
+	z-index: 1002;
+	border-radius: 1em;
+}

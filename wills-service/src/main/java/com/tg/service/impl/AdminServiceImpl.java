@@ -43,9 +43,10 @@ public class AdminServiceImpl implements AdminService{
 		if(mobile==null){
 			mobile=adminTableDAO.getAdminMobile();
 			if(mobile!=null){
-				redisAdmin.set("", mobile);
+				redisAdmin.set("mobile", mobile);
 			}else{//数据库不存在，插入一个哨兵。避免每次再穿透redis
-				redisAdmin.set("", "000");
+				mobile="000";
+				redisAdmin.set("mobile", "000");
 			}
 		}
 		if(mobile.equals("000")){//可能是哨兵
@@ -62,9 +63,9 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<UserInfo> getAllApplyForGuideUsersExt() {
+	public List<GuideInfo> getAllApplyForGuideUsersExt() {
 		// TODO Auto-generated method stub
-		return userService.getUserInfos(getAllApplyForGuideUsers());
+		return userService.getGuideInfos(getAllApplyForGuideUsers());
 	}
 
 

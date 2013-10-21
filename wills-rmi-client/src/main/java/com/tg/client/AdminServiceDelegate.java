@@ -2,6 +2,7 @@ package com.tg.client;
 
 import java.util.List;
 
+import com.tg.model.GuideInfo;
 import com.tg.model.UserInfo;
 import com.tg.service.AdminService;
 import com.wills.clientproxy.ClusterServiceRegistry;
@@ -34,7 +35,7 @@ public class AdminServiceDelegate implements AdminService{
 	}
 
 	@Override
-	public List<UserInfo> getAllApplyForGuideUsersExt() {
+	public List<GuideInfo> getAllApplyForGuideUsersExt() {
 		// TODO Auto-generated method stub
 		return adminServiceDelegate.getAllApplyForGuideUsersExt();
 	}
@@ -51,4 +52,8 @@ public class AdminServiceDelegate implements AdminService{
 		return adminServiceDelegate.getAllGuide(start, rows);
 	}
 
+	public static void main(String[] args) {
+		AdminServiceDelegate dd=new AdminServiceDelegate();
+		System.out.println(dd.getAllGuide(100, 100));
+	}
 }
