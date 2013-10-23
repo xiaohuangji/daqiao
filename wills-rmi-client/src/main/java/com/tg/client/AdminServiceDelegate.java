@@ -54,6 +54,6 @@ public class AdminServiceDelegate implements AdminService{
 
 	public static void main(String[] args) {
 		AdminServiceDelegate dd=new AdminServiceDelegate();
-		System.out.println(dd.getAllGuide(100, 100));
+		System.out.println(dd.toBeGuide(10000014));
 	}
 }

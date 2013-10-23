@@ -1,5 +1,7 @@
 package com.tg.service.impl;
 
+import org.apache.log4j.Logger;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,10 @@ import com.tg.service.UserService;
 import com.wills.redis.client.RedisClient;
 
 public class AdminServiceImpl implements AdminService{
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(AdminServiceImpl.class);
 
 	private UserDAO userDAO;
 	
@@ -73,20 +79,18 @@ public class AdminServiceImpl implements AdminService{
 	public int toBeGuide(int userId) {
 		// TODO Auto-generated method stub
 		//更改userInfo中的usertype
-		int result=userDAO.changeUserInfoType(userId, UserConstant.TYPE_GUIDE);
+		userDAO.changeUserInfoType(userId, UserConstant.TYPE_GUIDE);
 		redisUserInfo.del(String.valueOf(userId));
-		if(result!=1)
-			return ResultConstant.OP_FAIL;
 		//更改guideInfo中状态
-		result=userDAO.changeGuideInfoStatus(userId, UserConstant.GSTAUS_NORMAL);
-		if(result!=1)
-			return ResultConstant.OP_FAIL;
+		userDAO.changeGuideInfoStatus(userId, UserConstant.GSTAUS_NORMAL);
 		//将数据更新入solr
-		if(GuideForSolrUtil.addGuideToSolr((GuideInfo)userService.getUserInfo(userId)))
+		if(GuideForSolrUtil.addGuideToSolr((GuideInfo)userService.getUserInfo(userId))){
+			logger.info("add new guide to solr:"+userId);
 			return ResultConstant.OP_OK;
-		else
+		}
+		else{
 			return ResultConstant.OP_FAIL;
-			
+		}
 	}
 	
 	@Override

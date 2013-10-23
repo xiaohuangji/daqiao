@@ -21,9 +21,9 @@ public interface UserDAO {
 	public String getPwd(int userId);
 	
 	@SQL("select user_id from user_info where mobile=:1 ")
-	public int getUserIdByMobile(String mobile);
+	public Integer getUserIdByMobile(String mobile);
 	
-	@SQL("replace into user_info (user_id,user_name,mobile,gender,user_type) values (:1.userId,:1.userName,:1.mobile,:1.gender,:1.userType)")
+	@SQL("insert into user_info (user_id,user_name,mobile,gender,user_type) values (:1.userId,:1.userName,:1.mobile,:1.gender,:1.userType)")
 	public int insertUserInfo(UserInfo userInfo);
 	
 	@SQL("select user_id,user_name,mobile,gender,user_type,head_url from user_info where user_id=:1")

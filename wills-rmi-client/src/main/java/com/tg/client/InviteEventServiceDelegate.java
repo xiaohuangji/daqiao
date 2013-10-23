@@ -61,10 +61,10 @@ public class InviteEventServiceDelegate implements InviteEventService {
 		//System.out.println(d.invite(10000006, 10000005, "故宫", System.currentTimeMillis(), System.currentTimeMillis()+10000));
 		
 		//System.out.println(d.inviteAll(10000008, "", System.currentTimeMillis(), System.currentTimeMillis()+1000, "38.6518141832995,104.07643139362494",0));
-		//System.out.println(d.getHistoricalInviteEvents(10000006, 0, 100).size());
+		System.out.println(d.getHistoricalInviteEvents(10000014, 0, 100).size());
 		//System.out.println(d.cancle(1, 100000006, 100000007));
 		//System.out.println(d.cancle(2, 100000006, 0));
-		System.out.println(d.setSatisfaction(7, 1, 10000008, 10000007));
+		//System.out.println(d.setSatisfaction(7, 1, 10000008, 10000007));
 		
 	}
 }

@@ -62,6 +62,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int getVerifyCode(String mobile) {
 		// TODO Auto-generated method stub
+		//判断如果已经是注册用户，返回错误
+		Integer userId=userDAO.getUserIdByMobile(mobile);
+		if(userId!=null){
+			logger.warn("this user has registered :"+userId);
+			return ResultConstant.OP_FAIL;
+		}
 		Random r = new Random();
 		int x = r.nextInt(9999); 
 		redisVerify.setex(mobile, x, 120);
@@ -190,6 +196,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int applyForGuide(int userId, String goodAtScenic, long birthday,
 			int beGuideYear, String guideCardUrl, String guideCardId,String location,int city) {
+		UserInfo userInfo=getUserInfo(userId);
+		//如果已经是guide，不允许再次提交申请
+		if(userInfo.getUserType()==UserConstant.TYPE_GUIDE)
+			return ResultConstant.OP_FAIL;
 		// TODO Auto-generated method stub
 		GuideInfo guideInfo=new GuideInfo();
 		guideInfo.setUserId(userId);
@@ -390,6 +400,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int changeUserInfo(int userId, String userName,int gender,String headUrl) {
 		// TODO Auto-generated method stub
+		//如果是导游，不允许更改用户姓名和性别,但是头像可以改
+		UserInfo userInfo=getUserInfo(userId);
+		if(userInfo!=null&&userInfo.getUserType()==UserConstant.TYPE_GUIDE&&(!userInfo.getUserName().equals(userName)||userInfo.getGender()!=gender))
+			//以上条件表示导游要更改姓名或者性别
+			return ResultConstant.OP_FAIL;
 		int result= userDAO.changeUserInfo(userId, userName, gender, headUrl);
 		redisUserInfo.del(String.valueOf(userId));
 		redisGuideInfo.del(String.valueOf(userId));
