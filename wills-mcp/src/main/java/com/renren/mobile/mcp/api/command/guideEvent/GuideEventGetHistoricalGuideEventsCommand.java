@@ -37,7 +37,7 @@ public class GuideEventGetHistoricalGuideEventsCommand extends AbstractApiComman
         try {
             long t = System.currentTimeMillis();
             boolean filter=false;
-            if(userId!=""&&!userId.equals("0")){//传USERID,表示获取其他导游的历史记录，需要过滤
+            if(userId!=null&&userId!=""&&!userId.equals("0")){//传USERID,表示获取其他导游的历史记录，需要过滤
             	guideId=Integer.valueOf(userId);
             	filter=true;
             }

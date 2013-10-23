@@ -8,6 +8,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.UpdateResponse;
+import org.apache.solr.common.cloud.SolrZooKeeper;
 
 import com.tg.util.CONFIGUtil;
 
@@ -123,9 +124,12 @@ public class SolrClient {
         queryArgs.set("d", 3);*/
         //queryArgs.set("spatial",true);
         
-        QueryResponse  qr=SolrClient.getInstance().queryUser(queryArgs);;
+        //QueryResponse  qr=SolrClient.getInstance().queryUser(queryArgs);;
 
-        System.out.println(qr.toString());
+        //System.out.println(qr.toString());
+        SolrClient.getInstance().deleteUser(10000005);
+        SolrClient.getInstance().deleteUser(10000007);
+        SolrClient.getInstance().addUserCommit();
         
     }
 }

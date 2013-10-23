@@ -1,5 +1,7 @@
 package com.tg.service.impl;
 
+import org.apache.log4j.Logger;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,10 @@ import com.tg.service.UserService;
 import com.tg.util.ListStrUtil;
 
 public class InviteEventServiceImpl implements InviteEventService{
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(InviteEventServiceImpl.class);
 
 	private GuideEventDAO guideEventDAO;
 	
@@ -64,6 +70,7 @@ public class InviteEventServiceImpl implements InviteEventService{
 		result=guideEventDAO.insertGuideEvent(guideEvent);
 		if(result!=1)
 			return ResultConstant.OP_FAIL;
+		logger.info("invite succ,userId--guideId:"+userId+"--"+guideId);
 		return ResultConstant.OP_OK;
 	}
 
@@ -110,6 +117,7 @@ public class InviteEventServiceImpl implements InviteEventService{
 				guideEventDAO.insertGuideEvent(guideEvent);
 			}
 		}
+		logger.info("inviteall succ,userId--guideId:"+userId+"--"+ids);
 		return ResultConstant.OP_OK;
 	}
 
@@ -132,7 +140,7 @@ public class InviteEventServiceImpl implements InviteEventService{
 			//修改guide库
 			guideEventDAO.changeStatus(eventId, EventConstant.GE_STATUS_CANCLED, guideId);
 		}
-		
+		logger.info("cancel invite，useId--eventId:"+userId+"--"+eventId);
 		return ResultConstant.OP_OK;
 	}
 
@@ -160,9 +168,10 @@ public class InviteEventServiceImpl implements InviteEventService{
 		int result1=inviteEventDAO.setSatisfaction(userId, eventId, satisfaction);
 		int result2=guideEventDAO.setSatisfaction(eventId, satisfaction, guideId);
 		//更新导游评分信息;
-		int result3=userService.updateEvaluate(userId, satisfaction);
+		int result3=userService.updateEvaluate(guideId, satisfaction);
 		
 		if(result1==1 && result2==1 && result3==ResultConstant.OP_OK){
+			logger.info("setsatisfaction succ,userId--eventId:"+userId+"--"+eventId);
 			return ResultConstant.OP_OK;
 		}
 		return ResultConstant.OP_FAIL;
@@ -198,6 +207,7 @@ public class InviteEventServiceImpl implements InviteEventService{
 			return ;
 		inviteEvent.setGuideName(userInfo.getUserName());
 		inviteEvent.setGuideHeadUrl(userInfo.getHeadUrl());
+		inviteEvent.setMobile(userInfo.getMobile());
 	}
 	
 	private void renderGuideInfos(List<InviteEvent> inviteEvents){

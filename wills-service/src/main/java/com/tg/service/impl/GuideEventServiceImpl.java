@@ -1,5 +1,7 @@
 package com.tg.service.impl;
 
+import org.apache.log4j.Logger;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,10 @@ import com.tg.service.UserService;
 import com.tg.util.ListStrUtil;
 
 public class GuideEventServiceImpl implements GuideEventService {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(GuideEventServiceImpl.class);
 
 	private GuideEventDAO guideEventDAO;
 	
@@ -45,6 +51,7 @@ public class GuideEventServiceImpl implements GuideEventService {
 			}
 		}
 		
+		logger.info("accept invite succ,guideId--eventId"+guideId+"--"+eventId);
 		return ResultConstant.OP_OK;
 		
 	}
@@ -60,7 +67,7 @@ public class GuideEventServiceImpl implements GuideEventService {
 			//更新invite库
 			inviteEventDAO.changeStatus(userId, eventId, EventConstant.IE_STATUS_REFUSED);
 		}
-			
+		logger.info("refuse invite succ,guideId--eventId"+guideId+"--"+eventId);
 		return ResultConstant.OP_OK;
 	}
 
@@ -116,6 +123,7 @@ public class GuideEventServiceImpl implements GuideEventService {
 		}
 		guideEvent.setUserName(userInfo.getUserName());
 		guideEvent.setUserHeadUrl(userInfo.getHeadUrl());
+		guideEvent.setMobile(userInfo.getMobile());
 	}
 	
 	private void renderUserInfos(List<GuideEvent> guideEvents){

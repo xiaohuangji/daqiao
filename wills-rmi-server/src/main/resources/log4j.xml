@@ -12,18 +12,18 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.tg">
-		<level value="info" />
+		<level value="debug" />
+		<appender-ref ref="stdout" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	
 	<root>
-		<level value="info" />
-		<appender-ref ref="stdout" />
+		<level value="error" />
 	</root>
 	
 </log4j:configuration>

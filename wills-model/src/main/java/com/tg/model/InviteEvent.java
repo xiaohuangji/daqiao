@@ -66,6 +66,10 @@ public class InviteEvent implements Serializable{
 
 	private String guideHeadUrl;
 	
+	private String mobile;
+	
+	//以上字段只在下发给客户端才拼接
+	
 	public long getEventId() {
 		return eventId;
 	}
@@ -162,4 +166,13 @@ public class InviteEvent implements Serializable{
 	public void setGuideHeadUrl(String guideHeadUrl) {
 		this.guideHeadUrl = guideHeadUrl;
 	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	
 }

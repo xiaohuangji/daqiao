@@ -1,11 +1,11 @@
 package com.tg.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrQuery.ORDER;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -21,20 +21,28 @@ import com.tg.model.GuideInfo;
 import com.tg.model.UserInfo;
 import com.tg.passport.utils.GuideForSolrUtil;
 import com.tg.service.AdminService;
+import com.tg.service.PassportService;
 import com.tg.service.UserService;
 import com.tg.solr.SolrClient;
 import com.tg.solr.User4Solr;
 import com.tg.util.MD5Util;
 import com.tg.util.SMSUtil;
+import com.tg.util.StrFilterUtil;
 import com.wills.redis.client.RedisClient;
 
 public class UserServiceImpl implements UserService{
-
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
+	
 	private UserDAO userDAO;
 	
 	private IdSequenceDAO idSequenceDAO;
 	
 	private AdminService adminService;
+	
+	private PassportService passportService;
 	
 	private static  RedisClient redisVerify=new RedisClient(RedisKeyConstant.USER_VERIFYCODE);
 	
@@ -58,11 +66,12 @@ public class UserServiceImpl implements UserService{
 		int x = r.nextInt(9999); 
 		redisVerify.setex(mobile, x, 120);
 		if(SMSUtil.sendSM(mobile, verifyCodeStr+x)){
+			logger.debug("gen verify code for mobile:"+x);
 			return ResultConstant.OP_OK;
 		}else{
+			logger.warn("send verify code error:"+mobile);
 			return ResultConstant.OP_FAIL;
 		}
-		
 	}
 
 	@Override
@@ -72,6 +81,7 @@ public class UserServiceImpl implements UserService{
 		//检查验证码
 		String realVerifyCode=redisVerify.get(mobile, String.class);
 		if(!realVerifyCode.equals(verifyCode)){
+			logger.debug("verify code not match"+mobile);
 			return ResultConstant.OP_FAIL;
 		}
 		// 入库
@@ -90,6 +100,7 @@ public class UserServiceImpl implements UserService{
 		userInfo.setUserType(UserConstant.TYPE_TOURIST);
 		result=userDAO.insertUserInfo(userInfo);
 		if(result==1){
+			logger.info("register succ ,userId:"+userId);
 			return userId;
 		}
 		else{
@@ -105,16 +116,20 @@ public class UserServiceImpl implements UserService{
 		if(realPwd.equals(MD5Util.md5(password+userId))){
 			return userId;
 		}
+		logger.debug("login fail,password error:"+mobile);
 		return ResultConstant.OP_FAIL;
 	}
 	
 	@Override
 	public int changePassword(int userId,String oldPassword,String newPassword){
 		String oldPwd=userDAO.getPwd(userId);
-		if(oldPwd.equals(MD5Util.md5(oldPwd+userId))){//旧密码验证通过
+		if(oldPwd.equals(MD5Util.md5(oldPassword+userId))){//旧密码验证通过
+			logger.debug("oldpwd succ,start to update newpwd:"+userId);
 			int result=userDAO.insertPwd(userId, MD5Util.md5(newPassword+userId));
-			return (result==1?ResultConstant.OP_OK:ResultConstant.OP_FAIL);
+			passportService.destroyTicket(passportService.getTicketByUserId(userId));
+			return (result!=0?ResultConstant.OP_OK:ResultConstant.OP_FAIL);
 		}else{
+			logger.warn("oldpwd error,changepwd fail:"+userId);
 			return ResultConstant.OP_FAIL;
 		}
 	}
@@ -164,13 +179,10 @@ public class UserServiceImpl implements UserService{
 		UserInfo userInfo=getUserInfoById(userId);
 		try {
 			BeanUtils.copyProperties(guideInfo, userInfo);
-		} catch (IllegalAccessException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			logger.error("copy userinfo to guideinfo error:",e);
+		} 
 		redisGuideInfo.set(String.valueOf(userId), guideInfo);
 		return guideInfo;
 	}
@@ -196,6 +208,7 @@ public class UserServiceImpl implements UserService{
 		
 		if(userDAO.insertGuideInfo(guideInfo)==1){
 			//发送提醒给管理员进行审核
+			logger.info("apply for guide succ:"+userId);
 			SMSUtil.sendSM(adminService.getAdminMobile(),adminCheckStr);
 			return ResultConstant.OP_OK;
 		}else{
@@ -203,6 +216,11 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 	
+	@Autowired
+	public void setPassportService(PassportService passportService) {
+		this.passportService = passportService;
+	}
+
 	@Autowired
 	public void setAdminService(AdminService adminService) {
 		this.adminService = adminService;
@@ -234,6 +252,7 @@ public class UserServiceImpl implements UserService{
         queryArgs.setRows(row);
         queryArgs.setQuery("*:*");
 		QueryResponse qrs=SolrClient.getInstance().queryUser(queryArgs);
+		logger.debug("getnearbyguide succ ,location:"+location);
 		return solrUserToIds(qrs);
 	}
 
@@ -249,11 +268,13 @@ public class UserServiceImpl implements UserService{
 		if(gender!=UserConstant.GENDER_UNKNOWN){
 			sb.append(" AND gender:"+gender);
 		}
+		goodAtScenic=StrFilterUtil.queryFilter(goodAtScenic, false);
 		if(goodAtScenic!=null&&!goodAtScenic.isEmpty()){
 			sb.append(" AND goodAtScenic:"+goodAtScenic);
 		}
 		solrQuery.setQuery(sb.toString());
 		QueryResponse qrs=SolrClient.getInstance().queryUser(solrQuery);
+		logger.debug("searchguide succ:"+sb.toString());
 		return solrUserToIds(qrs);
 	}
 
@@ -372,6 +393,7 @@ public class UserServiceImpl implements UserService{
 		int result= userDAO.changeUserInfo(userId, userName, gender, headUrl);
 		redisUserInfo.del(String.valueOf(userId));
 		redisGuideInfo.del(String.valueOf(userId));
+		logger.debug("changeuserinfo:"+userId);
 		return (result==1?ResultConstant.OP_OK:ResultConstant.OP_FAIL);
 	}
 	
@@ -387,6 +409,7 @@ public class UserServiceImpl implements UserService{
 		GuideInfo g=(GuideInfo)getUserInfo(userId);
 		boolean solrResult=GuideForSolrUtil.addGuideToSolr(g);
 		if(daoResult==1 && solrResult==true){
+			logger.debug("change location succ:"+userId);
 			return ResultConstant.OP_OK;
 		}
 		else {
@@ -399,6 +422,7 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		int result=userDAO.updateEvaluate(userId, satisfaction==EventConstant.SATIS_YES ? EVALUATE_SCORE_YES : EVALUATE_SCORE_NO);
 		redisGuideInfo.del(String.valueOf(userId));
+		logger.debug("update guide's evaluate:"+userId);
 		return (result==1?ResultConstant.OP_OK:ResultConstant.OP_FAIL);
 	}
 	

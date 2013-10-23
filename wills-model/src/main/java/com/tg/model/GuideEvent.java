@@ -56,6 +56,10 @@ public class GuideEvent implements Serializable{
 	private String userName;
 	
 	private String userHeadUrl;
+	
+	private String mobile;
+	
+	//以上字段只在下发数据时拼接
 
 	public int getGuideId() {
 		return guideId;
@@ -152,6 +156,13 @@ public class GuideEvent implements Serializable{
 	public void setScenic(String scenic) {
 		this.scenic = scenic;
 	}
-	
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 	
 }

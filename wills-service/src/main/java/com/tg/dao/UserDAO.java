@@ -48,7 +48,7 @@ public interface UserDAO {
 	@SQL("update user_info set head_url=:2 where user_id=:1")
 	public int changeHeadUrl(int userId,String headUrl);
 	
-	@SQL("udpate user_info set user_name=:2 ,gender=:3 ,head_url=:4 where user_id:1")
+	@SQL("update user_info set user_name=:2 ,gender=:3 ,head_url=:4 where user_id=:1")
 	public int changeUserInfo(int userId,String userName,int gender,String headUrl);
 	
 	@SQL("update guide_info set location=:2 where user_id=:1")
@@ -57,6 +57,6 @@ public interface UserDAO {
 	@SQL("select user_id from guide_info where status=1 order by user_id limit :1,:2 ")
 	public List<Integer> getAllGuides(int start,int rows);
 	
-	@SQL("update guide_info set evaluate_score=evalute_score+:2 ,evaluate_count=evalute_count+1 where user_id=:1")
+	@SQL("update guide_info set evaluate_score=evaluate_score+:2 ,evaluate_count=evaluate_count+1 where user_id=:1")
 	public int updateEvaluate(int userId,int evaluateScore);
 }
