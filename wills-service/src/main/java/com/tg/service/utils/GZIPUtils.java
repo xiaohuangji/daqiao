@@ -2,7 +2,7 @@
  * $Id $
  * Copyright 2009-2011 Oak Pacific Interactive. All rights reserved.
  */
-package com.tg.passport.utils;
+package com.tg.service.utils;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;

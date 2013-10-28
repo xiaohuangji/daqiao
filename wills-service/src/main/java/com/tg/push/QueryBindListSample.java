@@ -1,4 +1,4 @@
-package com.tg.baidu.push;
+package com.tg.push;
 
 import java.util.List;
 

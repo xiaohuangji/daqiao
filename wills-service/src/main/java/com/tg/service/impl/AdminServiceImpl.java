@@ -13,9 +13,9 @@ import com.tg.dao.AdminTableDAO;
 import com.tg.dao.UserDAO;
 import com.tg.model.GuideInfo;
 import com.tg.model.UserInfo;
-import com.tg.passport.utils.GuideForSolrUtil;
 import com.tg.service.AdminService;
 import com.tg.service.UserService;
+import com.tg.service.utils.GuideForSolrUtil;
 import com.tg.util.SMSUtil;
 import com.wills.redis.client.RedisClient;
 

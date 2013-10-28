@@ -1,4 +1,4 @@
-package com.tg.passport.utils;
+package com.tg.service.utils;
 
 import com.tg.model.GuideInfo;
 import com.tg.solr.SolrClient;

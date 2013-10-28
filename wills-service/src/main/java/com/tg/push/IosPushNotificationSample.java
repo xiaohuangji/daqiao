@@ -1,4 +1,4 @@
-package com.tg.baidu.push;
+package com.tg.push;
 
 import com.baidu.yun.channel.auth.ChannelKeyPair;
 import com.baidu.yun.channel.client.BaiduChannelClient;

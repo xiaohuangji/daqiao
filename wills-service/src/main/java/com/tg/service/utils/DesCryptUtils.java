@@ -2,7 +2,7 @@
  * $Id: DesCryptUtils.java 66922 2012-01-30 08:14:20Z shuai.ma@XIAONEI.OPI.COM $
  * Copyright 2009-2010 Oak Pacific Interactive. All rights reserved.
  */
-package com.tg.passport.utils;
+package com.tg.service.utils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

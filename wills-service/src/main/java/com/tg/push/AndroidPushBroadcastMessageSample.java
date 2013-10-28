@@ -1,4 +1,4 @@
-package com.tg.baidu.push;
+package com.tg.push;
 
 import com.baidu.yun.channel.auth.ChannelKeyPair;
 import com.baidu.yun.channel.client.BaiduChannelClient;
@@ -9,13 +9,13 @@ import com.baidu.yun.channel.model.PushBroadcastMessageResponse;
 import com.baidu.yun.core.log.YunLogEvent;
 import com.baidu.yun.core.log.YunLogHandler;
 
-public class IosPushBroadcastNotificationSample {
+public class AndroidPushBroadcastMessageSample {
 
 	public static void main(String[] args) {
 		
 		/*
-		 * @brief	���͹㲥֪ͨ(IOS APNS)
-		 * 			message_type = 1 (Ĭ��Ϊ0)
+		 * @brief	���͹㲥��Ϣ(��Ϣ����Ϊ͸�����ɿ�����Ӧ���Լ���������Ϣ����)
+		 * 			message_type = 0 (Ĭ��Ϊ0)
 		 */
 		
 		// 1. ����developerƽ̨��ApiKey/SecretKey
@@ -25,7 +25,6 @@ public class IosPushBroadcastNotificationSample {
 		
 		// 2. ����BaiduChannelClient����ʵ��
 		BaiduChannelClient channelClient = new BaiduChannelClient(pair);
-
 		
 		// 3. ��Ҫ�˽⽻��ϸ�ڣ���ע��YunLogHandler��
 		channelClient.setChannelLogHandler(new YunLogHandler() {
@@ -39,10 +38,12 @@ public class IosPushBroadcastNotificationSample {
 			
 			// 4. �������������
 			PushBroadcastMessageRequest request = new PushBroadcastMessageRequest();
-			request.setDeviceType(4);	// device_type => 1: web 2: pc 3:android 4:ios 5:wp	
-			request.setMessageType(1);
-			request.setDeployStatus(2); // DeployStatus => 1: Developer 2: Production
-			request.setMessage("{\"aps\":{\"alert\":\"Hello Baidu Channel\"}}");
+			request.setDeviceType(3);	// device_type => 1: web 2: pc 3:android 4:ios 5:wp	
+			
+			request.setMessage("Hello Channel");
+			// ��Ҫ֪ͨ��
+			//			request.setMessageType(1);
+			//			request.setMessage("{\"title\":\"Notify_title_danbo\",\"description\":\"Notify_description_content\"}");
  			
 			// 5. ����pushMessage�ӿ�
 			PushBroadcastMessageResponse response = channelClient.pushBroadcastMessage(request);

@@ -1,4 +1,4 @@
-package com.tg.passport.utils;
+package com.tg.service.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;

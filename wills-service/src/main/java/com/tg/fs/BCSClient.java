@@ -1,4 +1,4 @@
-package com.tg.baidu.bcs;
+package com.tg.fs;
 
 import java.io.File;
 import java.io.FileInputStream;

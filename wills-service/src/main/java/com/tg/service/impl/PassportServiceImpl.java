@@ -7,8 +7,8 @@ import org.apache.commons.lang.StringUtils;
 
 import com.tg.constant.RedisKeyConstant;
 import com.tg.model.UserPassport;
-import com.tg.passport.utils.TicketUtils;
 import com.tg.service.PassportService;
+import com.tg.service.utils.TicketUtils;
 import com.wills.redis.client.RedisClient;
 
 
