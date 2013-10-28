@@ -26,8 +26,21 @@ public class StrFilterUtil {
 		 */
 		return input.replaceAll(regex, "");
 	}
+	
+	//判断一串字符串是否都为空格或者为空，empty
+	public static boolean isBlank(String input){
+		if(input==null||input.isEmpty())
+			return true;
+		for(int i=0;i<input.length();i++){
+			if(input.charAt(i)!=32&&input.charAt(i)!=9){
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public static void main(String[] args) {
-		System.out.println(StrFilterUtil.queryFilter("fsdf%&1", true));
+		//System.out.println(StrFilterUtil.queryFilter("  fsdf%&1", true));
+		System.out.println(StrFilterUtil.isBlank(null));
 	}
 }

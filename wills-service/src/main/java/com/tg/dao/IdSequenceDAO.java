@@ -10,5 +10,8 @@ public interface IdSequenceDAO {
 
     @SQL("select nextval('tg_event_id')")
     public long getEventId();
+    
+    @SQL("select nextval('tg_msg_id')")
+    public long getMsgId();
 
 }

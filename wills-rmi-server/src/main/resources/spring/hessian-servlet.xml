@@ -53,6 +53,12 @@
 		<property name="service" ref="adminService" />
 		<property name="serviceInterface" value="com.tg.service.AdminService" />
 	</bean>
+	
+	<bean name="/MessageService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="messageService" />
+		<property name="serviceInterface" value="com.tg.service.MessageService" />
+	</bean>
 
 
 </beans>

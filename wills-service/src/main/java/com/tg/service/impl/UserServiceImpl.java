@@ -117,8 +117,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int login(String mobile, String password) {
 		// TODO Auto-generated method stub
-		int userId=userDAO.getUserIdByMobile(mobile);
+		Integer userId=userDAO.getUserIdByMobile(mobile);
+		if(userId==null)
+			return ResultConstant.OP_FAIL;
 		String realPwd=userDAO.getPwd(userId);
+		if(realPwd==null)
+			return ResultConstant.OP_FAIL;
 		if(realPwd.equals(MD5Util.md5(password+userId))){
 			return userId;
 		}
@@ -279,7 +283,7 @@ public class UserServiceImpl implements UserService{
 			sb.append(" AND gender:"+gender);
 		}
 		goodAtScenic=StrFilterUtil.queryFilter(goodAtScenic, false);
-		if(goodAtScenic!=null&&!goodAtScenic.isEmpty()){
+		if(goodAtScenic!=null&&!goodAtScenic.isEmpty()&&!StrFilterUtil.isBlank(goodAtScenic)){
 			sb.append(" AND goodAtScenic:"+goodAtScenic);
 		}
 		solrQuery.setQuery(sb.toString());
@@ -418,12 +422,17 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		//更新数据库
 		int daoResult=userDAO.changeLocation(userId, location);
+		if(daoResult!=1){
+			logger.debug("this user is not a guide,it can not changeLocation");
+			return ResultConstant.OP_FAIL;
+		}
+				
 		//更新缓存
 		redisGuideInfo.del(String.valueOf(userId));
 		//更新solr
 		GuideInfo g=(GuideInfo)getUserInfo(userId);
 		boolean solrResult=GuideForSolrUtil.addGuideToSolr(g);
-		if(daoResult==1 && solrResult==true){
+		if(solrResult==true){
 			logger.debug("change location succ:"+userId);
 			return ResultConstant.OP_OK;
 		}

@@ -16,6 +16,7 @@ import com.tg.model.UserInfo;
 import com.tg.passport.utils.GuideForSolrUtil;
 import com.tg.service.AdminService;
 import com.tg.service.UserService;
+import com.tg.util.SMSUtil;
 import com.wills.redis.client.RedisClient;
 
 public class AdminServiceImpl implements AdminService{
@@ -33,6 +34,10 @@ public class AdminServiceImpl implements AdminService{
 	private static  RedisClient redisUserInfo=new RedisClient(RedisKeyConstant.USER_INFO);
 	
 	private static RedisClient redisAdmin=new RedisClient(RedisKeyConstant.USER_ADMIN_MOBLE);
+	
+	private static final String SMS_TOBEGUIDE="恭喜您，导游审核通过";
+	
+	private static final String SMS_REJECT_TOBEGUIDE="您的导游身份未通过审核:";
 	
 	@Override
 	public int setAdminMobile(String mobile) {
@@ -83,6 +88,9 @@ public class AdminServiceImpl implements AdminService{
 		redisUserInfo.del(String.valueOf(userId));
 		//更改guideInfo中状态
 		userDAO.changeGuideInfoStatus(userId, UserConstant.GSTAUS_NORMAL);
+		UserInfo userInfo=userService.getUserInfo(userId);
+		//发短信通知用户
+		SMSUtil.sendSM(userInfo.getMobile(), SMS_TOBEGUIDE);
 		//将数据更新入solr
 		if(GuideForSolrUtil.addGuideToSolr((GuideInfo)userService.getUserInfo(userId))){
 			logger.info("add new guide to solr:"+userId);
@@ -91,6 +99,18 @@ public class AdminServiceImpl implements AdminService{
 		else{
 			return ResultConstant.OP_FAIL;
 		}
+	}
+	
+
+	@Override
+	public int rejectToBeGuide(int userId, String reason) {
+		// TODO Auto-generated method stub
+		//清空guide_info中的宴请信息
+		userDAO.removeGuideInfo(userId);
+		UserInfo userInfo=userService.getUserInfo(userId);
+		SMSUtil.sendSM(userInfo.getMobile(), SMS_REJECT_TOBEGUIDE+reason);
+		logger.info("reject a user guide apply:"+userId);
+		return ResultConstant.OP_OK;
 	}
 	
 	@Override
@@ -114,6 +134,5 @@ public class AdminServiceImpl implements AdminService{
 	public void setAdminTableDAO(AdminTableDAO adminTableDAO) {
 		this.adminTableDAO = adminTableDAO;
 	}
-
 	
 }

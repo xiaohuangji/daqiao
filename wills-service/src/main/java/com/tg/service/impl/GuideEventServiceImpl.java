@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tg.constant.EventConstant;
+import com.tg.constant.MessageConstant;
 import com.tg.constant.ResultConstant;
 import com.tg.dao.BroadcastEventDAO;
 import com.tg.dao.GuideEventDAO;
@@ -15,6 +16,7 @@ import com.tg.model.GuideEvent;
 import com.tg.model.InviteEvent;
 import com.tg.model.UserInfo;
 import com.tg.service.GuideEventService;
+import com.tg.service.MessageService;
 import com.tg.service.UserService;
 import com.tg.util.ListStrUtil;
 
@@ -31,6 +33,8 @@ public class GuideEventServiceImpl implements GuideEventService {
 	private BroadcastEventDAO broadcastEventDAO;
 	
 	private UserService userService;
+	
+	private MessageService messageService;
 	
 	@Override
 	public int accept(long eventId, int guideId,int userId) {
@@ -50,7 +54,8 @@ public class GuideEventServiceImpl implements GuideEventService {
 				}
 			}
 		}
-		
+		//发送消息
+		messageService.sendMessage(guideId, userId, MessageConstant.MSG_TYPE_ACCEPTED, null);
 		logger.info("accept invite succ,guideId--eventId"+guideId+"--"+eventId);
 		return ResultConstant.OP_OK;
 		
@@ -67,6 +72,8 @@ public class GuideEventServiceImpl implements GuideEventService {
 			//更新invite库
 			inviteEventDAO.changeStatus(userId, eventId, EventConstant.IE_STATUS_REFUSED);
 		}
+		//发送消息
+		messageService.sendMessage(guideId, userId, MessageConstant.MSG_TYPE_REFUSED, null);
 		logger.info("refuse invite succ,guideId--eventId"+guideId+"--"+eventId);
 		return ResultConstant.OP_OK;
 	}
@@ -111,6 +118,11 @@ public class GuideEventServiceImpl implements GuideEventService {
 	@Autowired
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+	
+	@Autowired
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
 	}
 
 	private void renderUserInfo(GuideEvent guideEvent){

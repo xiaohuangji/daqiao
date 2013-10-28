@@ -11,5 +11,7 @@ public class RedisKeyConstant {
 	public final static String USER_PASSPORT="u:passport:";
 	
 	public final static String USER_ADMIN_MOBLE="u:admin:";
+	
+	public final static String USER_DEVICE_INFO="u:device:";
 
 }

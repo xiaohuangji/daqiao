@@ -45,6 +45,12 @@
 			<artifactId>pp-baidu-bcs-sdk</artifactId>
 			<version>1.4.5</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.pp</groupId>
+			<artifactId>pp-baidu-push-sdk</artifactId>
+			<version>1.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>net.paoding</groupId>

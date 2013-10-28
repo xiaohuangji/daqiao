@@ -42,6 +42,9 @@ public interface UserDAO {
 	@SQL("update guide_info set status=:2 where user_id=:1")
 	public int changeGuideInfoStatus(int userId,int status);
 	
+	@SQL("delete from guide_info where user_id=:1")
+	public int removeGuideInfo(int userId);
+	
 	@SQL("select user_id from guide_info where status=0")
 	public List<Integer> getAllApplyForGuideUsers();
 	

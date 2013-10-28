@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tg.constant.EventConstant;
+import com.tg.constant.MessageConstant;
 import com.tg.constant.ResultConstant;
 import com.tg.dao.BroadcastEventDAO;
 import com.tg.dao.GuideEventDAO;
@@ -16,6 +17,7 @@ import com.tg.model.GuideEvent;
 import com.tg.model.InviteEvent;
 import com.tg.model.UserInfo;
 import com.tg.service.InviteEventService;
+import com.tg.service.MessageService;
 import com.tg.service.UserService;
 import com.tg.util.ListStrUtil;
 
@@ -34,6 +36,8 @@ public class InviteEventServiceImpl implements InviteEventService{
 	private BroadcastEventDAO broadcastEventDAO;
 	
 	private UserService userService;
+	
+	private MessageService messageService;
 	
 	@Override
 	public int invite(int userId, int guideId, String scenic, long startTime,
@@ -70,6 +74,7 @@ public class InviteEventServiceImpl implements InviteEventService{
 		result=guideEventDAO.insertGuideEvent(guideEvent);
 		if(result!=1)
 			return ResultConstant.OP_FAIL;
+		messageService.sendMessage(userId, guideId, MessageConstant.MSG_TYPE_INVITE, null);
 		logger.info("invite succ,userId--guideId:"+userId+"--"+guideId);
 		return ResultConstant.OP_OK;
 	}
@@ -115,6 +120,7 @@ public class InviteEventServiceImpl implements InviteEventService{
 				guideEvent.setEndTime(endTime);
 				guideEvent.setScenic(scenic);	
 				guideEventDAO.insertGuideEvent(guideEvent);
+				messageService.sendMessage(userId, id,MessageConstant.MSG_TYPE_BROADCAST, null);
 			}
 		}
 		logger.info("inviteall succ,userId--guideId:"+userId+"--"+ids);
@@ -169,6 +175,8 @@ public class InviteEventServiceImpl implements InviteEventService{
 		int result2=guideEventDAO.setSatisfaction(eventId, satisfaction, guideId);
 		//更新导游评分信息;
 		int result3=userService.updateEvaluate(guideId, satisfaction);
+		//发送消息
+		messageService.sendMessage(userId, guideId, MessageConstant.MSG_TYPE_EVALUATED, null);
 		
 		if(result1==1 && result2==1 && result3==ResultConstant.OP_OK){
 			logger.info("setsatisfaction succ,userId--eventId:"+userId+"--"+eventId);
@@ -196,6 +204,11 @@ public class InviteEventServiceImpl implements InviteEventService{
 	@Autowired
 	public void setBroadcastEventDAO(BroadcastEventDAO broadcastEventDAO) {
 		this.broadcastEventDAO = broadcastEventDAO;
+	}
+
+	@Autowired
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
 	}
 
 	private void renderGuideInfo(InviteEvent inviteEvent){

@@ -39,6 +39,13 @@ public interface AdminService {
 	public int toBeGuide(int userId);
 	
 	/**
+	 * 拒绝导游申请
+	 * @param userId
+	 * @return
+	 */
+	public int rejectToBeGuide(int userId,String reason);
+	
+	/**
 	 * 获取所有guide
 	 * @return
 	 */

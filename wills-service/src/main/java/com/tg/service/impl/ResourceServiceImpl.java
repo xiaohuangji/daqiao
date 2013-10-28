@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 
 import java.io.ByteArrayInputStream;
 
-import com.baidu.bcs.BCSClient;
+import com.tg.baidu.bcs.BCSClient;
 import com.tg.service.ResourceService;
 
 public class ResourceServiceImpl implements ResourceService{
