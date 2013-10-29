@@ -27,7 +27,7 @@ public class AndroidPushClient implements PushClient {
 	private static String apiKey = CONFIGUtil.getInstance().getConfig("bpush_apiKey");
 	private static String secretKey = CONFIGUtil.getInstance().getConfig("bpush_secretKey");
 	private static int ANDROID_DEVICE_TYPE = 3;
-	private static String ANDROID_TOKEN_SPLITSTR = "@#$";
+	private static String ANDROID_TOKEN_SPLITSTR = "\\@\\#\\$";
 	private static Gson gson=new GsonBuilder().create();
 
 	private BaiduChannelClient channelClient = null;

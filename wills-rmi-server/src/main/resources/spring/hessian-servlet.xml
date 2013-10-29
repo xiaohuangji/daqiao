@@ -59,6 +59,12 @@
 		<property name="service" ref="messageService" />
 		<property name="serviceInterface" value="com.tg.service.MessageService" />
 	</bean>
+	
+	<bean name="/PushService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="pushService" />
+		<property name="serviceInterface" value="com.tg.service.PushService" />
+	</bean>
 
 
 </beans>

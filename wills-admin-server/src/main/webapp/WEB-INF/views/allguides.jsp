@@ -18,8 +18,10 @@
 		<table>
 			<thead>
 				<tr>
+				    <th>用户头像</th>
 					<th>用户ID</th>
 					<th>用户名称</th>
+					<th>手机号</th>
 					<th>导游编号</th>
 					<th>导游图片地址</th>
 					<th>出生日期</th>
@@ -31,12 +33,14 @@
 			 
 			    <c:forEach items="${users}" var="user">
 				<tr>
-					<td>${user.userId}</td>
-					<td>${user.userName}</td>
-					<td>${user.guideCardId}</td>
-					<td><a href=${user.guideCardUrl}>${user.guideCardUrl}</a></td>
-					<td><span class="addTime">${user.birthday}</span></td>
-					<td>${user.beGuideYear}</td>
+					<td><img src=${user.headUrl} height="40px" width="40px"></td>
+					<td width="70px">${user.userId}</td>
+					<td width="70px">${user.userName}</td>
+					<td width="100px">${user.mobile}</td>
+					<td width="100px">${user.guideCardId}</td>
+					<td width="50px"><a href=${user.guideCardUrl}>点击打开</a></td>
+					<td width="80px"><span class="addTime">${user.birthday}</span></td>
+					<td width="40px">${user.beGuideYear}</td>
 					<td>${user.goodAtScenic}</td>
 				</tr>
 				</c:forEach>

@@ -69,6 +69,7 @@ public class MobileClientAppServiceImpl implements MobileClientAppService, Runna
         methods.add("inviteEvent.*");
         methods.add("guideEvent.*");
         methods.add("resource.*");
+        methods.add("push.*");
 
         // web app
         MobileClientAppInfo mcaiWeb = new MobileClientAppInfo();

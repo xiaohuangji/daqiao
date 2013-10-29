@@ -167,6 +167,7 @@ public class UserServiceDelegate implements UserService {
 		//System.out.println(userServiceDelegate.getNearByGuideExt("38.65,104.07643139362494", 2000, 0, 100));
 		//System.out.println(userServiceDelegate.searchGuideExt(99, 0, "宫", 0, 100));
 		//List<Integer> ids=userServiceDelegate.getAllApplyForGuideUsers();
+		System.out.println(userServiceDelegate.changePassword(10000033, "123456", "123789"));
 	}
 
 }

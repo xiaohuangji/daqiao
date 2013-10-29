@@ -28,5 +28,6 @@
 		<bean id="passportService" class="com.tg.service.impl.PassportServiceImpl"/>
 		<bean id="adminService" class="com.tg.service.impl.AdminServiceImpl"/>
 		<bean id="messageService" class="com.tg.service.impl.MessageServiceImpl"/>
+		<bean id="pushService" class="com.tg.service.impl.PushServiceImpl"/>
 
 </beans>

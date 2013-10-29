@@ -336,9 +336,10 @@ public class UserServiceImpl implements UserService{
 		if(gender!=UserConstant.GENDER_UNKNOWN){
 			sb.append(" AND gender:"+gender);
 		}
-		if(scenic!=null&&!scenic.isEmpty()){
-			sb.append(" AND goodAtScenic:"+scenic);
-		}
+		//不进行景点过滤
+//		if(scenic!=null&&!scenic.isEmpty()){
+//			sb.append(" AND goodAtScenic:"+scenic);
+//		}
 		queryArgs.setQuery(sb.toString());
 		QueryResponse qrs=SolrClient.getInstance().queryUser(queryArgs);
 		return solrUserToIds(qrs);

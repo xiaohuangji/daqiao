@@ -8,8 +8,8 @@ rm -rf ROOT
 
 mv wills-admin-server-1.0.0-SNAPSHOT ROOT
 
-pid=`ps aux|grep admin_tomcat|grep -v grep | awk '{print $2}'`
+#pid=`ps aux|grep admin_tomcat|grep -v grep | awk '{print $2}'`
 
-kill -9 $pid
+#kill -9 $pid
 
-/Users/renren/svn/admin_tomcat/bin/startup.sh
+#/Users/renren/svn/admin_tomcat/bin/startup.sh

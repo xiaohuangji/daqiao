@@ -18,8 +18,10 @@
 		<table>
 			<thead>
 				<tr>
+					<th>用户头像</th>
 					<th>用户ID</th>
 					<th>用户名称</th>
+					<th>手机</th>
 					<th>导游编号</th>
 					<th>导游图片地址</th>
 					<th>出生日期</th>
@@ -31,15 +33,20 @@
 			<tbody>
 			    <c:forEach items="${users}" var="user">
 				<tr>
+					<td><img src=${user.headUrl}></td>
 					<td>${user.userId}</td>
 					<td>${user.userName}</td>
+					<td>${user.mobile}</td>
 					<td>${user.guideCardId}</td>
-					<td><a href=${user.guideCardUrl}>${user.guideCardUrl}</a></td>
+					<td><a href=${user.guideCardUrl}>点击查看</a></td>
 					<td><span class="addTime">${user.birthday}</span></td>
 					<td>${user.beGuideYear}</td>
 					<td>${user.goodAtScenic}</td>
 					<td><a
-						href="/check/tobeguide?userId=${user.userId}">通过</a></td>
+						href="/check/tobeguide?userId=${user.userId}">通过</a>
+						<a
+						href="/check/rejecttobeguide?userId=${user.userId}">驳回</a></td>
+						
 				</tr>
 				</c:forEach>
 			</tbody>

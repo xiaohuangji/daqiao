@@ -32,6 +32,12 @@ public class CheckGuideController {
 		return getAllApplyForGuideUsers();
 	}
 	
+	@RequestMapping(value="rejecttobeguide")
+	public ModelAndView rejectToBeGuide(@RequestParam(value = "userId")int userId){
+		adminService.rejectToBeGuide(userId, "资料审核不通过");
+		return getAllApplyForGuideUsers();
+	}
+	
 	@RequestMapping(value="getallguide")
 	public ModelAndView getAllGuide(@RequestParam(value = "pageNo")int pageNo){
 		int rows=10;

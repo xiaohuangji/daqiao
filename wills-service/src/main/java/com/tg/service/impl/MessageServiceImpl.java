@@ -1,5 +1,7 @@
 package com.tg.service.impl;
 
+import org.apache.log4j.Logger;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.tg.constant.MessageConstant;
@@ -14,6 +16,10 @@ import com.tg.service.PushService;
 import com.tg.service.UserService;
 
 public class MessageServiceImpl implements MessageService {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(MessageServiceImpl.class);
 
 	private MessageDAO messageDAO;
 	
@@ -22,6 +28,13 @@ public class MessageServiceImpl implements MessageService {
 	private UserService userService;
 	
 	private PushService pushService;
+	
+	
+	public static final String MSG_CON_INVITE="收到来自 %s 的预约";
+	public static final String MSG_CON_BROADCAST="收到来自 %s 的广播预约";
+	public static final String MSG_CON_ACCEPT="%s 接受了您的预约";
+	public static final String MSG_CON_REFUSED="%s 拒绝了您的邀请";
+	public static final String MSG_CON_EVALUATED="收到来自 %s 的评价";
 	
 	@Override
 	public List<Message> getMessage(int userId, int start, int rows) {
@@ -40,6 +53,7 @@ public class MessageServiceImpl implements MessageService {
 		msg.setFromId(fromId);
 		msg.setToId(toId);
 		msg.setType(type);
+		msg.setCreateTime(System.currentTimeMillis());
 		msg.setContent(genMsgContent(fromId,toId,type,payload));
 		int result=messageDAO.insertMessage(msg);
 		//发送push
@@ -53,26 +67,27 @@ public class MessageServiceImpl implements MessageService {
 		String content="";
 		switch (type) {
 		case MessageConstant.MSG_TYPE_ACCEPTED:
-			content=String.format(MessageConstant.MSG_CON_ACCEPT, userInfo.getUserName());
+			content=String.format(MSG_CON_ACCEPT, userInfo.getUserName());
 			break;
 		case MessageConstant.MSG_TYPE_BROADCAST:
-			content=String.format(MessageConstant.MSG_CON_BROADCAST, userInfo.getUserName());
+			content=String.format(MSG_CON_BROADCAST, userInfo.getUserName());
 			break;
 		case MessageConstant.MSG_TYPE_CHAT:
 			content=String.valueOf(payload);
 			break;
 		case MessageConstant.MSG_TYPE_EVALUATED:
-			content=String.format(MessageConstant.MSG_CON_EVALUATED, userInfo.getUserName());
+			content=String.format(MSG_CON_EVALUATED, userInfo.getUserName());
 			break;
 		case MessageConstant.MSG_TYPE_INVITE:
-			content=String.format(MessageConstant.MSG_CON_INVITE, userInfo.getUserName());
+			content=String.format(MSG_CON_INVITE, userInfo.getUserName());
 			break;
 		case MessageConstant.MSG_TYPE_REFUSED:
-			content=String.format(MessageConstant.MSG_CON_REFUSED, userInfo.getUserName());
+			content=String.format(MSG_CON_REFUSED, userInfo.getUserName());
 			break;
 		default:
 			break;
 		}
+		//logger.debug("这是消息内容content:"+content);
 		return content;
 	}
 	
@@ -100,6 +115,11 @@ public class MessageServiceImpl implements MessageService {
 	@Autowired
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	@Autowired
+	public void setPushService(PushService pushService) {
+		this.pushService = pushService;
 	}
 	
 	

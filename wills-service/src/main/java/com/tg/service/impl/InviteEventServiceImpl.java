@@ -108,6 +108,8 @@ public class InviteEventServiceImpl implements InviteEventService{
 		//入库
 		if(ids!=null){
 			for(Integer id:ids){
+				if(userId==id)
+					continue;
 				GuideEvent guideEvent=new GuideEvent();
 				guideEvent.setEventId(eventId);
 				guideEvent.setGuideId(id);

@@ -50,6 +50,8 @@ public class PushServiceImpl implements PushService{
 	public int pushMessage(int userId, Message message) {
 		// TODO Auto-generated method stub
 		UserDevice userDevice=getDevice(userId);
+		if(userDevice==null)
+			return ResultConstant.OP_FAIL;
 		//获取到user_device_token
 		return PushClientFactory.pushone(userDevice, message);
 	}
