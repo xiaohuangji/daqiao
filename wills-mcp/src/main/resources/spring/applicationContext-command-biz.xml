@@ -80,4 +80,12 @@
 	<bean id="resourceUploadResourceCommand" class="com.renren.mobile.mcp.api.command.resource.ResourceUploadResourceCommand">
 		<property name="resourceService" ref="resourceService" />	
 	</bean>
+	
+	<bean id="pushBindDeviceCommand" class="com.renren.mobile.mcp.api.command.push.PushBindDeviceCommand">
+		<property name="pushService" ref="pushService" />	
+	</bean>
+	
+	<bean id="pushUnbindDeviceCommand" class="com.renren.mobile.mcp.api.command.push.PushUnbindDeviceCommand">
+		<property name="pushService" ref="pushService" />	
+	</bean>
 </beans>

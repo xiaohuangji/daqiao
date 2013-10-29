@@ -252,7 +252,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<Integer> getNearByGuide(String location, double dist,
-			int start, int row) {
+			int start, int rows) {
 		// TODO Auto-generated method stub
 		SolrQuery queryArgs=new SolrQuery();
 	    queryArgs.setSortField("geodist()", ORDER.asc);
@@ -263,7 +263,7 @@ public class UserServiceImpl implements UserService{
         queryArgs.set("d", String.valueOf(dist));
         queryArgs.set("spatial",true);
         queryArgs.setStart(start);
-        queryArgs.setRows(row);
+        queryArgs.setRows(rows);
         queryArgs.setQuery("*:*");
 		QueryResponse qrs=SolrClient.getInstance().queryUser(queryArgs);
 		logger.debug("getnearbyguide succ ,location:"+location);
@@ -272,11 +272,11 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<Integer> searchGuide(int city, int gender, String goodAtScenic,
-			int start, int row) {
+			int start, int rows) {
 		// TODO Auto-generated method stub
 		SolrQuery solrQuery=new SolrQuery();
 		solrQuery.setStart(start);
-		solrQuery.setRows(row);
+		solrQuery.setRows(rows);
 		StringBuffer sb=new StringBuffer();
 		sb.append("city:"+city);
 		if(gender!=UserConstant.GENDER_UNKNOWN){
@@ -318,7 +318,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<Integer> getNearByGuideWithFilter(int gender, String scenic,
-			String location, double dist, int start, int row) {
+			String location, double dist, int start, int rows) {
 		// TODO Auto-generated method stub
 		SolrQuery queryArgs=new SolrQuery();
 	    queryArgs.setSortField("geodist()", ORDER.asc);
@@ -329,7 +329,7 @@ public class UserServiceImpl implements UserService{
         queryArgs.set("d", String.valueOf(dist));
         queryArgs.set("spatial",true);
         queryArgs.setStart(start);
-        queryArgs.setRows(row);
+        queryArgs.setRows(rows);
         
         StringBuffer sb=new StringBuffer();
         sb.append("*:*");
@@ -360,9 +360,9 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<UserInfo> getNearByGuideWithFilterExt(int gender,
-			String scenic, String location, double dist, int start, int row) {
+			String scenic, String location, double dist, int start, int rows) {
 		// TODO Auto-generated method stub
-		return getUserInfos(getNearByGuideWithFilter(gender, scenic, location, dist, start, row));
+		return getUserInfos(getNearByGuideWithFilter(gender, scenic, location, dist, start, rows));
 	}
 
 	@Override

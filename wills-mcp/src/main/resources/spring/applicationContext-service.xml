@@ -43,6 +43,9 @@
 	<bean id="passportService"
 		class="com.tg.client.PassportServiceDelegate">
 	</bean>
+	<bean id="pushService"
+		class="com.tg.client.PushServiceDelegate">
+	</bean>
 
 
 </beans>

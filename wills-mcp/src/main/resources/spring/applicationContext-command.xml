@@ -43,6 +43,8 @@
 	     
 	     <entry key="resource.uploadResource" value-ref="resourceUploadResourceCommand" />
 	     
+	     <entry key="push.bindDevice" value-ref="pushBindDeviceCommand" />
+	     <entry key="push.unbindDevice" value-ref="pushUnbindDeviceCommand" />
 
 	</util:map>
 

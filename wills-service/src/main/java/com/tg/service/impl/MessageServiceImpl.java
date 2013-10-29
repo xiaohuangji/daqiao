@@ -10,6 +10,7 @@ import com.tg.model.Message;
 import com.tg.model.MsgExt;
 import com.tg.model.UserInfo;
 import com.tg.service.MessageService;
+import com.tg.service.PushService;
 import com.tg.service.UserService;
 
 public class MessageServiceImpl implements MessageService {
@@ -19,6 +20,8 @@ public class MessageServiceImpl implements MessageService {
 	private IdSequenceDAO idSequenceDAO;
 	
 	private UserService userService;
+	
+	private PushService pushService;
 	
 	@Override
 	public List<Message> getMessage(int userId, int start, int rows) {
@@ -39,6 +42,8 @@ public class MessageServiceImpl implements MessageService {
 		msg.setType(type);
 		msg.setContent(genMsgContent(fromId,toId,type,payload));
 		int result=messageDAO.insertMessage(msg);
+		//发送push
+		pushService.pushMessage(toId, msg);
 		return result==1?ResultConstant.OP_OK:ResultConstant.OP_FAIL;
 	}
 

@@ -83,7 +83,7 @@ public interface UserService {
 	 * @param dist 距离范围
 	 * @return
 	 */
-	public List<Integer> getNearByGuide(String location,double dist,int start,int row);
+	public List<Integer> getNearByGuide(String location,double dist,int start,int rows);
 	
 	/**
 	 * 带ext的表示组合了用户数据返回的接口    
@@ -93,7 +93,7 @@ public interface UserService {
 	 * @param row
 	 * @return
 	 */
-	public List<UserInfo> getNearByGuideExt(String location,double dist,int start,int row);
+	public List<UserInfo> getNearByGuideExt(String location,double dist,int start,int rows);
 	
 	/**
 	 * 根据条件搜索导游
@@ -102,9 +102,9 @@ public interface UserService {
 	 * @param senic
 	 * @return
 	 */
-	public List<Integer> searchGuide(int city,int gender,String scenic,int start,int row);
+	public List<Integer> searchGuide(int city,int gender,String scenic,int start,int rows);
 	
-	public List<UserInfo> searchGuideExt(int city,int gender,String scenic,int start,int row);
+	public List<UserInfo> searchGuideExt(int city,int gender,String scenic,int start,int rows);
 	
 	/**
 	 * 获取附近的导游,并根据性别和景点过滤

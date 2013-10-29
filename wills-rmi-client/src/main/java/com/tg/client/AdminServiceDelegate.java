@@ -52,8 +52,14 @@ public class AdminServiceDelegate implements AdminService{
 		return adminServiceDelegate.getAllGuide(start, rows);
 	}
 
+	@Override
+	public int rejectToBeGuide(int userId, String reason) {
+		// TODO Auto-generated method stub
+		return adminServiceDelegate.rejectToBeGuide(userId, reason);
+	}
 	public static void main(String[] args) {
 		AdminServiceDelegate dd=new AdminServiceDelegate();
 		System.out.println(dd.toBeGuide(10000014));
 	}
+
 }

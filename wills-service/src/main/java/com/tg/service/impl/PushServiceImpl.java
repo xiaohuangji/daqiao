@@ -1,10 +1,13 @@
 package com.tg.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.tg.constant.RedisKeyConstant;
 import com.tg.constant.ResultConstant;
 import com.tg.dao.UserDeviceDAO;
 import com.tg.model.Message;
 import com.tg.model.UserDevice;
+import com.tg.push.PushClientFactory;
 import com.tg.service.PushService;
 import com.wills.redis.client.RedisClient;
 
@@ -46,6 +49,13 @@ public class PushServiceImpl implements PushService{
 	@Override
 	public int pushMessage(int userId, Message message) {
 		// TODO Auto-generated method stub
-		return 0;
+		UserDevice userDevice=getDevice(userId);
+		//获取到user_device_token
+		return PushClientFactory.pushone(userDevice, message);
+	}
+
+	@Autowired
+	public void setUserDeviceDAO(UserDeviceDAO userDeviceDAO) {
+		this.userDeviceDAO = userDeviceDAO;
 	}
 }
