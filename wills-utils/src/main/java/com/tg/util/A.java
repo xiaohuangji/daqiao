@@ -10,7 +10,7 @@ public class A {
 		String[] strssStrings= ssString.split("\\@\\#\\$");
 		System.out.println(strssStrings[0]);
 		System.out.println(strssStrings[1]);
-		
+		Class<?>[] classes=new Class[]{Integer.class ,Long.class};
 	}
 	
 	 static class Test{
