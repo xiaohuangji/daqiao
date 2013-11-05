@@ -58,6 +58,11 @@ public class InviteEvent implements Serializable{
 	 * 满意度
 	 */
 	private int satisfaction;
+	
+	/**
+	 * 满意度评价时留言
+	 */
+	private String saContent;
 
 	/**
 	 * guide名字。只在下发时填充此字段
@@ -173,6 +178,14 @@ public class InviteEvent implements Serializable{
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getSaContent() {
+		return saContent;
+	}
+
+	public void setSaContent(String saContent) {
+		this.saContent = saContent;
 	}
 	
 }

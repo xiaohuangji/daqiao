@@ -27,6 +27,7 @@
 					<th>出生日期</th>
 					<th>成为导游时间</th>
 					<th>擅长景点</th>
+					<th>所在旅行社</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -42,6 +43,7 @@
 					<td><span class="addTime">${user.birthday}</span></td>
 					<td>${user.beGuideYear}</td>
 					<td>${user.goodAtScenic}</td>
+					<td>${user.travelAgency}</td>
 					<td><a
 						href="/check/tobeguide?userId=${user.userId}">通过</a>
 						<a

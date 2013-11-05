@@ -199,7 +199,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public int applyForGuide(int userId, String goodAtScenic, long birthday,
-			int beGuideYear, String guideCardUrl, String guideCardId,String location,int city) {
+			int beGuideYear, String guideCardUrl, String guideCardId,String location,int city,String travelAgency) {
 		UserInfo userInfo=getUserInfo(userId);
 		//如果已经是guide，不允许再次提交申请
 		if(userInfo.getUserType()==UserConstant.TYPE_GUIDE)
@@ -214,6 +214,7 @@ public class UserServiceImpl implements UserService{
 		guideInfo.setGuideCardId(guideCardId);
 		guideInfo.setLocation(location);
 		guideInfo.setCity(city);
+		guideInfo.setTravelAgency(travelAgency);
 		guideInfo.setStatus(UserConstant.GSTATUS_PENDING);
 		//清除缓存
 		redisGuideInfo.del(String.valueOf(userId));

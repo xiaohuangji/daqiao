@@ -45,9 +45,9 @@ public class UserServiceDelegate implements UserService {
 	@Override
 	public int applyForGuide(int userId, String goodAtScenic, long birthday,
 			int beGuideYear, String guideCardUrl, String guideCardId,
-			String location, int city) {
+			String location, int city,String travelAgency) {
 		// TODO Auto-generated method stub
-		return userServiceDelegate.applyForGuide(userId, goodAtScenic, birthday, beGuideYear, guideCardUrl, guideCardId, location, city);
+		return userServiceDelegate.applyForGuide(userId, goodAtScenic, birthday, beGuideYear, guideCardUrl, guideCardId, location, city,travelAgency);
 	}
 
 

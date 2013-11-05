@@ -29,6 +29,7 @@ public class InviteEventSetSatisfactionCommand extends AbstractApiCommand{
         String eventId=stringParams.get("eventId");
         String guideId=stringParams.get("guideId");
         String satisfaction=stringParams.get("satisfaction");
+        String saContent=stringParams.get("saContent");
         
         Object result = null;
         ApiResult apiResult = null;
@@ -36,7 +37,7 @@ public class InviteEventSetSatisfactionCommand extends AbstractApiCommand{
         // 执行RPC调用       
         try {
             long t = System.currentTimeMillis();
-            result = inviteEventService.setSatisfaction(NumberUtils.toLong(eventId), NumberUtils.toInt(satisfaction), userId, NumberUtils.toInt(guideId));
+            result = inviteEventService.setSatisfaction(NumberUtils.toLong(eventId), NumberUtils.toInt(satisfaction),saContent, userId, NumberUtils.toInt(guideId));
             McpUtils.rpcTimeCost(t, "inviteEvent.setsatisfaction");
         } catch (Exception e) {
             // 异常记录日志， 返回错误信息

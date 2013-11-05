@@ -33,6 +33,7 @@ public class UserApplyForGuideCommand extends AbstractApiCommand{
         String guideCardId=stringParams.get("guideCardId");
         String location=stringParams.get("location");
         String city=stringParams.get("city");
+        String travelAgency=stringParams.get("travelAgency");
         
         Object result = null;
         ApiResult apiResult = null;
@@ -40,7 +41,7 @@ public class UserApplyForGuideCommand extends AbstractApiCommand{
         // 执行RPC调用       
         try {
             long t = System.currentTimeMillis();
-            result = userService.applyForGuide(userId, goodAtScenic, NumberUtils.toLong(birthday),NumberUtils.toInt(beGuideYear), guideCardUrl, guideCardId, location, NumberUtils.toInt(city));
+            result = userService.applyForGuide(userId, goodAtScenic, NumberUtils.toLong(birthday),NumberUtils.toInt(beGuideYear), guideCardUrl, guideCardId, location, NumberUtils.toInt(city),travelAgency);
             McpUtils.rpcTimeCost(t, "user.ApplyForGuide");
         } catch (Exception e) {
             // 异常记录日志， 返回错误信息

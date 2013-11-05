@@ -49,10 +49,10 @@ public class InviteEventServiceDelegate implements InviteEventService {
 	}
 
 	@Override
-	public int setSatisfaction(long eventId, int satisfaction, int userId,
+	public int setSatisfaction(long eventId, int satisfaction,String saContent ,int userId,
 			int guideId) {
 		// TODO Auto-generated method stub
-		return inviteEventServiceDelegate.setSatisfaction(eventId, satisfaction, userId, guideId);
+		return inviteEventServiceDelegate.setSatisfaction(eventId, satisfaction,saContent, userId, guideId);
 	}
 
 	

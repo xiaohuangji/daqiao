@@ -56,6 +56,11 @@ public class GuideInfo  extends UserInfo implements Serializable{
 	private int city;
 	
 	/**
+	 * 所属旅行社
+	 */
+	private String travelAgency;
+	
+	/**
 	 * 导游状态，标识正常，审核中，冻结等
 	 */
 	private int status;
@@ -138,6 +143,14 @@ public class GuideInfo  extends UserInfo implements Serializable{
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getTravelAgency() {
+		return travelAgency;
+	}
+
+	public void setTravelAgency(String travelAgency) {
+		this.travelAgency = travelAgency;
 	}
 
 	@Override

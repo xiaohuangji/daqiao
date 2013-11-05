@@ -35,6 +35,11 @@ public class GuideEvent implements Serializable{
 	private int satisfaction;
 	
 	/**
+	 * 满意评价时的留言
+	 */
+	private String saContent;
+	
+	/**
 	 * 创建时间
 	 */
 	private long createTime;
@@ -163,6 +168,14 @@ public class GuideEvent implements Serializable{
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getSaContent() {
+		return saContent;
+	}
+
+	public void setSaContent(String saContent) {
+		this.saContent = saContent;
 	}
 	
 }

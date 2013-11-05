@@ -170,11 +170,11 @@ public class InviteEventServiceImpl implements InviteEventService{
 	}
 	
 	@Override
-	public int setSatisfaction(long eventId, int satisfaction,int userId,int guideId) {
+	public int setSatisfaction(long eventId, int satisfaction,String saContent,int userId,int guideId) {
 		// TODO Auto-generated method stub
 		//更新事件满意程度
-		int result1=inviteEventDAO.setSatisfaction(userId, eventId, satisfaction);
-		int result2=guideEventDAO.setSatisfaction(eventId, satisfaction, guideId);
+		int result1=inviteEventDAO.setSatisfaction(userId, eventId, satisfaction,saContent);
+		int result2=guideEventDAO.setSatisfaction(eventId, satisfaction,saContent, guideId);
 		//更新导游评分信息;
 		int result3=userService.updateEvaluate(guideId, satisfaction);
 		//发送消息

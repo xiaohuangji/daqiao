@@ -16,8 +16,8 @@ public interface GuideEventDAO {
 	@SQL("update guide_event set status=:2 where event_id=:1 and guide_id=:3 and status=0")
 	public int changeStatus(long eventId,int status,int guideId);
 	
-	@SQL("update guide_event set satisfaction=:2 ,status=3  where event_id=:1 and status=1")
-	public int setSatisfaction(long eventId,int satisfaction,int guideId);
+	@SQL("update guide_event set satisfaction=:2,sa_content=:3,status=3  where event_id=:1 and status=1")
+	public int setSatisfaction(long eventId,int satisfaction,String saContent,int guideId);
 	
 	@SQL("select * from guide_event where guide_id=:1 order by create_time desc limit :2,:3")
 	public List<GuideEvent> getHistoricalGuideEvents(int guideId,int start,int count);

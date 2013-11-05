@@ -74,7 +74,7 @@ public interface UserService {
 	 * @return
 	 */
 	public int applyForGuide(int userId,String goodAtScenic,long birthday,int beGuideYear,
-			String guideCardUrl,String guideCardId,String location,int city);
+			String guideCardUrl,String guideCardId,String location,int city,String travelAgency);
 	
 
 	/**

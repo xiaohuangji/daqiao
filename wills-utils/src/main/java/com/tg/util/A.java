@@ -1,19 +1,39 @@
 package com.tg.util;
 
+import java.io.Serializable;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.TypeVariable;
+import java.util.Arrays;
+
+
 public class A {
 
 	static String format="这是汉字汉字 %s 是吗";
 	
 	public static void main(String[] args) {
 
-		String ssString="4259406869675991584@#$1106758028279122370";
-		String[] strssStrings= ssString.split("\\@\\#\\$");
-		System.out.println(strssStrings[0]);
-		System.out.println(strssStrings[1]);
-		Class<?>[] classes=new Class[]{Integer.class ,Long.class};
+		Test test=new Test();
+		Class<? extends Test> class1=test.getClass();
+		//System.out.println(class1);
+		
+		System.out.println(class1.getModifiers());
+		 TypeVariable<?>[] tv=class1.getTypeParameters();
+		 System.out.println(tv.length);
+		for (TypeVariable t : tv)
+		    System.out.println(t.getName());
+		
+		Class ss=Testtest.class.getSuperclass();
+		System.out.println(ss.getName());
+		
+		Class[] sss=class1.getInterfaces();
+		System.out.println(Arrays.toString(sss));
 	}
 	
-	 static class Test{
+	
+	 static  class Test<T>implements Serializable{
+		 T t;
+		Double double1;
+		Testtest testtest;
 		int a;
 		int b=0;
 		String name;
@@ -36,4 +56,8 @@ public class A {
 			this.name = name;
 		}	
 	}
+	 
+	 static class Testtest extends Test{
+		 private int c;
+	 }
 }

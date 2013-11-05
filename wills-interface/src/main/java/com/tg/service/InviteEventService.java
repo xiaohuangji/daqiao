@@ -55,9 +55,10 @@ public interface InviteEventService {
 	 * 打分
 	 * @param eventId
 	 * @param satisfaction
+	 * @param saContent评价时留言
 	 * @return
 	 */
-	public int setSatisfaction(long eventId,int satisfaction,int userId,int guideId);
+	public int setSatisfaction(long eventId,int satisfaction,String saContent,int userId,int guideId);
 	
 	
 }

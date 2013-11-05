@@ -32,8 +32,8 @@ public interface UserDAO {
 	@SQL("select * from guide_info where user_id=:1")
 	public GuideInfo getGuideById(int userId);
 	
-	@SQL("replace into guide_info (user_id,good_at_scenic,birthday,be_guide_year,guide_card_url,guide_card_id,location,city,evaluate_score,evaluate_count,status) value" +
-			" (:1.userId,:1.goodAtScenic,:1.birthday,:1.beGuideYear,:1.guideCardUrl,:1.guideCardId,:1.location,:1.city,:1.evaluateScore,:1.evaluateCount,:1.status)")
+	@SQL("replace into guide_info (user_id,good_at_scenic,birthday,be_guide_year,guide_card_url,guide_card_id,location,city,travel_agency,evaluate_score,evaluate_count,status) value" +
+			" (:1.userId,:1.goodAtScenic,:1.birthday,:1.beGuideYear,:1.guideCardUrl,:1.guideCardId,:1.location,:1.city,:1.travelAgency,:1.evaluateScore,:1.evaluateCount,:1.status)")
 	public int insertGuideInfo(GuideInfo guideInfo);
 	
 	@SQL("update user_info set user_type=:2 where user_id=:1")

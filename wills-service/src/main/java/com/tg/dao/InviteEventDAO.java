@@ -19,8 +19,8 @@ public interface InviteEventDAO {
 	@SQL("update invite_event set event_status=2 , guide_id=:3 where event_id=:2")
 	public int accepted(int userId,long eventId,int guideId);
 	
-	@SQL("update invite_event set satisfaction=:3 , event_status=4 where event_id=:2 and event_status=2")
-	public int setSatisfaction(int userId,long eventId,int satisfaction);
+	@SQL("update invite_event set satisfaction=:3 , sa_content=:4 ,event_status=4 where event_id=:2 and event_status=2")
+	public int setSatisfaction(int userId,long eventId,int satisfaction,String saContent);
 	
 	@SQL("select * from invite_event where user_id=:1 order by create_time desc limit :2,:3")
 	public List<InviteEvent> getHistoricalInviteEvents(int userId,int start,int count);
