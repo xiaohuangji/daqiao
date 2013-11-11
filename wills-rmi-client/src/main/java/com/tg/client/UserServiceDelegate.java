@@ -159,7 +159,7 @@ public class UserServiceDelegate implements UserService {
 		//System.out.println(guideInfo.toString());
 		
 		//userServiceDelegate.applyForGuite(10000005, "故宫 天坛", System.currentTimeMillis(), 2000, "http://bcs.duapp.com/tgimage/138089992694012.jpg", "guideId123456", "38.6518141832995,104.07643139362494", 99);
-		//userServiceDelegate.applyForGuite(10000007 , "晋祠 太原", System.currentTimeMillis(), 19980, "http://bcs.duapp.com/tgimage/138089992694012.jpg", "guideId999999", "38.6518141832995,104.07643139362494", 88);
+		userServiceDelegate.applyForGuide(10000034 , "晋祠 太原", System.currentTimeMillis(), 19980, "http://bcs.duapp.com/tgimage/138089992694012.jpg", "guideId999999", "38.6518141832995,104.07643139362494", 88,"just test");
 		
 		//System.out.println(userServiceDelegate.toBeGuide(10000010));
 		//System.out.println(userServiceDelegate.toBeGuide(10000009));
@@ -167,7 +167,7 @@ public class UserServiceDelegate implements UserService {
 		//System.out.println(userServiceDelegate.getNearByGuideExt("38.65,104.07643139362494", 2000, 0, 100));
 		//System.out.println(userServiceDelegate.searchGuideExt(99, 0, "宫", 0, 100));
 		//List<Integer> ids=userServiceDelegate.getAllApplyForGuideUsers();
-		System.out.println(userServiceDelegate.changePassword(10000033, "123456", "123789"));
+		//System.out.println(userServiceDelegate.changePassword(10000033, "123456", "123789"));
 	}
 
 }

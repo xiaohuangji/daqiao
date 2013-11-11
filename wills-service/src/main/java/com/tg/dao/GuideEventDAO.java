@@ -10,7 +10,7 @@ import net.paoding.rose.jade.annotation.SQL;
 @DAO(catalog = "tg")
 public interface GuideEventDAO {
 	
-	@SQL("insert into guide_event values (:1.guideId,:1.userId,:1.eventId,:1.status,:1.satisfaction,:1.createTime,:1.eventType,:1.startTime,:1.endTime,:1.scenic)")
+	@SQL("insert into guide_event (guide_id,user_id,event_id,status,satisfaction,sa_content,create_time,event_type,start_time,end_time,scenic) values (:1.guideId,:1.userId,:1.eventId,:1.status,:1.satisfaction,:1.saContent,:1.createTime,:1.eventType,:1.startTime,:1.endTime,:1.scenic)")
 	public int insertGuideEvent(GuideEvent guideEvent);
 
 	@SQL("update guide_event set status=:2 where event_id=:1 and guide_id=:3 and status=0")

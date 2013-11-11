@@ -34,14 +34,14 @@
 			<tbody>
 			    <c:forEach items="${users}" var="user">
 				<tr>
-					<td><img src=${user.headUrl}></td>
-					<td>${user.userId}</td>
-					<td>${user.userName}</td>
-					<td>${user.mobile}</td>
-					<td>${user.guideCardId}</td>
-					<td><a href=${user.guideCardUrl}>点击查看</a></td>
-					<td><span class="addTime">${user.birthday}</span></td>
-					<td>${user.beGuideYear}</td>
+					<td><img src=${user.headUrl} height="40px" width="40px"></td>
+					<td width="70px">${user.userId}</td>
+					<td width="70px">${user.userName}</td>
+					<td width="90px">${user.mobile}</td>
+					<td width="100px">${user.guideCardId}</td>
+					<td width="50px"><a href=${user.guideCardUrl}>点击查看</a></td>
+					<td width="70px"><span class="addTime">${user.birthday}</span></td>
+					<td width="40px">${user.beGuideYear}</td>
 					<td>${user.goodAtScenic}</td>
 					<td>${user.travelAgency}</td>
 					<td><a

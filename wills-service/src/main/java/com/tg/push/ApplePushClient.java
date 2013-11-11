@@ -27,9 +27,7 @@ public class ApplePushClient implements PushClient{
 	
 	public final String PASSWORD = "123456";
 
-	public final boolean PUSH_TO_PRODUCT = true;
-
-	public final boolean PUSH_TO_SANDBOX = false;
+	public final boolean PUSH_TO_PRODUCT = Boolean.valueOf(CONFIGUtil.getInstance().getConfig("production"));
 	
 	private static final String apnsKey = CONFIGUtil.getInstance().getConfig("apnsKey");
 
@@ -50,7 +48,7 @@ public class ApplePushClient implements PushClient{
 		try {
 			pushManager.initializeConnection(new AppleNotificationServerBasicImpl(
 					PUSH_CERTIFICATE_FILE_PATH_DEV, PASSWORD,
-					PUSH_TO_SANDBOX));
+					PUSH_TO_PRODUCT));
 		} catch (CommunicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
