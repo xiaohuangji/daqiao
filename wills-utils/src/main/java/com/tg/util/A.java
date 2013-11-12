@@ -3,6 +3,8 @@ package com.tg.util;
 import java.io.Serializable;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.TypeVariable;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 
 
@@ -10,7 +12,7 @@ public class A {
 
 	static String format="这是汉字汉字 %s 是吗";
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnknownHostException {
 
 		Test test=new Test();
 		Class<? extends Test> class1=test.getClass();
@@ -27,6 +29,8 @@ public class A {
 		
 		Class[] sss=class1.getInterfaces();
 		System.out.println(Arrays.toString(sss));
+		
+		System.out.println(((Inet4Address)Inet4Address.getByName("localhost")).getHostAddress());
 	}
 	
 	

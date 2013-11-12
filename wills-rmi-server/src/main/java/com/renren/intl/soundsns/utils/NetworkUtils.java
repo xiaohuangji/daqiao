@@ -1,13 +1,24 @@
 package com.renren.intl.soundsns.utils;
 import java.io.IOException;
-import java.net.*;
-import java.util.ArrayList;
+import java.net.Inet4Address;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.net.UnknownHostException;
 import java.util.Enumeration;
-import java.util.List;
+
+import com.tg.util.CONFIGUtil;
 
 public class NetworkUtils {
 	public static   Inet4Address getInetLocalIp() {  
-		  
+		if(Boolean.valueOf(CONFIGUtil.getInstance().getConfig("rmiserver_localhost"))){
+			try {
+				return (Inet4Address)Inet4Address.getByName("localhost");
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		Inet4Address rlt = null;
         try {  
             for (Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces(); e.hasMoreElements();) {  
