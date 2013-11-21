@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tg.constant.EventConstant;
 import com.tg.constant.MessageConstant;
+import com.tg.constant.RedisKeyConstant;
 import com.tg.constant.ResultConstant;
 import com.tg.dao.BroadcastEventDAO;
 import com.tg.dao.GuideEventDAO;
@@ -20,6 +21,7 @@ import com.tg.service.InviteEventService;
 import com.tg.service.MessageService;
 import com.tg.service.UserService;
 import com.tg.util.ListStrUtil;
+import com.wills.redis.client.RedisClient;
 
 public class InviteEventServiceImpl implements InviteEventService{
 	/**
@@ -38,6 +40,8 @@ public class InviteEventServiceImpl implements InviteEventService{
 	private UserService userService;
 	
 	private MessageService messageService;
+	
+	private RedisClient unreadMsgClient=new RedisClient(RedisKeyConstant.USER_UNREADMSG_COUNT);
 	
 	@Override
 	public int invite(int userId, int guideId, String scenic, long startTime,
@@ -157,6 +161,7 @@ public class InviteEventServiceImpl implements InviteEventService{
 		// TODO Auto-generated method stub
 		List<InviteEvent> inviteEvents=inviteEventDAO.getHistoricalInviteEvents(userId, start, count);
 		renderGuideInfos(inviteEvents);
+		unreadMsgClient.set(String.valueOf(userId), 0);
 		return inviteEvents;
 	}
 

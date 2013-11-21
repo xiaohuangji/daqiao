@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.tg.constant.MessageConstant;
+import com.tg.constant.RedisKeyConstant;
 import com.tg.constant.ResultConstant;
 import com.tg.dao.IdSequenceDAO;
 import com.tg.dao.MessageDAO;
@@ -14,6 +15,7 @@ import com.tg.model.UserInfo;
 import com.tg.service.MessageService;
 import com.tg.service.PushService;
 import com.tg.service.UserService;
+import com.wills.redis.client.RedisClient;
 
 public class MessageServiceImpl implements MessageService {
 	/**
@@ -29,6 +31,7 @@ public class MessageServiceImpl implements MessageService {
 	
 	private PushService pushService;
 	
+	private RedisClient redisClient=new RedisClient(RedisKeyConstant.USER_UNREADMSG_COUNT);
 	
 	public static final String MSG_CON_INVITE="收到来自 %s 的预约";
 	public static final String MSG_CON_BROADCAST="收到来自 %s 的广播预约";
@@ -55,6 +58,8 @@ public class MessageServiceImpl implements MessageService {
 		msg.setType(type);
 		msg.setCreateTime(System.currentTimeMillis());
 		msg.setContent(genMsgContent(fromId,toId,type,payload));
+		Long unreadCount=redisClient.incr(String.valueOf(toId));
+		msg.setUnreadCount(unreadCount==null?1:unreadCount.intValue());
 		int result=messageDAO.insertMessage(msg);
 		//发送push
 		pushService.pushMessage(toId, msg);

@@ -62,7 +62,7 @@ public class InviteEvent implements Serializable{
 	/**
 	 * 满意度评价时留言
 	 */
-	private String saContent;
+	private String saContent="";
 
 	/**
 	 * guide名字。只在下发时填充此字段

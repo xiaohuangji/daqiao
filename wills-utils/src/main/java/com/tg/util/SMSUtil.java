@@ -67,7 +67,7 @@ public class SMSUtil {
 	}
 	
 	public static void main(String[] args){
-		System.out.println(sendSM("15901025224","testtest"));  
+		System.out.println(sendSM("13910172960","testtest"));  
 	}
     
     public static boolean sendSM(String mobileNO, String sendStr) {

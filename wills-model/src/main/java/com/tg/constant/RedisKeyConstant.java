@@ -13,5 +13,7 @@ public class RedisKeyConstant {
 	public final static String USER_ADMIN_MOBLE="u:admin:";
 	
 	public final static String USER_DEVICE_INFO="u:device:";
+	
+	public final static String USER_UNREADMSG_COUNT="u:unreadmsg:";
 
 }

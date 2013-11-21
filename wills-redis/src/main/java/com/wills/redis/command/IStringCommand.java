@@ -51,5 +51,12 @@ public interface IStringCommand {
 	 * 获取对象
 	 */
 	<T> List<T> mget(List<String> keys, Class<T> clazz);
+	
+	/**
+	 * ++1
+	 * @param key
+	 * @return
+	 */
+	Long incr(String key);
 
 }

@@ -1531,5 +1531,4 @@ public class RedisPoolClient implements JedisCommands {
 
 		return null;
 	}
-
 }

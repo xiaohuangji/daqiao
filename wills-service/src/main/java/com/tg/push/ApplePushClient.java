@@ -71,7 +71,7 @@ public class ApplePushClient implements PushClient{
 			// basic info
 			payload.addAlert(message.getContent()); // 消息内容
 			payload.addSound("default"); // 声音提示文件
-			payload.addBadge(1); // iphone应用图标上小红圈上的数值
+			payload.addBadge(message.getUnreadCount()); // iphone应用图标上小红圈上的数值
 
 			//custom info
 			payload.addCustomDictionary("type",message.getType());

@@ -43,6 +43,7 @@ public class GuideEventServiceDelegate implements GuideEventService{
 	public static void main(String[] args) {
 		GuideEventServiceDelegate d=new GuideEventServiceDelegate();
 		//System.out.println(d.refuse(3, 10000005, 10000006));
-		System.out.println(d.getHistoricalGuideEvents(10000009, 0, 100, false).size());
+		List<GuideEvent> ggEvents=d.getHistoricalGuideEvents(10000009, 0, 100, false);
+		System.out.println(ggEvents.get(0).getSaContent());
 	}
 }

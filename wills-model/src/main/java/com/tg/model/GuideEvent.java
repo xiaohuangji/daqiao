@@ -37,7 +37,7 @@ public class GuideEvent implements Serializable{
 	/**
 	 * 满意评价时的留言
 	 */
-	private String saContent;
+	private String saContent="";
 	
 	/**
 	 * 创建时间

@@ -300,4 +300,10 @@ public class RedisClient implements IStringCommand,IListCommand,ISetCommand,ISor
 		return jsonDeserializer.deserialize2List(rlist,clazz);
 	}
 
+	@Override
+	public Long incr(String key) {
+		// TODO Auto-generated method stub
+		return redisPoolClient.incr(combineNsAndKey(namespace, key));
+	}
+
 }

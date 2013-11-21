@@ -22,6 +22,8 @@ public class Message implements Serializable{
 	private long createTime;
 	
 	private MsgExt msgExt;
+	
+	private int unreadCount;
 
 	public long getId() {
 		return id;
@@ -77,6 +79,14 @@ public class Message implements Serializable{
 
 	public void setMsgExt(MsgExt msgExt) {
 		this.msgExt = msgExt;
+	}
+
+	public int getUnreadCount() {
+		return unreadCount;
+	}
+
+	public void setUnreadCount(int unreadCount) {
+		this.unreadCount = unreadCount;
 	}
 	
 	

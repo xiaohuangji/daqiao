@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tg.constant.EventConstant;
 import com.tg.constant.MessageConstant;
+import com.tg.constant.RedisKeyConstant;
 import com.tg.constant.ResultConstant;
 import com.tg.dao.BroadcastEventDAO;
 import com.tg.dao.GuideEventDAO;
@@ -19,6 +20,7 @@ import com.tg.service.GuideEventService;
 import com.tg.service.MessageService;
 import com.tg.service.UserService;
 import com.tg.util.ListStrUtil;
+import com.wills.redis.client.RedisClient;
 
 public class GuideEventServiceImpl implements GuideEventService {
 	/**
@@ -35,6 +37,8 @@ public class GuideEventServiceImpl implements GuideEventService {
 	private UserService userService;
 	
 	private MessageService messageService;
+	
+	private RedisClient unreadMsgClient=new RedisClient(RedisKeyConstant.USER_UNREADMSG_COUNT);
 	
 	@Override
 	public int accept(long eventId, int guideId,int userId) {
@@ -87,6 +91,8 @@ public class GuideEventServiceImpl implements GuideEventService {
 			guideEvents=guideEventDAO.getFinishedGuideEvents(guideId, start, count);
 		}else{
 			guideEvents=guideEventDAO.getHistoricalGuideEvents(guideId, start, count);
+			//将未读消息计数置0
+			unreadMsgClient.set(String.valueOf(guideId), 0);
 		}
 		renderUserInfos(guideEvents);
 		return guideEvents;
