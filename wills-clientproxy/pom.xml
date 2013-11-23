@@ -5,7 +5,11 @@
 	<artifactId>wills-clientproxy</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>wills-clientproxy</name>
-
+   <parent>
+           <groupId>com.wills</groupId>
+		           <artifactId>wills-parent</artifactId>
+				           <version>1.0.0-SNAPSHOT</version>
+						        </parent>
 <!-- 	<distributionManagement>
 		<repository>
 			<id>archiva.internal</id>
