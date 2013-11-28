@@ -7,7 +7,7 @@ import com.tg.model.GuideEvent;
 import net.paoding.rose.jade.annotation.DAO;
 import net.paoding.rose.jade.annotation.SQL;
 
-@DAO(catalog = "tg")
+@DAO(catalog = DAOConstant.CATALOG)
 public interface GuideEventDAO {
 	
 	@SQL("insert into guide_event (guide_id,user_id,event_id,status,satisfaction,sa_content,create_time,event_type,start_time,end_time,scenic) values (:1.guideId,:1.userId,:1.eventId,:1.status,:1.satisfaction,:1.saContent,:1.createTime,:1.eventType,:1.startTime,:1.endTime,:1.scenic)")

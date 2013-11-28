@@ -7,7 +7,7 @@ import com.tg.model.InviteEvent;
 import net.paoding.rose.jade.annotation.DAO;
 import net.paoding.rose.jade.annotation.SQL;
 
-@DAO(catalog = "tg")
+@DAO(catalog = DAOConstant.CATALOG)
 public interface InviteEventDAO {
 
 	@SQL("insert into invite_event (event_id,user_id,guide_id,event_type,event_status,create_time,start_time,end_time,scenic,satisfaction,sa_content) values (:1.eventId,:1.userId,:1.guideId,:1.eventType,:1.eventStatus,:1.createTime,:1.startTime,:1.endTime,:1.scenic,:1.satisfaction,:1.saContent)")

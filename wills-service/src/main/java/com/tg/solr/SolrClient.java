@@ -33,6 +33,8 @@ public class SolrClient {
     
     private static final String collectionName="tguser";
     
+    private static final String zkPath="/tg/solr";
+    
     private static final int RESPONSE_STATUS_OK=0;
     
     private static final String zkHost=CONFIGUtil.getInstance().getConfig("zk_host");
@@ -40,7 +42,7 @@ public class SolrClient {
     private SolrClient(){
         try {
            
-            cloudSolrServerUser = new CloudSolrServer(zkHost);
+            cloudSolrServerUser = new CloudSolrServer(zkHost+zkPath);
             
             cloudSolrServerUser.setDefaultCollection(collectionName);
             cloudSolrServerUser.setZkClientTimeout(zkClientTimeout);

@@ -7,7 +7,7 @@ import net.paoding.rose.jade.annotation.SQL;
 
 import com.tg.model.Message;
 
-@DAO(catalog="tg")
+@DAO(catalog=DAOConstant.CATALOG)
 public interface MessageDAO {
 
 	@SQL("insert into message (id,from_id,to_id,type,content,create_time) values (:1.id,:1.fromId,:1.toId,:1.type,:1.content,:1.createTime)")

@@ -5,7 +5,7 @@ import com.tg.model.UserDevice;
 import net.paoding.rose.jade.annotation.DAO;
 import net.paoding.rose.jade.annotation.SQL;
 
-@DAO(catalog="tg")
+@DAO(catalog=DAOConstant.CATALOG)
 public interface UserDeviceDAO {
 
 	@SQL("replace into user_device_token (user_id,device_type,device_token) values (:1,:2,:3)")

@@ -8,7 +8,7 @@ import com.tg.model.UserInfo;
 import net.paoding.rose.jade.annotation.DAO;
 import net.paoding.rose.jade.annotation.SQL;
 
-@DAO(catalog = "tg")
+@DAO(catalog = DAOConstant.CATALOG)
 public interface UserDAO {
 
 	@SQL("replace into user_pwd (user_id,md5_pwd) values (:1,:2)")

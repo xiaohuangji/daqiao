@@ -77,6 +77,17 @@
 		</dependency>
 		<dependency>
 			<groupId>net.paoding</groupId>
+			<artifactId>paoding-rose-scan</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>net.paoding</groupId>
 			<artifactId>paoding-rose</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<exclusions>

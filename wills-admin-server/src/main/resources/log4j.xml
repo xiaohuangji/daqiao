@@ -26,8 +26,8 @@
  
 	
 	<!-- Application Loggers -->
-	<logger name="com.tg">
-		<level value="info" />
+	<logger name="com">
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -37,7 +37,7 @@
 	
 	
 	<root>
-		<level value="info" />
+		<level value="debug" />
 		<appender-ref ref="stdout" />
 	</root>
 	
